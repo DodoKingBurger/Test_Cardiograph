@@ -113,7 +113,7 @@
       checkedListBox_CTSCSE_Database.ScrollAlwaysVisible = true;
       checkedListBox_CTSCSE_Database.Size = new Size(430, 240);
       checkedListBox_CTSCSE_Database.TabIndex = 0;
-      checkedListBox_CTSCSE_Database.SelectedIndexChanged += checkedListBox_CTSCSE_Database_SelectedIndexChanged;
+      checkedListBox_CTSCSE_Database.ItemCheck += checkedListBox_ItemCheck;
       // 
       // checkedListBox_DB_Noise
       // 
@@ -124,6 +124,7 @@
       checkedListBox_DB_Noise.Name = "checkedListBox_DB_Noise";
       checkedListBox_DB_Noise.Size = new Size(185, 240);
       checkedListBox_DB_Noise.TabIndex = 0;
+      checkedListBox_DB_Noise.ItemCheck += checkedListBox_ItemCheck;
       // 
       // panel2
       // 

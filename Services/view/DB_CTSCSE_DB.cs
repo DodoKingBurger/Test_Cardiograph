@@ -56,13 +56,34 @@ namespace Test_Cardiograph.Services.view
     {
       try
       {
-        CTSCSE_Database CTSCSE = (CTSCSE_Database)GetEnumName(checkedListBox_CTSCSE_Database, typeof(CTSCSE_Database));
-        CTSCSE_Noise Noise = (CTSCSE_Noise)GetEnumName(checkedListBox_DB_Noise, typeof(CTSCSE_Noise));
-
+        if (!Notify.Equals(null))
+        {
+          Notify((CTSCSE_Database)GetEnumName(checkedListBox_CTSCSE_Database, typeof(CTSCSE_Database)),
+            (CTSCSE_Noise)GetEnumName(checkedListBox_DB_Noise, typeof(CTSCSE_Noise)));
+        }
+        else
+          throw new NullReferenceException("Ошибка отправки, событие не было переданно");
       }
       catch (Exception ex)
       {
         MessageBox.Show($"{ex.Message}");
+      }
+    }
+
+    /// <summary>
+    /// Валлидация колличества выбранных элементов в списке.
+    /// </summary>
+    /// <param name="sender">checkedListBox.</param>
+    /// <param name="e">Событие по выбору итема.</param>
+    private void checkedListBox_ItemCheck(object sender, ItemCheckEventArgs e)
+    {
+      var control = (CheckedListBox)sender;
+      if (e.NewValue == CheckState.Checked)
+      {
+        for (int ix = 0; ix < control.Items.Count; ++ix)
+        {
+          if (e.Index != ix) control.SetItemChecked(ix, false);
+        }
       }
     }
 
@@ -150,15 +171,5 @@ namespace Test_Cardiograph.Services.view
     }
 
     #endregion
-
-    private void checkedListBox_CTSCSE_Database_SelectedIndexChanged(object sender, EventArgs e)
-    {
-      // remove items from the end until at most 5 items are in the list
-      CheckedListBox list = (CheckedListBox)sender;
-      while (list.CheckedItems.Count > 0)
-      {
-        list.CheckedItems.C
-      }
-    }
   }
 }
