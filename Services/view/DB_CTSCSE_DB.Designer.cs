@@ -34,9 +34,7 @@
       label_Text_CSE = new Label();
       label_Text_CTS_Atlas = new Label();
       splitContainer_CTSCSE_DB = new SplitContainer();
-      splitContainer_CTS_CTE = new SplitContainer();
-      checkedListBox_CTS_Atlas = new CheckedListBox();
-      checkedListBox_CSE = new CheckedListBox();
+      checkedListBox_CTSCSE_Database = new CheckedListBox();
       checkedListBox_DB_Noise = new CheckedListBox();
       panel2 = new Panel();
       label2 = new Label();
@@ -46,10 +44,6 @@
       splitContainer_CTSCSE_DB.Panel1.SuspendLayout();
       splitContainer_CTSCSE_DB.Panel2.SuspendLayout();
       splitContainer_CTSCSE_DB.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)splitContainer_CTS_CTE).BeginInit();
-      splitContainer_CTS_CTE.Panel1.SuspendLayout();
-      splitContainer_CTS_CTE.Panel2.SuspendLayout();
-      splitContainer_CTS_CTE.SuspendLayout();
       panel2.SuspendLayout();
       SuspendLayout();
       // 
@@ -99,7 +93,7 @@
       // 
       // splitContainer_CTSCSE_DB.Panel1
       // 
-      splitContainer_CTSCSE_DB.Panel1.Controls.Add(splitContainer_CTS_CTE);
+      splitContainer_CTSCSE_DB.Panel1.Controls.Add(checkedListBox_CTSCSE_Database);
       // 
       // splitContainer_CTSCSE_DB.Panel2
       // 
@@ -108,43 +102,22 @@
       splitContainer_CTSCSE_DB.SplitterDistance = 430;
       splitContainer_CTSCSE_DB.TabIndex = 2;
       // 
-      // splitContainer_CTS_CTE
+      // checkedListBox_CTSCSE_Database
       // 
-      splitContainer_CTS_CTE.Dock = DockStyle.Fill;
-      splitContainer_CTS_CTE.Location = new Point(0, 0);
-      splitContainer_CTS_CTE.Name = "splitContainer_CTS_CTE";
-      // 
-      // splitContainer_CTS_CTE.Panel1
-      // 
-      splitContainer_CTS_CTE.Panel1.Controls.Add(checkedListBox_CTS_Atlas);
-      // 
-      // splitContainer_CTS_CTE.Panel2
-      // 
-      splitContainer_CTS_CTE.Panel2.Controls.Add(checkedListBox_CSE);
-      splitContainer_CTS_CTE.Size = new Size(430, 240);
-      splitContainer_CTS_CTE.SplitterDistance = 154;
-      splitContainer_CTS_CTE.TabIndex = 2;
-      // 
-      // checkedListBox_CTS_Atlas
-      // 
-      checkedListBox_CTS_Atlas.Dock = DockStyle.Fill;
-      checkedListBox_CTS_Atlas.FormattingEnabled = true;
-      checkedListBox_CTS_Atlas.Location = new Point(0, 0);
-      checkedListBox_CTS_Atlas.Name = "checkedListBox_CTS_Atlas";
-      checkedListBox_CTS_Atlas.Size = new Size(154, 240);
-      checkedListBox_CTS_Atlas.TabIndex = 1;
-      // 
-      // checkedListBox_CSE
-      // 
-      checkedListBox_CSE.Dock = DockStyle.Fill;
-      checkedListBox_CSE.FormattingEnabled = true;
-      checkedListBox_CSE.Location = new Point(0, 0);
-      checkedListBox_CSE.Name = "checkedListBox_CSE";
-      checkedListBox_CSE.Size = new Size(272, 240);
-      checkedListBox_CSE.TabIndex = 0;
+      checkedListBox_CTSCSE_Database.CheckOnClick = true;
+      checkedListBox_CTSCSE_Database.Dock = DockStyle.Fill;
+      checkedListBox_CTSCSE_Database.FormattingEnabled = true;
+      checkedListBox_CTSCSE_Database.Location = new Point(0, 0);
+      checkedListBox_CTSCSE_Database.MultiColumn = true;
+      checkedListBox_CTSCSE_Database.Name = "checkedListBox_CTSCSE_Database";
+      checkedListBox_CTSCSE_Database.ScrollAlwaysVisible = true;
+      checkedListBox_CTSCSE_Database.Size = new Size(430, 240);
+      checkedListBox_CTSCSE_Database.TabIndex = 0;
+      checkedListBox_CTSCSE_Database.SelectedIndexChanged += checkedListBox_CTSCSE_Database_SelectedIndexChanged;
       // 
       // checkedListBox_DB_Noise
       // 
+      checkedListBox_DB_Noise.CheckOnClick = true;
       checkedListBox_DB_Noise.Dock = DockStyle.Fill;
       checkedListBox_DB_Noise.FormattingEnabled = true;
       checkedListBox_DB_Noise.Location = new Point(0, 0);
@@ -181,6 +154,7 @@
       button_Load_Waveform.TabIndex = 0;
       button_Load_Waveform.Text = "Load Waveform";
       button_Load_Waveform.UseVisualStyleBackColor = true;
+      button_Load_Waveform.Click += button_Load_Waveform_Click;
       // 
       // DB_CTSCSE_DB
       // 
@@ -202,10 +176,6 @@
       splitContainer_CTSCSE_DB.Panel2.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)splitContainer_CTSCSE_DB).EndInit();
       splitContainer_CTSCSE_DB.ResumeLayout(false);
-      splitContainer_CTS_CTE.Panel1.ResumeLayout(false);
-      splitContainer_CTS_CTE.Panel2.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)splitContainer_CTS_CTE).EndInit();
-      splitContainer_CTS_CTE.ResumeLayout(false);
       panel2.ResumeLayout(false);
       panel2.PerformLayout();
       ResumeLayout(false);
@@ -215,9 +185,7 @@
     private Panel panel1;
     private Label label_Text_CTS_Atlas;
     private SplitContainer splitContainer_CTSCSE_DB;
-    private SplitContainer splitContainer_CTS_CTE;
-    private CheckedListBox checkedListBox_CTS_Atlas;
-    private CheckedListBox checkedListBox_CSE;
+    private CheckedListBox checkedListBox_CTSCSE_Database;
     private CheckedListBox checkedListBox_DB_Noise;
     private Panel panel2;
     private Label label2;
