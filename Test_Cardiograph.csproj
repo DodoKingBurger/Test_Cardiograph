@@ -18,4 +18,9 @@
     <PackageReference Include="System.IO.Ports" Version="9.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\DB\AXION\" />
+    <Folder Include="Properties\DB\ROHMINE\" />
+  </ItemGroup>
+
 </Project>

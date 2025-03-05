@@ -9,7 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.Devices;
+using Test_Cardiograph.Properties.DB;
 using Test_Cardiograph.Services.Controller.MECG.structs;
+using Test_Cardiograph.Services.StaticClass;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Test_Cardiograph.Services.view
@@ -55,10 +57,10 @@ namespace Test_Cardiograph.Services.view
     /// <param name="e">Load.</param>
     private void DB_CTSCSE_DB_Load(object sender, EventArgs e)
     {
-      checkedListBox_DB_Noise.DataSource = Enum.GetValues(typeof(CTSCSE_Noise))
-        .OfType<CTSCSE_Noise>().Select(val => GetDescription(val)).ToArray();
-      checkedListBox_Database.DataSource = Enum.GetValues(typeof(CTSCSE_Database))
-        .OfType<CTSCSE_Database>().Select(val => GetDescription(val)).ToArray();
+
+      comboBox_List_DB.Items.AddRange(Enum.GetValues(typeof(EnumDB))
+        .OfType<EnumDB>().Select(val => GetDescription(val)).ToArray());
+
     }
 
     /// <summary>
@@ -118,7 +120,11 @@ namespace Test_Cardiograph.Services.view
     /// <param name="e">Выбор индекса.</param>
     private void comboBox_List_DB_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+      System.Windows.Forms.ComboBox comboBox = sender as System.Windows.Forms.ComboBox;
+      checkedListBox_DB_Noise.DataSource = Enum.GetValues(typeof(CTSCSE_Noise))
+  .OfType<CTSCSE_Noise>().Select(val => GetDescription(val)).ToArray();
+      checkedListBox_Database.DataSource = Enum.GetValues(typeof(CTSCSE_Database))
+        .OfType<CTSCSE_Database>().Select(val => GetDescription(val)).ToArray();
     }
 
     /// <summary>
@@ -147,9 +153,9 @@ namespace Test_Cardiograph.Services.view
         switch (sender.CheckedItems.Count)
         {
           case 1:
-            return EnumValueOf(sender.CheckedItems[0].ToString(), typeof(CTSCSE_Noise));
+            return DBEnumMeneger.EnumValueOf(sender.CheckedItems[0].ToString(), typeof(CTSCSE_Noise));
           default:
-            return EnumValueOf(sender.Items[14].ToString(), typeof(CTSCSE_Noise));
+            return DBEnumMeneger.EnumValueOf(sender.Items[14].ToString(), typeof(CTSCSE_Noise));
         }
       }
       else if (enums.Name == typeof(CTSCSE_Database).Name)
@@ -166,41 +172,7 @@ namespace Test_Cardiograph.Services.view
         throw new ArgumentException("Enum неизвестного типа.");
     }
 
-    /// <summary>
-    /// Returns the Enumeration value that has a given Description attribute.
-    /// </summary>
-    /// <param name="value">The Description attribute value.</param>
-    /// <param name="enumType">The type of enumeration in which to search.</param>
-    /// <returns>The enumeration value that matches the Description value provided.</returns>
-    /// <exception cref="ArgumentException">Thrown when the specified Description value is not found with in the provided Enumeration Type.</exception>
-    public static object EnumValueOf(string value, Type enumType)
-    {
-      string[] names = Enum.GetNames(enumType);
-      foreach (string name in names)
-      {
-        if (GetDescription((Enum)Enum.Parse(enumType, name)).Equals(value))
-        {
-          return Enum.Parse(enumType, name);
-        }
-      }
-      throw new ArgumentException("The string is not a description or value of the specified enum.");
-    }
 
-    /// <summary>
-    /// Расшифровка enuma
-    /// </summary>
-    /// <param name="value">Enum value</param>
-    /// <returns>Описание.</returns>
-    public static string GetDescription(Enum value)
-    {
-      FieldInfo field = value.GetType().GetField(value.ToString());
-      object[] attribs = field.GetCustomAttributes(typeof(DescriptionAttribute), true);
-      if (attribs.Length > 0)
-      {
-        return ((DescriptionAttribute)attribs[0]).Description;
-      }
-      return string.Empty;
-    }
 
     #endregion
 
