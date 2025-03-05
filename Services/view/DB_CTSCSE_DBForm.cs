@@ -14,7 +14,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Test_Cardiograph.Services.view
 {
-  public partial class DB_CTSCSE_DB : Form
+  public partial class DB_CTSCSE_DBForm : Form
   {
     #region Поля и свойства
 
@@ -38,12 +38,12 @@ namespace Test_Cardiograph.Services.view
     /// Загрузка формы.
     /// </summary>
     /// <param name="sender">Форма.</param>
-    /// <param name="e"></param>
+    /// <param name="e">Load.</param>
     private void DB_CTSCSE_DB_Load(object sender, EventArgs e)
     {
       checkedListBox_DB_Noise.DataSource = Enum.GetValues(typeof(CTSCSE_Noise))
         .OfType<CTSCSE_Noise>().Select(val => GetDescription(val)).ToArray();
-      checkedListBox_CTSCSE_Database.DataSource = Enum.GetValues(typeof(CTSCSE_Database))
+      checkedListBox_Database.DataSource = Enum.GetValues(typeof(CTSCSE_Database))
         .OfType<CTSCSE_Database>().Select(val => GetDescription(val)).ToArray();
     }
 
@@ -51,14 +51,14 @@ namespace Test_Cardiograph.Services.view
     /// Загрузка выбранного варинта.
     /// </summary>
     /// <param name="sender">Кнопка.</param>
-    /// <param name="e"></param>
+    /// <param name="e">Click.</param>
     private void button_Load_Waveform_Click(object sender, EventArgs e)
     {
       try
       {
         if (!Notify.Equals(null))
         {
-          Notify((CTSCSE_Database)GetEnumName(checkedListBox_CTSCSE_Database, typeof(CTSCSE_Database)),
+          Notify((CTSCSE_Database)GetEnumName(checkedListBox_Database, typeof(CTSCSE_Database)),
             (CTSCSE_Noise)GetEnumName(checkedListBox_DB_Noise, typeof(CTSCSE_Noise)));
         }
         else
@@ -96,7 +96,7 @@ namespace Test_Cardiograph.Services.view
     /// </summary>
     /// <param name="sender">CheckedListBox список выбранный итемов.</param>
     /// <param name="enums">Список из какого проверять CTSCSE_Noise или CTSCSE_Database</param>
-    /// <returns></returns>
+    /// <returns>Возвращает выбранынй элемент из переданного listBox.</returns>
     public object GetEnumName(CheckedListBox sender, Type enums)
     {
       if (enums.Name == typeof(CTSCSE_Noise).Name)
@@ -165,7 +165,7 @@ namespace Test_Cardiograph.Services.view
 
     #region Констуркторы
 
-    public DB_CTSCSE_DB()
+    public DB_CTSCSE_DBForm()
     {
       InitializeComponent();
     }

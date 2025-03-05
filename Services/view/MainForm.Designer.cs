@@ -30,6 +30,20 @@
     {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       splitContainer_Main = new SplitContainer();
+      groupBox_CreateTest = new GroupBox();
+      splitContainer_Create_Test = new SplitContainer();
+      button2 = new Button();
+      button1 = new Button();
+      checkBox_Pneumogram = new CheckBox();
+      checkBox_Heart_Rate_Control = new CheckBox();
+      button_Choice_ECG_Header = new Button();
+      tableLayoutPanel_Pneumogram = new TableLayoutPanel();
+      comboBox_del_R = new ComboBox();
+      comboBox_Omega_R = new ComboBox();
+      label_Text_del_R = new Label();
+      label_Text_Omega_R = new Label();
+      numericUpDown_Heart_Rate_Control = new NumericUpDown();
+      label_Text_Name_Selected_ECG_Header = new Label();
       groupBox_Other_Functions = new GroupBox();
       splitContainer_Other_functions = new SplitContainer();
       label_Text_Other_functions_Amplitude = new Label();
@@ -55,15 +69,19 @@
       domainUpDown_PC_Display_Parameters_Duration = new DomainUpDown();
       domainUpDown_PC_Display_Parameters_Graph_Start = new DomainUpDown();
       domainUpDown_PC_Display_Parameters_Amplitude = new DomainUpDown();
-      groupBox_InputFile = new GroupBox();
-      button_Sum_GetECGsourcefromfile = new Button();
-      button_Sum_CTSCSEDB = new Button();
       tableLayoutPanel1 = new TableLayoutPanel();
       MainPanel = new Panel();
       ((System.ComponentModel.ISupportInitialize)splitContainer_Main).BeginInit();
       splitContainer_Main.Panel1.SuspendLayout();
       splitContainer_Main.Panel2.SuspendLayout();
       splitContainer_Main.SuspendLayout();
+      groupBox_CreateTest.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)splitContainer_Create_Test).BeginInit();
+      splitContainer_Create_Test.Panel1.SuspendLayout();
+      splitContainer_Create_Test.Panel2.SuspendLayout();
+      splitContainer_Create_Test.SuspendLayout();
+      tableLayoutPanel_Pneumogram.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)numericUpDown_Heart_Rate_Control).BeginInit();
       groupBox_Other_Functions.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)splitContainer_Other_functions).BeginInit();
       splitContainer_Other_functions.Panel1.SuspendLayout();
@@ -74,7 +92,6 @@
       groupBox_PC_Display_Parameters.SuspendLayout();
       panel_Text_PC_Display_Parameters.SuspendLayout();
       panel_Value_PC_Display_Parameters.SuspendLayout();
-      groupBox_InputFile.SuspendLayout();
       MainPanel.SuspendLayout();
       SuspendLayout();
       // 
@@ -89,18 +106,187 @@
       // 
       splitContainer_Main.Panel1.AutoScroll = true;
       splitContainer_Main.Panel1.AutoScrollMinSize = new Size(150, 350);
+      splitContainer_Main.Panel1.Controls.Add(groupBox_CreateTest);
       splitContainer_Main.Panel1.Controls.Add(groupBox_Other_Functions);
       splitContainer_Main.Panel1.Controls.Add(groupBox_Output);
       splitContainer_Main.Panel1.Controls.Add(groupBox_PC_Display_Parameters);
-      splitContainer_Main.Panel1.Controls.Add(groupBox_InputFile);
       splitContainer_Main.Panel1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
       // 
       // splitContainer_Main.Panel2
       // 
       splitContainer_Main.Panel2.Controls.Add(tableLayoutPanel1);
       splitContainer_Main.Size = new Size(834, 515);
-      splitContainer_Main.SplitterDistance = 181;
+      splitContainer_Main.SplitterDistance = 277;
       splitContainer_Main.TabIndex = 2;
+      // 
+      // groupBox_CreateTest
+      // 
+      groupBox_CreateTest.Controls.Add(splitContainer_Create_Test);
+      groupBox_CreateTest.Dock = DockStyle.Top;
+      groupBox_CreateTest.Location = new Point(0, 172);
+      groupBox_CreateTest.Name = "groupBox_CreateTest";
+      groupBox_CreateTest.Size = new Size(277, 147);
+      groupBox_CreateTest.TabIndex = 1;
+      groupBox_CreateTest.TabStop = false;
+      groupBox_CreateTest.Text = "Меню создания теста";
+      // 
+      // splitContainer_Create_Test
+      // 
+      splitContainer_Create_Test.Dock = DockStyle.Fill;
+      splitContainer_Create_Test.Location = new Point(3, 22);
+      splitContainer_Create_Test.Name = "splitContainer_Create_Test";
+      // 
+      // splitContainer_Create_Test.Panel1
+      // 
+      splitContainer_Create_Test.Panel1.Controls.Add(button2);
+      splitContainer_Create_Test.Panel1.Controls.Add(button1);
+      splitContainer_Create_Test.Panel1.Controls.Add(checkBox_Pneumogram);
+      splitContainer_Create_Test.Panel1.Controls.Add(checkBox_Heart_Rate_Control);
+      splitContainer_Create_Test.Panel1.Controls.Add(button_Choice_ECG_Header);
+      // 
+      // splitContainer_Create_Test.Panel2
+      // 
+      splitContainer_Create_Test.Panel2.Controls.Add(tableLayoutPanel_Pneumogram);
+      splitContainer_Create_Test.Panel2.Controls.Add(numericUpDown_Heart_Rate_Control);
+      splitContainer_Create_Test.Panel2.Controls.Add(label_Text_Name_Selected_ECG_Header);
+      splitContainer_Create_Test.Size = new Size(271, 122);
+      splitContainer_Create_Test.SplitterDistance = 126;
+      splitContainer_Create_Test.TabIndex = 0;
+      // 
+      // button2
+      // 
+      button2.Dock = DockStyle.Top;
+      button2.Location = new Point(0, 95);
+      button2.Name = "button2";
+      button2.Size = new Size(126, 25);
+      button2.TabIndex = 4;
+      button2.Text = "Загрузить";
+      button2.UseVisualStyleBackColor = true;
+      // 
+      // button1
+      // 
+      button1.Dock = DockStyle.Top;
+      button1.Location = new Point(0, 70);
+      button1.Name = "button1";
+      button1.Size = new Size(126, 25);
+      button1.TabIndex = 3;
+      button1.Text = "Сохранить";
+      button1.UseVisualStyleBackColor = true;
+      // 
+      // checkBox_Pneumogram
+      // 
+      checkBox_Pneumogram.AutoSize = true;
+      checkBox_Pneumogram.Dock = DockStyle.Top;
+      checkBox_Pneumogram.Location = new Point(0, 47);
+      checkBox_Pneumogram.Name = "checkBox_Pneumogram";
+      checkBox_Pneumogram.Size = new Size(126, 23);
+      checkBox_Pneumogram.TabIndex = 2;
+      checkBox_Pneumogram.Text = "Пневмограмма";
+      checkBox_Pneumogram.UseVisualStyleBackColor = true;
+      checkBox_Pneumogram.CheckedChanged += checkBox_Pneumogram_CheckedChanged;
+      // 
+      // checkBox_Heart_Rate_Control
+      // 
+      checkBox_Heart_Rate_Control.AutoSize = true;
+      checkBox_Heart_Rate_Control.Dock = DockStyle.Top;
+      checkBox_Heart_Rate_Control.Location = new Point(0, 24);
+      checkBox_Heart_Rate_Control.Name = "checkBox_Heart_Rate_Control";
+      checkBox_Heart_Rate_Control.Size = new Size(126, 23);
+      checkBox_Heart_Rate_Control.TabIndex = 1;
+      checkBox_Heart_Rate_Control.Text = "КонтрольЧСС";
+      checkBox_Heart_Rate_Control.UseVisualStyleBackColor = true;
+      checkBox_Heart_Rate_Control.CheckedChanged += checkBox_Heart_Rate_Control_CheckedChanged;
+      // 
+      // button_Choice_ECG_Header
+      // 
+      button_Choice_ECG_Header.Dock = DockStyle.Top;
+      button_Choice_ECG_Header.Location = new Point(0, 0);
+      button_Choice_ECG_Header.Name = "button_Choice_ECG_Header";
+      button_Choice_ECG_Header.Size = new Size(126, 24);
+      button_Choice_ECG_Header.TabIndex = 0;
+      button_Choice_ECG_Header.Text = "Выбор ЭКГ";
+      button_Choice_ECG_Header.UseVisualStyleBackColor = true;
+      button_Choice_ECG_Header.Click += button_Choice_ECG_Header_Click;
+      // 
+      // tableLayoutPanel_Pneumogram
+      // 
+      tableLayoutPanel_Pneumogram.ColumnCount = 2;
+      tableLayoutPanel_Pneumogram.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 53.90071F));
+      tableLayoutPanel_Pneumogram.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 46.09929F));
+      tableLayoutPanel_Pneumogram.Controls.Add(comboBox_del_R, 1, 0);
+      tableLayoutPanel_Pneumogram.Controls.Add(comboBox_Omega_R, 1, 1);
+      tableLayoutPanel_Pneumogram.Controls.Add(label_Text_del_R, 0, 0);
+      tableLayoutPanel_Pneumogram.Controls.Add(label_Text_Omega_R, 0, 1);
+      tableLayoutPanel_Pneumogram.Dock = DockStyle.Top;
+      tableLayoutPanel_Pneumogram.Location = new Point(0, 45);
+      tableLayoutPanel_Pneumogram.Name = "tableLayoutPanel_Pneumogram";
+      tableLayoutPanel_Pneumogram.RowCount = 2;
+      tableLayoutPanel_Pneumogram.RowStyles.Add(new RowStyle(SizeType.Percent, 46.6666679F));
+      tableLayoutPanel_Pneumogram.RowStyles.Add(new RowStyle(SizeType.Percent, 53.3333321F));
+      tableLayoutPanel_Pneumogram.Size = new Size(141, 59);
+      tableLayoutPanel_Pneumogram.TabIndex = 2;
+      // 
+      // comboBox_del_R
+      // 
+      comboBox_del_R.Dock = DockStyle.Top;
+      comboBox_del_R.Font = new Font("Times New Roman", 9F);
+      comboBox_del_R.FormattingEnabled = true;
+      comboBox_del_R.Location = new Point(79, 3);
+      comboBox_del_R.Name = "comboBox_del_R";
+      comboBox_del_R.Size = new Size(59, 23);
+      comboBox_del_R.TabIndex = 0;
+      // 
+      // comboBox_Omega_R
+      // 
+      comboBox_Omega_R.Dock = DockStyle.Top;
+      comboBox_Omega_R.Font = new Font("Times New Roman", 9F);
+      comboBox_Omega_R.FormattingEnabled = true;
+      comboBox_Omega_R.Location = new Point(79, 30);
+      comboBox_Omega_R.Name = "comboBox_Omega_R";
+      comboBox_Omega_R.Size = new Size(59, 23);
+      comboBox_Omega_R.TabIndex = 1;
+      // 
+      // label_Text_del_R
+      // 
+      label_Text_del_R.AutoSize = true;
+      label_Text_del_R.Dock = DockStyle.Top;
+      label_Text_del_R.Location = new Point(3, 0);
+      label_Text_del_R.Name = "label_Text_del_R";
+      label_Text_del_R.Size = new Size(70, 19);
+      label_Text_del_R.TabIndex = 0;
+      label_Text_del_R.Text = "dR";
+      // 
+      // label_Text_Omega_R
+      // 
+      label_Text_Omega_R.AutoSize = true;
+      label_Text_Omega_R.Dock = DockStyle.Top;
+      label_Text_Omega_R.Font = new Font("Times New Roman", 12F);
+      label_Text_Omega_R.Location = new Point(3, 27);
+      label_Text_Omega_R.Name = "label_Text_Omega_R";
+      label_Text_Omega_R.Size = new Size(70, 19);
+      label_Text_Omega_R.TabIndex = 1;
+      label_Text_Omega_R.Text = "Омега R";
+      // 
+      // numericUpDown_Heart_Rate_Control
+      // 
+      numericUpDown_Heart_Rate_Control.Dock = DockStyle.Top;
+      numericUpDown_Heart_Rate_Control.Location = new Point(0, 19);
+      numericUpDown_Heart_Rate_Control.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+      numericUpDown_Heart_Rate_Control.Name = "numericUpDown_Heart_Rate_Control";
+      numericUpDown_Heart_Rate_Control.RightToLeft = RightToLeft.Yes;
+      numericUpDown_Heart_Rate_Control.Size = new Size(141, 26);
+      numericUpDown_Heart_Rate_Control.TabIndex = 3;
+      // 
+      // label_Text_Name_Selected_ECG_Header
+      // 
+      label_Text_Name_Selected_ECG_Header.AutoSize = true;
+      label_Text_Name_Selected_ECG_Header.Dock = DockStyle.Top;
+      label_Text_Name_Selected_ECG_Header.Font = new Font("Times New Roman", 12F);
+      label_Text_Name_Selected_ECG_Header.Location = new Point(0, 0);
+      label_Text_Name_Selected_ECG_Header.Name = "label_Text_Name_Selected_ECG_Header";
+      label_Text_Name_Selected_ECG_Header.Size = new Size(109, 19);
+      label_Text_Name_Selected_ECG_Header.TabIndex = 0;
+      label_Text_Name_Selected_ECG_Header.Text = ".........................";
       // 
       // groupBox_Other_Functions
       // 
@@ -109,11 +295,11 @@
       groupBox_Other_Functions.Controls.Add(radioButton_Square);
       groupBox_Other_Functions.Controls.Add(radioButton_Triangle);
       groupBox_Other_Functions.Controls.Add(radioButton_Sine);
-      groupBox_Other_Functions.Dock = DockStyle.Top;
+      groupBox_Other_Functions.Dock = DockStyle.Bottom;
       groupBox_Other_Functions.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
-      groupBox_Other_Functions.Location = new Point(0, 348);
+      groupBox_Other_Functions.Location = new Point(0, 381);
       groupBox_Other_Functions.Name = "groupBox_Other_Functions";
-      groupBox_Other_Functions.Size = new Size(181, 144);
+      groupBox_Other_Functions.Size = new Size(277, 134);
       groupBox_Other_Functions.TabIndex = 1;
       groupBox_Other_Functions.TabStop = false;
       groupBox_Other_Functions.Text = "Other functions";
@@ -133,8 +319,8 @@
       // 
       splitContainer_Other_functions.Panel2.Controls.Add(domainUpDown1);
       splitContainer_Other_functions.Panel2.Controls.Add(domainUpDown_Frequency);
-      splitContainer_Other_functions.Size = new Size(175, 44);
-      splitContainer_Other_functions.SplitterDistance = 89;
+      splitContainer_Other_functions.Size = new Size(271, 34);
+      splitContainer_Other_functions.SplitterDistance = 137;
       splitContainer_Other_functions.TabIndex = 3;
       // 
       // label_Text_Other_functions_Amplitude
@@ -161,7 +347,7 @@
       domainUpDown1.Location = new Point(0, 21);
       domainUpDown1.Name = "domainUpDown1";
       domainUpDown1.RightToLeft = RightToLeft.Yes;
-      domainUpDown1.Size = new Size(82, 21);
+      domainUpDown1.Size = new Size(130, 21);
       domainUpDown1.TabIndex = 1;
       domainUpDown1.Text = "1,000";
       // 
@@ -171,7 +357,7 @@
       domainUpDown_Frequency.Location = new Point(0, 0);
       domainUpDown_Frequency.Name = "domainUpDown_Frequency";
       domainUpDown_Frequency.RightToLeft = RightToLeft.Yes;
-      domainUpDown_Frequency.Size = new Size(82, 21);
+      domainUpDown_Frequency.Size = new Size(130, 21);
       domainUpDown_Frequency.TabIndex = 0;
       domainUpDown_Frequency.Text = "1,00";
       // 
@@ -180,7 +366,7 @@
       button_Other_Functions_Load.Dock = DockStyle.Top;
       button_Other_Functions_Load.Location = new Point(3, 74);
       button_Other_Functions_Load.Name = "button_Other_Functions_Load";
-      button_Other_Functions_Load.Size = new Size(175, 23);
+      button_Other_Functions_Load.Size = new Size(271, 23);
       button_Other_Functions_Load.TabIndex = 0;
       button_Other_Functions_Load.Text = "Load";
       button_Other_Functions_Load.UseVisualStyleBackColor = true;
@@ -191,7 +377,7 @@
       radioButton_Square.Dock = DockStyle.Top;
       radioButton_Square.Location = new Point(3, 55);
       radioButton_Square.Name = "radioButton_Square";
-      radioButton_Square.Size = new Size(175, 19);
+      radioButton_Square.Size = new Size(271, 19);
       radioButton_Square.TabIndex = 2;
       radioButton_Square.TabStop = true;
       radioButton_Square.Text = "Square";
@@ -203,7 +389,7 @@
       radioButton_Triangle.Dock = DockStyle.Top;
       radioButton_Triangle.Location = new Point(3, 36);
       radioButton_Triangle.Name = "radioButton_Triangle";
-      radioButton_Triangle.Size = new Size(175, 19);
+      radioButton_Triangle.Size = new Size(271, 19);
       radioButton_Triangle.TabIndex = 1;
       radioButton_Triangle.TabStop = true;
       radioButton_Triangle.Text = "Triangle";
@@ -215,7 +401,7 @@
       radioButton_Sine.Dock = DockStyle.Top;
       radioButton_Sine.Location = new Point(3, 17);
       radioButton_Sine.Name = "radioButton_Sine";
-      radioButton_Sine.Size = new Size(175, 19);
+      radioButton_Sine.Size = new Size(271, 19);
       radioButton_Sine.TabIndex = 0;
       radioButton_Sine.TabStop = true;
       radioButton_Sine.Text = "Sine";
@@ -226,9 +412,9 @@
       groupBox_Output.Controls.Add(tableLayoutPanel_Buttons);
       groupBox_Output.Dock = DockStyle.Top;
       groupBox_Output.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
-      groupBox_Output.Location = new Point(0, 184);
+      groupBox_Output.Location = new Point(0, 108);
       groupBox_Output.Name = "groupBox_Output";
-      groupBox_Output.Size = new Size(181, 164);
+      groupBox_Output.Size = new Size(277, 64);
       groupBox_Output.TabIndex = 0;
       groupBox_Output.TabStop = false;
       groupBox_Output.Text = "Output";
@@ -244,17 +430,17 @@
       tableLayoutPanel_Buttons.Location = new Point(3, 17);
       tableLayoutPanel_Buttons.Name = "tableLayoutPanel_Buttons";
       tableLayoutPanel_Buttons.RowCount = 2;
-      tableLayoutPanel_Buttons.RowStyles.Add(new RowStyle(SizeType.Percent, 46.0317459F));
-      tableLayoutPanel_Buttons.RowStyles.Add(new RowStyle(SizeType.Percent, 53.9682541F));
-      tableLayoutPanel_Buttons.Size = new Size(175, 64);
+      tableLayoutPanel_Buttons.RowStyles.Add(new RowStyle(SizeType.Percent, 70.7317047F));
+      tableLayoutPanel_Buttons.RowStyles.Add(new RowStyle(SizeType.Percent, 29.2682934F));
+      tableLayoutPanel_Buttons.Size = new Size(271, 41);
       tableLayoutPanel_Buttons.TabIndex = 0;
       // 
       // button_Output_Stop
       // 
       button_Output_Stop.Dock = DockStyle.Fill;
-      button_Output_Stop.Location = new Point(90, 3);
+      button_Output_Stop.Location = new Point(138, 3);
       button_Output_Stop.Name = "button_Output_Stop";
-      button_Output_Stop.Size = new Size(82, 23);
+      button_Output_Stop.Size = new Size(130, 23);
       button_Output_Stop.TabIndex = 1;
       button_Output_Stop.Text = "Stop";
       button_Output_Stop.UseVisualStyleBackColor = true;
@@ -264,7 +450,7 @@
       button_Output_Play.Dock = DockStyle.Fill;
       button_Output_Play.Location = new Point(3, 3);
       button_Output_Play.Name = "button_Output_Play";
-      button_Output_Play.Size = new Size(81, 23);
+      button_Output_Play.Size = new Size(129, 23);
       button_Output_Play.TabIndex = 0;
       button_Output_Play.Text = "Play";
       button_Output_Play.UseVisualStyleBackColor = true;
@@ -275,9 +461,9 @@
       groupBox_PC_Display_Parameters.Controls.Add(panel_Value_PC_Display_Parameters);
       groupBox_PC_Display_Parameters.Dock = DockStyle.Top;
       groupBox_PC_Display_Parameters.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
-      groupBox_PC_Display_Parameters.Location = new Point(0, 76);
+      groupBox_PC_Display_Parameters.Location = new Point(0, 0);
       groupBox_PC_Display_Parameters.Name = "groupBox_PC_Display_Parameters";
-      groupBox_PC_Display_Parameters.Size = new Size(181, 108);
+      groupBox_PC_Display_Parameters.Size = new Size(277, 108);
       groupBox_PC_Display_Parameters.TabIndex = 0;
       groupBox_PC_Display_Parameters.TabStop = false;
       groupBox_PC_Display_Parameters.Text = "PC Display Parameters";
@@ -338,7 +524,7 @@
       panel_Value_PC_Display_Parameters.Controls.Add(domainUpDown_PC_Display_Parameters_Graph_Start);
       panel_Value_PC_Display_Parameters.Controls.Add(domainUpDown_PC_Display_Parameters_Amplitude);
       panel_Value_PC_Display_Parameters.Dock = DockStyle.Right;
-      panel_Value_PC_Display_Parameters.Location = new Point(126, 17);
+      panel_Value_PC_Display_Parameters.Location = new Point(222, 17);
       panel_Value_PC_Display_Parameters.Margin = new Padding(15);
       panel_Value_PC_Display_Parameters.Name = "panel_Value_PC_Display_Parameters";
       panel_Value_PC_Display_Parameters.Size = new Size(52, 88);
@@ -386,52 +572,17 @@
       domainUpDown_PC_Display_Parameters_Amplitude.TabIndex = 2;
       domainUpDown_PC_Display_Parameters_Amplitude.Text = "0";
       // 
-      // groupBox_InputFile
-      // 
-      groupBox_InputFile.Controls.Add(button_Sum_GetECGsourcefromfile);
-      groupBox_InputFile.Controls.Add(button_Sum_CTSCSEDB);
-      groupBox_InputFile.Dock = DockStyle.Top;
-      groupBox_InputFile.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
-      groupBox_InputFile.Location = new Point(0, 0);
-      groupBox_InputFile.Name = "groupBox_InputFile";
-      groupBox_InputFile.Size = new Size(181, 76);
-      groupBox_InputFile.TabIndex = 0;
-      groupBox_InputFile.TabStop = false;
-      groupBox_InputFile.Text = "Input File";
-      // 
-      // button_Sum_GetECGsourcefromfile
-      // 
-      button_Sum_GetECGsourcefromfile.Dock = DockStyle.Top;
-      button_Sum_GetECGsourcefromfile.Location = new Point(3, 40);
-      button_Sum_GetECGsourcefromfile.Name = "button_Sum_GetECGsourcefromfile";
-      button_Sum_GetECGsourcefromfile.Size = new Size(175, 23);
-      button_Sum_GetECGsourcefromfile.TabIndex = 0;
-      button_Sum_GetECGsourcefromfile.Text = "Get ECG source from file";
-      button_Sum_GetECGsourcefromfile.UseVisualStyleBackColor = true;
-      // 
-      // button_Sum_CTSCSEDB
-      // 
-      button_Sum_CTSCSEDB.Dock = DockStyle.Top;
-      button_Sum_CTSCSEDB.Location = new Point(3, 17);
-      button_Sum_CTSCSEDB.Name = "button_Sum_CTSCSEDB";
-      button_Sum_CTSCSEDB.Size = new Size(175, 23);
-      button_Sum_CTSCSEDB.TabIndex = 0;
-      button_Sum_CTSCSEDB.Text = "CTS/CSE DataBase";
-      button_Sum_CTSCSEDB.UseVisualStyleBackColor = true;
-      button_Sum_CTSCSEDB.Click += button_Sum_CTSCSEDB_Click;
-      // 
       // tableLayoutPanel1
       // 
       tableLayoutPanel1.ColumnCount = 2;
       tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
       tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-      tableLayoutPanel1.Dock = DockStyle.Fill;
-      tableLayoutPanel1.Location = new Point(0, 0);
+      tableLayoutPanel1.Location = new Point(451, 135);
       tableLayoutPanel1.Name = "tableLayoutPanel1";
       tableLayoutPanel1.RowCount = 2;
       tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
       tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-      tableLayoutPanel1.Size = new Size(649, 515);
+      tableLayoutPanel1.Size = new Size(198, 380);
       tableLayoutPanel1.TabIndex = 0;
       // 
       // MainPanel
@@ -458,6 +609,16 @@
       splitContainer_Main.Panel2.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)splitContainer_Main).EndInit();
       splitContainer_Main.ResumeLayout(false);
+      groupBox_CreateTest.ResumeLayout(false);
+      splitContainer_Create_Test.Panel1.ResumeLayout(false);
+      splitContainer_Create_Test.Panel1.PerformLayout();
+      splitContainer_Create_Test.Panel2.ResumeLayout(false);
+      splitContainer_Create_Test.Panel2.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)splitContainer_Create_Test).EndInit();
+      splitContainer_Create_Test.ResumeLayout(false);
+      tableLayoutPanel_Pneumogram.ResumeLayout(false);
+      tableLayoutPanel_Pneumogram.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)numericUpDown_Heart_Rate_Control).EndInit();
       groupBox_Other_Functions.ResumeLayout(false);
       groupBox_Other_Functions.PerformLayout();
       splitContainer_Other_functions.Panel1.ResumeLayout(false);
@@ -471,7 +632,6 @@
       panel_Text_PC_Display_Parameters.ResumeLayout(false);
       panel_Text_PC_Display_Parameters.PerformLayout();
       panel_Value_PC_Display_Parameters.ResumeLayout(false);
-      groupBox_InputFile.ResumeLayout(false);
       MainPanel.ResumeLayout(false);
       ResumeLayout(false);
     }
@@ -479,9 +639,6 @@
     #endregion
 
     private SplitContainer splitContainer_Main;
-    private GroupBox groupBox_InputFile;
-    private Button button_Sum_GetECGsourcefromfile;
-    private Button button_Sum_CTSCSEDB;
     private TableLayoutPanel tableLayoutPanel1;
     private Panel MainPanel;
     private GroupBox groupBox_PC_Display_Parameters;
@@ -509,5 +666,19 @@
     private Label label_Text_Other_functions_Frequency;
     private DomainUpDown domainUpDown1;
     private DomainUpDown domainUpDown_Frequency;
+    private GroupBox groupBox_CreateTest;
+    private SplitContainer splitContainer_Create_Test;
+    private CheckBox checkBox_Heart_Rate_Control;
+    private Button button_Choice_ECG_Header;
+    private Label label_Text_Name_Selected_ECG_Header;
+    private CheckBox checkBox_Pneumogram;
+    private Label label_Text_Omega_R;
+    private Label label_Text_del_R;
+    private ComboBox comboBox_Omega_R;
+    private ComboBox comboBox_del_R;
+    private TableLayoutPanel tableLayoutPanel_Pneumogram;
+    private NumericUpDown numericUpDown_Heart_Rate_Control;
+    private Button button2;
+    private Button button1;
   }
 }
