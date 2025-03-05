@@ -27,7 +27,7 @@ namespace Test_Cardiograph.Properties.DB
     /// <summary>
     /// Проект тестовой базы РОХМИНЭ
     /// </summary>
-    [Description("РОХМИНЭ")]
+    [Description("РОХМиНЭ")]
     РОХМИНЭ,
 
     /// <summary>

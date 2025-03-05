@@ -34,8 +34,6 @@
       splitContainer_MainForm = new SplitContainer();
       tableLayoutPanel_Menu_Panel = new TableLayoutPanel();
       groupBox_Menu = new GroupBox();
-      flowLayoutPanel2 = new FlowLayoutPanel();
-      label_Text_Search = new Label();
       textBox_SearchName = new TextBox();
       flowLayoutPanel1 = new FlowLayoutPanel();
       button_Load_hea_File = new Button();
@@ -43,15 +41,16 @@
       button_Load_Waveform = new Button();
       tableLayoutPanel_NoisePanel = new TableLayoutPanel();
       label_Text_NoisePanel = new Label();
+      panel1 = new Panel();
       ((System.ComponentModel.ISupportInitialize)splitContainer_MainForm).BeginInit();
       splitContainer_MainForm.Panel1.SuspendLayout();
       splitContainer_MainForm.Panel2.SuspendLayout();
       splitContainer_MainForm.SuspendLayout();
       tableLayoutPanel_Menu_Panel.SuspendLayout();
       groupBox_Menu.SuspendLayout();
-      flowLayoutPanel2.SuspendLayout();
       flowLayoutPanel1.SuspendLayout();
       tableLayoutPanel_NoisePanel.SuspendLayout();
+      panel1.SuspendLayout();
       SuspendLayout();
       // 
       // checkedListBox_Database
@@ -65,7 +64,7 @@
       checkedListBox_Database.MultiColumn = true;
       checkedListBox_Database.Name = "checkedListBox_Database";
       checkedListBox_Database.ScrollAlwaysVisible = true;
-      checkedListBox_Database.Size = new Size(402, 433);
+      checkedListBox_Database.Size = new Size(402, 412);
       checkedListBox_Database.TabIndex = 0;
       checkedListBox_Database.ItemCheck += checkedListBox_ItemCheck;
       // 
@@ -92,7 +91,8 @@
       // 
       // splitContainer_MainForm.Panel2
       // 
-      splitContainer_MainForm.Panel2.Controls.Add(checkedListBox_Database);
+      splitContainer_MainForm.Panel2.Controls.Add(panel1);
+      splitContainer_MainForm.Panel2.Controls.Add(textBox_SearchName);
       splitContainer_MainForm.Size = new Size(609, 433);
       splitContainer_MainForm.SplitterDistance = 203;
       splitContainer_MainForm.TabIndex = 3;
@@ -114,7 +114,6 @@
       // 
       // groupBox_Menu
       // 
-      groupBox_Menu.Controls.Add(flowLayoutPanel2);
       groupBox_Menu.Controls.Add(flowLayoutPanel1);
       groupBox_Menu.Dock = DockStyle.Top;
       groupBox_Menu.Location = new Point(3, 3);
@@ -124,30 +123,12 @@
       groupBox_Menu.TabStop = false;
       groupBox_Menu.Text = "Меню";
       // 
-      // flowLayoutPanel2
-      // 
-      flowLayoutPanel2.Controls.Add(label_Text_Search);
-      flowLayoutPanel2.Controls.Add(textBox_SearchName);
-      flowLayoutPanel2.Dock = DockStyle.Fill;
-      flowLayoutPanel2.Location = new Point(3, 105);
-      flowLayoutPanel2.Name = "flowLayoutPanel2";
-      flowLayoutPanel2.Size = new Size(191, 50);
-      flowLayoutPanel2.TabIndex = 5;
-      // 
-      // label_Text_Search
-      // 
-      label_Text_Search.AutoSize = true;
-      label_Text_Search.Location = new Point(3, 0);
-      label_Text_Search.Name = "label_Text_Search";
-      label_Text_Search.Size = new Size(105, 15);
-      label_Text_Search.TabIndex = 3;
-      label_Text_Search.Text = "Пойск по названию";
-      // 
       // textBox_SearchName
       // 
-      textBox_SearchName.Location = new Point(3, 18);
+      textBox_SearchName.Dock = DockStyle.Top;
+      textBox_SearchName.Location = new Point(0, 0);
       textBox_SearchName.Name = "textBox_SearchName";
-      textBox_SearchName.Size = new Size(183, 21);
+      textBox_SearchName.Size = new Size(402, 21);
       textBox_SearchName.TabIndex = 2;
       textBox_SearchName.TextChanged += textBox_SearchName_TextChanged;
       // 
@@ -220,6 +201,15 @@
       label_Text_NoisePanel.TabIndex = 1;
       label_Text_NoisePanel.Text = "Фильтры шумов";
       // 
+      // panel1
+      // 
+      panel1.Controls.Add(checkedListBox_Database);
+      panel1.Dock = DockStyle.Fill;
+      panel1.Location = new Point(0, 21);
+      panel1.Name = "panel1";
+      panel1.Size = new Size(402, 412);
+      panel1.TabIndex = 3;
+      // 
       // DB_CTSCSE_DBForm
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
@@ -233,15 +223,15 @@
       Load += DB_CTSCSE_DB_Load;
       splitContainer_MainForm.Panel1.ResumeLayout(false);
       splitContainer_MainForm.Panel2.ResumeLayout(false);
+      splitContainer_MainForm.Panel2.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)splitContainer_MainForm).EndInit();
       splitContainer_MainForm.ResumeLayout(false);
       tableLayoutPanel_Menu_Panel.ResumeLayout(false);
       groupBox_Menu.ResumeLayout(false);
-      flowLayoutPanel2.ResumeLayout(false);
-      flowLayoutPanel2.PerformLayout();
       flowLayoutPanel1.ResumeLayout(false);
       tableLayoutPanel_NoisePanel.ResumeLayout(false);
       tableLayoutPanel_NoisePanel.PerformLayout();
+      panel1.ResumeLayout(false);
       ResumeLayout(false);
     }
 
@@ -256,14 +246,13 @@
     private Button button_Load_hea_File;
     private SplitContainer splitContainer_MainForm;
     private TableLayoutPanel tableLayoutPanel_Menu_Panel;
-    private Label label_Text_Search;
     private TextBox textBox_SearchName;
     private ComboBox comboBox_List_DB;
     private GroupBox groupBox_Menu;
     private FlowLayoutPanel flowLayoutPanel1;
-    private FlowLayoutPanel flowLayoutPanel2;
     private Button button_Load_Waveform;
     private TableLayoutPanel tableLayoutPanel_NoisePanel;
     private Label label_Text_NoisePanel;
+    private Panel panel1;
   }
 }

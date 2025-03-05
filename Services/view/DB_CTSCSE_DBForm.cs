@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Microsoft.VisualBasic.Devices;
 using Test_Cardiograph.Properties.DB;
 using Test_Cardiograph.Services.Controller.MECG.structs;
+using Test_Cardiograph.Services.Model;
 using Test_Cardiograph.Services.StaticClass;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -57,10 +58,11 @@ namespace Test_Cardiograph.Services.view
     /// <param name="e">Load.</param>
     private void DB_CTSCSE_DB_Load(object sender, EventArgs e)
     {
-
+      checkedListBox_DB_Noise.Visible = false;
+      checkedListBox_DB_Noise.DataSource = Enum.GetValues(typeof(CTSCSE_Noise))
+        .OfType<CTSCSE_Noise>().Select(val => EnumWorcker.GetDescription(val)).ToArray();
       comboBox_List_DB.Items.AddRange(Enum.GetValues(typeof(EnumDB))
-        .OfType<EnumDB>().Select(val => GetDescription(val)).ToArray());
-
+        .OfType<EnumDB>().Select(val => EnumWorcker.GetDescription(val)).ToArray());
     }
 
     /// <summary>
@@ -74,8 +76,8 @@ namespace Test_Cardiograph.Services.view
       {
         if (!LoadFileCTSCSE.Equals(null))
         {
-          LoadFileCTSCSE((CTSCSE_Database)GetEnumName(checkedListBox_Database, typeof(CTSCSE_Database)),
-            (CTSCSE_Noise)GetEnumName(checkedListBox_DB_Noise, typeof(CTSCSE_Noise)));
+          LoadFileCTSCSE((CTSCSE_Database)EnumWorcker.GetEnumName(checkedListBox_Database, typeof(CTSCSE_Database)),
+            (CTSCSE_Noise)EnumWorcker.GetEnumName(checkedListBox_DB_Noise, typeof(CTSCSE_Noise)));
         }
         else
           throw new NullReferenceException("Ошибка отправки, событие не было переданно");
@@ -110,7 +112,7 @@ namespace Test_Cardiograph.Services.view
     /// <param name="e">Изменение текста в контроле.</param>
     private void textBox_SearchName_TextChanged(object sender, EventArgs e)
     {
-
+      //checkedListBox_Database.Items.Contains();
     }
 
     /// <summary>
@@ -121,10 +123,17 @@ namespace Test_Cardiograph.Services.view
     private void comboBox_List_DB_SelectedIndexChanged(object sender, EventArgs e)
     {
       System.Windows.Forms.ComboBox comboBox = sender as System.Windows.Forms.ComboBox;
-      checkedListBox_DB_Noise.DataSource = Enum.GetValues(typeof(CTSCSE_Noise))
-  .OfType<CTSCSE_Noise>().Select(val => GetDescription(val)).ToArray();
-      checkedListBox_Database.DataSource = Enum.GetValues(typeof(CTSCSE_Database))
-        .OfType<CTSCSE_Database>().Select(val => GetDescription(val)).ToArray();
+
+      checkedListBox_Database.DataSource = DBEnumMeneger.LoadListDBName((EnumDB)EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)));
+      if(EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)).Equals(EnumDB.CSE)|| EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)).Equals(EnumDB.CTS))
+      {
+        checkedListBox_DB_Noise.Visible = true;
+
+      }
+      else
+      {
+        checkedListBox_DB_Noise.Visible = false;
+      }
     }
 
     /// <summary>
@@ -134,46 +143,11 @@ namespace Test_Cardiograph.Services.view
     /// <param name="e">Клик.</param>
     private void button_Load_hea_File_Click(object sender, EventArgs e)
     {
-
-    }
-    #endregion
-
-    #region Доп методы 
-
-    /// <summary>
-    /// Возвращает выбранынй элемент из переданного listBox
-    /// </summary>
-    /// <param name="sender">CheckedListBox список выбранный итемов.</param>
-    /// <param name="enums">Список из какого проверять CTSCSE_Noise или CTSCSE_Database</param>
-    /// <returns>Возвращает выбранынй элемент из переданного listBox.</returns>
-    public object GetEnumName(CheckedListBox sender, Type enums)
-    {
-      if (enums.Name == typeof(CTSCSE_Noise).Name)
+      if (EnumWorcker.EnumValueOf(comboBox_List_DB.SelectedItem.ToString(), typeof(EnumDB)).Equals(EnumDB.CSE) || EnumWorcker.EnumValueOf(comboBox_List_DB.SelectedItem.ToString(), typeof(EnumDB)).Equals(EnumDB.CTS))
       {
-        switch (sender.CheckedItems.Count)
-        {
-          case 1:
-            return DBEnumMeneger.EnumValueOf(sender.CheckedItems[0].ToString(), typeof(CTSCSE_Noise));
-          default:
-            return DBEnumMeneger.EnumValueOf(sender.Items[14].ToString(), typeof(CTSCSE_Noise));
-        }
+
       }
-      else if (enums.Name == typeof(CTSCSE_Database).Name)
-      {
-        switch (sender.SelectedItems.Count)
-        {
-          case 1:
-            return EnumValueOf(sender.CheckedItems[0].ToString(), typeof(CTSCSE_Database));
-          default:
-            return EnumValueOf(sender.Items[119].ToString(), typeof(CTSCSE_Database));
-        }
-      }
-      else
-        throw new ArgumentException("Enum неизвестного типа.");
     }
-
-
-
     #endregion
 
     #endregion
@@ -184,6 +158,15 @@ namespace Test_Cardiograph.Services.view
     {
       InitializeComponent();
     }
+
+    #endregion
+
+    #region NOT_USED
+
+    //    checkedListBox_DB_Noise.DataSource = Enum.GetValues(typeof(CTSCSE_Noise))
+    //.OfType<CTSCSE_Noise>().Select(val => EnumWorcker.GetDescription(val)).ToArray();
+    //    checkedListBox_Database.DataSource = Enum.GetValues(typeof(CTSCSE_Database))
+    //      .OfType<CTSCSE_Database>().Select(val => EnumWorcker.GetDescription(val)).ToArray();
 
     #endregion
   }
