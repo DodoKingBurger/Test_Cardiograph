@@ -1,5 +1,6 @@
 using Test_Cardiograph.Controller;
 using Test_Cardiograph.Services.Controller.MECG.structs;
+using Test_Cardiograph.Services.Model;
 using Test_Cardiograph.Services.view;
 
 namespace Test_Cardiograph
@@ -14,6 +15,16 @@ namespace Test_Cardiograph
     private DB_CTSCSE_DBForm cTSCSE_DB { get; set; }
 
     private MECG MECG20;
+
+    /// <summary>
+    /// —писок тестов и присущий им пор€дковый номер.
+    /// </summary>
+    public List<TestModel> Tests = new List<TestModel>();
+
+    /// <summary>
+    /// ¬ыбранный тест дл€ редактировани€.
+    /// </summary>
+    public TestModel SelectedTest;
 
     #endregion
 
@@ -39,7 +50,7 @@ namespace Test_Cardiograph
     private void button_Choice_ECG_Header_Click(object sender, EventArgs e)
     {
       cTSCSE_DB = new DB_CTSCSE_DBForm();
-      cTSCSE_DB.Notify += LoadDatabaseCTS_CSE;
+      cTSCSE_DB.LoadFileCTSCSE += LoadDatabaseCTS_CSE;
       cTSCSE_DB.ShowDialog();
     }
 

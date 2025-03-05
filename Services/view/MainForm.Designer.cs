@@ -254,7 +254,7 @@
       label_Text_del_R.Name = "label_Text_del_R";
       label_Text_del_R.Size = new Size(70, 19);
       label_Text_del_R.TabIndex = 0;
-      label_Text_del_R.Text = "dR";
+      label_Text_del_R.Text = "ΔR";
       // 
       // label_Text_Omega_R
       // 

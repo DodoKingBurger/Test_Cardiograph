@@ -19,14 +19,28 @@ namespace Test_Cardiograph.Services.view
     #region Поля и свойства
 
     /// <summary>
-    /// Делегат для события обновления базы данных на экарне.
+    /// Загружает по выбранной вариации заголовочный файл ЭКГ в МЕКГ.
     /// </summary>
+    /// <param name="database">выбранный из списка вариант ЭКГ.</param>
+    /// <param name="noise">Список шумов.</param>
     public delegate void LoadDatabaseCTS_CSE(CTSCSE_Database database, CTSCSE_Noise noise);
 
     /// <summary>
-    /// Обновление базы данных предметов на главном экране.
+    /// Загрзука в МЕКГ файла из БД Атласа (CTS) или Европейской (CSE).
     /// </summary>
-    public event LoadDatabaseCTS_CSE? Notify;
+    public event LoadDatabaseCTS_CSE? LoadFileCTSCSE;
+
+    /// <summary>
+    /// Делегат для получение ЭКГ из файла по пути.
+    /// </summary>
+    /// <param name="filepath">Путь к файлу.</param>
+    /// <returns>Заголовочный файл ЭКГ.</returns>
+    public delegate ECG_HEADER LoadECG_FromFile(string filepath);
+
+    /// <summary>
+    /// Получение ЭКГ из файла по пути.
+    /// </summary>
+    public event LoadECG_FromFile? LoadECG;
 
     #endregion
 
@@ -56,9 +70,9 @@ namespace Test_Cardiograph.Services.view
     {
       try
       {
-        if (!Notify.Equals(null))
+        if (!LoadFileCTSCSE.Equals(null))
         {
-          Notify((CTSCSE_Database)GetEnumName(checkedListBox_Database, typeof(CTSCSE_Database)),
+          LoadFileCTSCSE((CTSCSE_Database)GetEnumName(checkedListBox_Database, typeof(CTSCSE_Database)),
             (CTSCSE_Noise)GetEnumName(checkedListBox_DB_Noise, typeof(CTSCSE_Noise)));
         }
         else
@@ -87,6 +101,35 @@ namespace Test_Cardiograph.Services.view
       }
     }
 
+    /// <summary>
+    /// Пойск по названию в выведенной базе ЭКГ.
+    /// </summary>
+    /// <param name="sender">TextBox.</param>
+    /// <param name="e">Изменение текста в контроле.</param>
+    private void textBox_SearchName_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    /// <summary>
+    /// Изменение выбранного индекса в выподающем списке.
+    /// </summary>
+    /// <param name="sender">comboBox.</param>
+    /// <param name="e">Выбор индекса.</param>
+    private void comboBox_List_DB_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    /// <summary>
+    /// Открывает диалогове окно для выбора загрузки *hea файла.
+    /// </summary>
+    /// <param name="sender">Кнопка.</param>
+    /// <param name="e">Клик.</param>
+    private void button_Load_hea_File_Click(object sender, EventArgs e)
+    {
+
+    }
     #endregion
 
     #region Доп методы 
