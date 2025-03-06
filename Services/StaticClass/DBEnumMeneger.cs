@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -15,6 +16,17 @@ namespace Test_Cardiograph.Services.StaticClass
   /// </summary>
   static class DBEnumMeneger
   {
+    #region Поля и свойства
+
+    /// <summary>
+    /// Массив строк для получения из *txt файла данных.
+    /// </summary>
+    static string[] strings= new string[] { };
+
+    #endregion
+
+    #region Методы
+
     /// <summary>
     /// Возвращает имена доступных записей в БД.
     /// </summary>
@@ -75,14 +87,45 @@ namespace Test_Cardiograph.Services.StaticClass
     /// <returns>Названия БД.</returns>
     private static string[] LoadNameROHMINE()
     {
-      return new string[] { "1", "6", "0", "0" };
+
+      string path = String.Join("\\",
+      AppDomain.CurrentDomain.BaseDirectory.Split('\\')
+      [0..(AppDomain.CurrentDomain.BaseDirectory.Split('\\').Count() - 4)])
+      + "\\Properties\\DB\\ROHMINE\\Result.txt";
+      var task = ReadROHMINE_File(path);
+      if (File.Exists(path))
+      {
+        MessageBox.Show("Я видеть Result");
+        
+      }
+
+
+      return strings;
     }
 
+    /// <summary>
+    /// Открывает *txt файл.
+    /// </summary>
+    /// <param name="path">Путь к файлу.</param>
+    public static async Task ReadROHMINE_File(string path)
+    {
+      using (StreamReader reader = new StreamReader(path))
+      {
+        string text = await reader.ReadToEndAsync();
+        strings = text.Split(new char[] { '\n', '\t' }).Where((num, index) => index % 2 == 0).ToArray();
+      }
+    }
 
+    /// <summary>
+    /// Возвращает список возможных Форм волн.
+    /// </summary>
+    /// <returns>Список возможных Форм волн.</returns>
     private static string[] LoadNameWaveForm()
     {
       return Enum.GetValues(typeof(WAVEFORM_TYPE))
       .OfType<WAVEFORM_TYPE>().Select(val => EnumWorcker.GetDescription(val)).ToArray();
     }
+
+    #endregion
   }
 }

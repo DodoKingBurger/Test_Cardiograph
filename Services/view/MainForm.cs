@@ -50,7 +50,7 @@ namespace Test_Cardiograph
     private void button_Choice_ECG_Header_Click(object sender, EventArgs e)
     {
       cTSCSE_DB = new DB_CTSCSE_DBForm();
-      cTSCSE_DB.LoadFileCTSCSE += LoadDatabaseCTS_CSE;
+      cTSCSE_DB.Load_CTSCSEFile += LoadDatabaseCTS_CSE;
       cTSCSE_DB.ShowDialog();
     }
 

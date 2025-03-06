@@ -26,12 +26,12 @@ namespace Test_Cardiograph.Services.view
     /// </summary>
     /// <param name="database">выбранный из списка вариант ЭКГ.</param>
     /// <param name="noise">Список шумов.</param>
-    public delegate void LoadDatabaseCTS_CSE(CTSCSE_Database database, CTSCSE_Noise noise);
+    public delegate void LoadECG_CTSCSE(CTSCSE_Database database, CTSCSE_Noise noise);
 
     /// <summary>
     /// Загрзука в МЕКГ файла из БД Атласа (CTS) или Европейской (CSE).
     /// </summary>
-    public event LoadDatabaseCTS_CSE? LoadFileCTSCSE;
+    public event LoadECG_CTSCSE? Load_CTSCSEFile;
 
     /// <summary>
     /// Делегат для получение ЭКГ из файла по пути.
@@ -42,17 +42,17 @@ namespace Test_Cardiograph.Services.view
     /// <summary>
     /// Получение ЭКГ из файла по пути.
     /// </summary>
-    public event LoadECG_FromFile? LoadECG;
+    public event LoadECG_FromFile? Load_ECGFile;
 
     /// <summary>
-    /// Загрузка 
+    /// Отправка значений в главную форму для формирования ТestModel
     /// </summary>
     /// <param name="waveForm"></param>
     /// <param name="freaquency"></param>
     /// <param name="amplitude"></param>
-    public delegate void LoadWaveForm(WAVEFORM_TYPE waveForm, double freaquency, double[] amplitude);
+    public delegate void LoadECG_WaveForm(WAVEFORM_TYPE waveForm, double freaquency, double[] amplitude);
 
-    public event LoadWaveForm Load_WaveForm;
+    public event LoadECG_WaveForm? Load_WaveFormFile;
 
     #endregion
 
@@ -82,20 +82,20 @@ namespace Test_Cardiograph.Services.view
     /// <param name="e">Click.</param>
     private void button_Load_Waveform_Click(object sender, EventArgs e)
     {
-      try
-      {
-        if (!LoadFileCTSCSE.Equals(null))
-        {
-          LoadFileCTSCSE((CTSCSE_Database)EnumWorcker.GetEnumName(checkedListBox_Database, typeof(CTSCSE_Database)),
-            (CTSCSE_Noise)EnumWorcker.GetEnumName(checkedListBox_DB_Noise, typeof(CTSCSE_Noise)));
-        }
-        else
-          throw new NullReferenceException("Ошибка отправки, событие не было переданно");
-      }
-      catch (Exception ex)
-      {
-        MessageBox.Show($"{ex.Message}");
-      }
+      //try
+      //{
+      //  if (!LoadFileCTSCSE.Equals(null))
+      //  {
+      //    LoadFileCTSCSE((CTSCSE_Database)EnumWorcker.GetEnumName(checkedListBox_Database, typeof(CTSCSE_Database)),
+      //      (CTSCSE_Noise)EnumWorcker.GetEnumName(checkedListBox_DB_Noise, typeof(CTSCSE_Noise)));
+      //  }
+      //  else
+      //    throw new NullReferenceException("Ошибка отправки, событие не было переданно");
+      //}
+      //catch (Exception ex)
+      //{
+      //  MessageBox.Show($"{ex.Message}");
+      //}
     }
 
     /// <summary>
