@@ -37,13 +37,22 @@ namespace Test_Cardiograph.Services.view
     /// Делегат для получение ЭКГ из файла по пути.
     /// </summary>
     /// <param name="filepath">Путь к файлу.</param>
-    /// <returns>Заголовочный файл ЭКГ.</returns>
-    public delegate ECG_HEADER LoadECG_FromFile(string filepath);
+    public delegate void LoadECG_FromFile(string filepath);
 
     /// <summary>
     /// Получение ЭКГ из файла по пути.
     /// </summary>
     public event LoadECG_FromFile? LoadECG;
+
+    /// <summary>
+    /// Загрузка 
+    /// </summary>
+    /// <param name="waveForm"></param>
+    /// <param name="freaquency"></param>
+    /// <param name="amplitude"></param>
+    public delegate void LoadWaveForm(WAVEFORM_TYPE waveForm, double freaquency, double[] amplitude);
+
+    public event LoadWaveForm Load_WaveForm;
 
     #endregion
 
@@ -58,7 +67,8 @@ namespace Test_Cardiograph.Services.view
     /// <param name="e">Load.</param>
     private void DB_CTSCSE_DB_Load(object sender, EventArgs e)
     {
-      checkedListBox_DB_Noise.Visible = false;
+      tableLayoutPanel_NoisePanel.Visible = false;
+      splitContainer_Other_Parametrs.Visible = false;
       checkedListBox_DB_Noise.DataSource = Enum.GetValues(typeof(CTSCSE_Noise))
         .OfType<CTSCSE_Noise>().Select(val => EnumWorcker.GetDescription(val)).ToArray();
       comboBox_List_DB.Items.AddRange(Enum.GetValues(typeof(EnumDB))
@@ -113,6 +123,36 @@ namespace Test_Cardiograph.Services.view
     private void textBox_SearchName_TextChanged(object sender, EventArgs e)
     {
       //checkedListBox_Database.Items.Contains();
+
+      if (comboBox_List_DB.SelectedIndex != -1)
+      {
+        var dv = checkedListBox_Database.DataSource as DataView;
+        var filter = textBox_SearchName.Text.Trim().Length >= 0
+            ? $"Item LIKE '{textBox_SearchName.Text}*'"
+            : null;
+
+        dv.RowFilter = filter;
+
+        for (var i = 0; i < checkedListBox_Database.Items.Count; i++)
+        {
+          var drv = checkedListBox_Database.Items[i] as DataRowView;
+          var chk = Convert.ToBoolean(drv["Checked"]);
+          checkedListBox_Database.SetItemChecked(i, chk);
+        }
+      }
+
+    }
+
+    /// <summary>
+    /// Функция для события обновления.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void resultBoxList_ItemCheck(object sender, ItemCheckEventArgs e)
+    {
+      var dv = checkedListBox_Database.DataSource as DataView;
+      var drv = dv[e.Index];
+      drv["Checked"] = e.NewValue == CheckState.Checked ? true : false;
     }
 
     /// <summary>
@@ -124,16 +164,52 @@ namespace Test_Cardiograph.Services.view
     {
       System.Windows.Forms.ComboBox comboBox = sender as System.Windows.Forms.ComboBox;
 
-      checkedListBox_Database.DataSource = DBEnumMeneger.LoadListDBName((EnumDB)EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)));
       if(EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)).Equals(EnumDB.CSE)|| EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)).Equals(EnumDB.CTS))
       {
-        checkedListBox_DB_Noise.Visible = true;
-
+        tableLayoutPanel_NoisePanel.Visible = true;
       }
       else
       {
-        checkedListBox_DB_Noise.Visible = false;
+        tableLayoutPanel_NoisePanel.Visible = false;
       }
+
+      switch(EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)))
+      {
+        case EnumDB.CSE:
+          tableLayoutPanel_NoisePanel.Visible = true;
+          break;
+        case EnumDB.CTS:
+          tableLayoutPanel_NoisePanel.Visible = true;
+          break;
+        case EnumDB.WaveForm:
+          splitContainer_Other_Parametrs.Visible = true;
+          break;
+        default:
+          tableLayoutPanel_NoisePanel.Visible = false;
+          splitContainer_Other_Parametrs.Visible = false;
+          break;
+      }
+
+
+
+      var elArray = DBEnumMeneger.LoadListDBName((EnumDB)EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)));
+
+      var dt = new DataTable();
+
+      dt.Columns.Add("Item", typeof(string));
+      dt.Columns.Add("Checked", typeof(bool));
+
+      foreach (var item in elArray) dt.Rows.Add(item, false);
+
+      dt.AcceptChanges();
+
+      checkedListBox_Database.DataSource = dt.DefaultView;
+      checkedListBox_Database.DisplayMember = "Item";
+      checkedListBox_Database.ValueMember = "Item";
+
+      // If not already done by the designer...
+      checkedListBox_Database.ItemCheck += resultBoxList_ItemCheck;
+
     }
 
     /// <summary>

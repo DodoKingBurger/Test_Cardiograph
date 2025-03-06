@@ -1,6 +1,6 @@
 using Test_Cardiograph.Controller;
 using Test_Cardiograph.Services.Controller.MECG.structs;
-using Test_Cardiograph.Services.Model;
+using Test_Cardiograph.Services.Model.Stages.descendant.Test;
 using Test_Cardiograph.Services.view;
 
 namespace Test_Cardiograph

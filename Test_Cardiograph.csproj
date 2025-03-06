@@ -21,6 +21,9 @@
   <ItemGroup>
     <Folder Include="Properties\DB\AXION\" />
     <Folder Include="Properties\DB\ROHMINE\" />
+    <Folder Include="Services\Model\Stages\descendant\Command\descendant\" />
+    <Folder Include="Services\Model\Stages\descendant\Notifications\" />
+    <Folder Include="Services\Model\Stages\descendant\Notifications confirmation\" />
   </ItemGroup>
 
 </Project>

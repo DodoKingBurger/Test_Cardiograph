@@ -5,22 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Test_Cardiograph.Services.Controller.MECG.structs;
 
-namespace Test_Cardiograph.Services.Model
+namespace Test_Cardiograph.Services.Model.Stages.descendant.Test
 {
   /// <summary>
   /// Модель теста кардиографа.
   /// </summary>
-  public class TestModel
+  public class TestModel : Stages
   {
-    /// <summary>
-    /// Имя теста.
-    /// </summary>
-    public string NameTest { get; set; }
-
-    /// <summary>
-    /// Заголовочный файл ЭКГ.
-    /// </summary>
-    public ECG_HEADER HEADER { get; set; } 
   
     /// <summary>
     /// Нужно ли контролировать ЧСС пациента.
@@ -34,13 +25,13 @@ namespace Test_Cardiograph.Services.Model
     /// </summary>
     public int CHSS 
     { 
-      get { return this.chss; }
+      get { return chss; }
       set
       {
         if (value > 500 || value <= 0)
           throw new ArgumentException("ЧСС задан нереалистичный.");
         else
-          this.chss = value;
+          chss = value;
       }
     }
 
@@ -56,12 +47,12 @@ namespace Test_Cardiograph.Services.Model
     /// </summary>
     public float dR
     {
-      get { return this.dr; }
+      get { return dr; }
       set
       {
         if (!value.Equals(null) && value >= 0)
         {
-          this.wR = value;
+          wR = value;
         }
         else
           throw new ArgumentException("wR = null или меньше 0");
@@ -80,7 +71,7 @@ namespace Test_Cardiograph.Services.Model
       {
         if (!value.Equals(null) && value >= 0)
         {
-          this.wR = value;
+          wR = value;
         }
         else
           throw new ArgumentException("wR = null или меньше 0");

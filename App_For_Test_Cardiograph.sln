@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35818.85
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_Cardiograph", "Test_Cardiograph.csproj", "{944F66CB-727A-B150-C6E5-ECCEB6B34DBF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{944F66CB-727A-B150-C6E5-ECCEB6B34DBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{944F66CB-727A-B150-C6E5-ECCEB6B34DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{944F66CB-727A-B150-C6E5-ECCEB6B34DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{944F66CB-727A-B150-C6E5-ECCEB6B34DBF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {07DFCE5E-73B6-47CC-A7B8-3AA7E104D6AF}
+	EndGlobalSection
+EndGlobal

@@ -32,6 +32,8 @@ namespace Test_Cardiograph.Services.StaticClass
           return LoadNameAXION();
         case EnumDB.РОХМИНЭ:
           return LoadNameROHMINE();
+        case EnumDB.WaveForm:
+            return LoadNameWaveForm();
         default:
           throw new Exception("Неизвестная БД.");
 
@@ -45,7 +47,7 @@ namespace Test_Cardiograph.Services.StaticClass
     private static string[] LoadNameCTS()
     {
         return Enum.GetValues(typeof(CTSCSE_Database))
-        .OfType<CTSCSE_Database>().Select(val => EnumWorcker.GetDescription(val)).Take(18).ToArray();
+        .OfType<CTSCSE_Database>().Select(val => EnumWorcker.GetDescription(val)).Take(19).ToArray();
     }
 
     /// <summary>
@@ -55,7 +57,7 @@ namespace Test_Cardiograph.Services.StaticClass
     private static string[] LoadNameCTE()
     {
       return Enum.GetValues(typeof(CTSCSE_Database))
-      .OfType<CTSCSE_Database>().Select(val => EnumWorcker.GetDescription(val)).Skip(18).ToArray();
+      .OfType<CTSCSE_Database>().Select(val => EnumWorcker.GetDescription(val)).Skip(19).ToArray();
     }
 
     /// <summary>
@@ -74,6 +76,13 @@ namespace Test_Cardiograph.Services.StaticClass
     private static string[] LoadNameROHMINE()
     {
       return new string[] { "1", "6", "0", "0" };
+    }
+
+
+    private static string[] LoadNameWaveForm()
+    {
+      return Enum.GetValues(typeof(WAVEFORM_TYPE))
+      .OfType<WAVEFORM_TYPE>().Select(val => EnumWorcker.GetDescription(val)).ToArray();
     }
   }
 }

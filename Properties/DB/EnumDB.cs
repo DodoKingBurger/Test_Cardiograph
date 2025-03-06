@@ -34,6 +34,12 @@ namespace Test_Cardiograph.Properties.DB
     /// БД Аксиона.
     /// </summary>
     [Description("AXION")]
-    AXION
+    AXION,
+
+    /// <summary>
+    /// Пилообразный, синусоидальный, квадратный.
+    /// </summary>
+    [Description("Разные форматы волны")]
+    WaveForm
   }
 }

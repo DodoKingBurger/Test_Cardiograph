@@ -45,11 +45,6 @@
       numericUpDown_Heart_Rate_Control = new NumericUpDown();
       label_Text_Name_Selected_ECG_Header = new Label();
       groupBox_Other_Functions = new GroupBox();
-      splitContainer_Other_functions = new SplitContainer();
-      label_Text_Other_functions_Amplitude = new Label();
-      label_Text_Other_functions_Frequency = new Label();
-      domainUpDown1 = new DomainUpDown();
-      domainUpDown_Frequency = new DomainUpDown();
       button_Other_Functions_Load = new Button();
       radioButton_Square = new RadioButton();
       radioButton_Triangle = new RadioButton();
@@ -83,10 +78,6 @@
       tableLayoutPanel_Pneumogram.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)numericUpDown_Heart_Rate_Control).BeginInit();
       groupBox_Other_Functions.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)splitContainer_Other_functions).BeginInit();
-      splitContainer_Other_functions.Panel1.SuspendLayout();
-      splitContainer_Other_functions.Panel2.SuspendLayout();
-      splitContainer_Other_functions.SuspendLayout();
       groupBox_Output.SuspendLayout();
       tableLayoutPanel_Buttons.SuspendLayout();
       groupBox_PC_Display_Parameters.SuspendLayout();
@@ -125,7 +116,7 @@
       groupBox_CreateTest.Dock = DockStyle.Top;
       groupBox_CreateTest.Location = new Point(0, 172);
       groupBox_CreateTest.Name = "groupBox_CreateTest";
-      groupBox_CreateTest.Size = new Size(277, 147);
+      groupBox_CreateTest.Size = new Size(260, 147);
       groupBox_CreateTest.TabIndex = 1;
       groupBox_CreateTest.TabStop = false;
       groupBox_CreateTest.Text = "Меню создания теста";
@@ -149,8 +140,8 @@
       splitContainer_Create_Test.Panel2.Controls.Add(tableLayoutPanel_Pneumogram);
       splitContainer_Create_Test.Panel2.Controls.Add(numericUpDown_Heart_Rate_Control);
       splitContainer_Create_Test.Panel2.Controls.Add(label_Text_Name_Selected_ECG_Header);
-      splitContainer_Create_Test.Size = new Size(271, 122);
-      splitContainer_Create_Test.SplitterDistance = 126;
+      splitContainer_Create_Test.Size = new Size(254, 122);
+      splitContainer_Create_Test.SplitterDistance = 118;
       splitContainer_Create_Test.TabIndex = 0;
       // 
       // button2
@@ -158,7 +149,7 @@
       button2.Dock = DockStyle.Top;
       button2.Location = new Point(0, 95);
       button2.Name = "button2";
-      button2.Size = new Size(126, 25);
+      button2.Size = new Size(118, 25);
       button2.TabIndex = 4;
       button2.Text = "Загрузить";
       button2.UseVisualStyleBackColor = true;
@@ -168,7 +159,7 @@
       button1.Dock = DockStyle.Top;
       button1.Location = new Point(0, 70);
       button1.Name = "button1";
-      button1.Size = new Size(126, 25);
+      button1.Size = new Size(118, 25);
       button1.TabIndex = 3;
       button1.Text = "Сохранить";
       button1.UseVisualStyleBackColor = true;
@@ -179,7 +170,7 @@
       checkBox_Pneumogram.Dock = DockStyle.Top;
       checkBox_Pneumogram.Location = new Point(0, 47);
       checkBox_Pneumogram.Name = "checkBox_Pneumogram";
-      checkBox_Pneumogram.Size = new Size(126, 23);
+      checkBox_Pneumogram.Size = new Size(118, 23);
       checkBox_Pneumogram.TabIndex = 2;
       checkBox_Pneumogram.Text = "Пневмограмма";
       checkBox_Pneumogram.UseVisualStyleBackColor = true;
@@ -191,7 +182,7 @@
       checkBox_Heart_Rate_Control.Dock = DockStyle.Top;
       checkBox_Heart_Rate_Control.Location = new Point(0, 24);
       checkBox_Heart_Rate_Control.Name = "checkBox_Heart_Rate_Control";
-      checkBox_Heart_Rate_Control.Size = new Size(126, 23);
+      checkBox_Heart_Rate_Control.Size = new Size(118, 23);
       checkBox_Heart_Rate_Control.TabIndex = 1;
       checkBox_Heart_Rate_Control.Text = "КонтрольЧСС";
       checkBox_Heart_Rate_Control.UseVisualStyleBackColor = true;
@@ -202,7 +193,7 @@
       button_Choice_ECG_Header.Dock = DockStyle.Top;
       button_Choice_ECG_Header.Location = new Point(0, 0);
       button_Choice_ECG_Header.Name = "button_Choice_ECG_Header";
-      button_Choice_ECG_Header.Size = new Size(126, 24);
+      button_Choice_ECG_Header.Size = new Size(118, 24);
       button_Choice_ECG_Header.TabIndex = 0;
       button_Choice_ECG_Header.Text = "Выбор ЭКГ";
       button_Choice_ECG_Header.UseVisualStyleBackColor = true;
@@ -223,7 +214,7 @@
       tableLayoutPanel_Pneumogram.RowCount = 2;
       tableLayoutPanel_Pneumogram.RowStyles.Add(new RowStyle(SizeType.Percent, 46.6666679F));
       tableLayoutPanel_Pneumogram.RowStyles.Add(new RowStyle(SizeType.Percent, 53.3333321F));
-      tableLayoutPanel_Pneumogram.Size = new Size(141, 59);
+      tableLayoutPanel_Pneumogram.Size = new Size(132, 59);
       tableLayoutPanel_Pneumogram.TabIndex = 2;
       // 
       // comboBox_del_R
@@ -231,9 +222,9 @@
       comboBox_del_R.Dock = DockStyle.Top;
       comboBox_del_R.Font = new Font("Times New Roman", 9F);
       comboBox_del_R.FormattingEnabled = true;
-      comboBox_del_R.Location = new Point(79, 3);
+      comboBox_del_R.Location = new Point(74, 3);
       comboBox_del_R.Name = "comboBox_del_R";
-      comboBox_del_R.Size = new Size(59, 23);
+      comboBox_del_R.Size = new Size(55, 23);
       comboBox_del_R.TabIndex = 0;
       // 
       // comboBox_Omega_R
@@ -241,9 +232,9 @@
       comboBox_Omega_R.Dock = DockStyle.Top;
       comboBox_Omega_R.Font = new Font("Times New Roman", 9F);
       comboBox_Omega_R.FormattingEnabled = true;
-      comboBox_Omega_R.Location = new Point(79, 30);
+      comboBox_Omega_R.Location = new Point(74, 30);
       comboBox_Omega_R.Name = "comboBox_Omega_R";
-      comboBox_Omega_R.Size = new Size(59, 23);
+      comboBox_Omega_R.Size = new Size(55, 23);
       comboBox_Omega_R.TabIndex = 1;
       // 
       // label_Text_del_R
@@ -252,7 +243,7 @@
       label_Text_del_R.Dock = DockStyle.Top;
       label_Text_del_R.Location = new Point(3, 0);
       label_Text_del_R.Name = "label_Text_del_R";
-      label_Text_del_R.Size = new Size(70, 19);
+      label_Text_del_R.Size = new Size(65, 19);
       label_Text_del_R.TabIndex = 0;
       label_Text_del_R.Text = "ΔR";
       // 
@@ -263,7 +254,7 @@
       label_Text_Omega_R.Font = new Font("Times New Roman", 12F);
       label_Text_Omega_R.Location = new Point(3, 27);
       label_Text_Omega_R.Name = "label_Text_Omega_R";
-      label_Text_Omega_R.Size = new Size(70, 19);
+      label_Text_Omega_R.Size = new Size(65, 19);
       label_Text_Omega_R.TabIndex = 1;
       label_Text_Omega_R.Text = "Омега R";
       // 
@@ -274,7 +265,7 @@
       numericUpDown_Heart_Rate_Control.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
       numericUpDown_Heart_Rate_Control.Name = "numericUpDown_Heart_Rate_Control";
       numericUpDown_Heart_Rate_Control.RightToLeft = RightToLeft.Yes;
-      numericUpDown_Heart_Rate_Control.Size = new Size(141, 26);
+      numericUpDown_Heart_Rate_Control.Size = new Size(132, 26);
       numericUpDown_Heart_Rate_Control.TabIndex = 3;
       // 
       // label_Text_Name_Selected_ECG_Header
@@ -290,83 +281,25 @@
       // 
       // groupBox_Other_Functions
       // 
-      groupBox_Other_Functions.Controls.Add(splitContainer_Other_functions);
       groupBox_Other_Functions.Controls.Add(button_Other_Functions_Load);
       groupBox_Other_Functions.Controls.Add(radioButton_Square);
       groupBox_Other_Functions.Controls.Add(radioButton_Triangle);
       groupBox_Other_Functions.Controls.Add(radioButton_Sine);
       groupBox_Other_Functions.Dock = DockStyle.Bottom;
       groupBox_Other_Functions.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
-      groupBox_Other_Functions.Location = new Point(0, 381);
+      groupBox_Other_Functions.Location = new Point(0, 350);
       groupBox_Other_Functions.Name = "groupBox_Other_Functions";
-      groupBox_Other_Functions.Size = new Size(277, 134);
+      groupBox_Other_Functions.Size = new Size(260, 190);
       groupBox_Other_Functions.TabIndex = 1;
       groupBox_Other_Functions.TabStop = false;
       groupBox_Other_Functions.Text = "Other functions";
-      // 
-      // splitContainer_Other_functions
-      // 
-      splitContainer_Other_functions.Dock = DockStyle.Fill;
-      splitContainer_Other_functions.Location = new Point(3, 97);
-      splitContainer_Other_functions.Name = "splitContainer_Other_functions";
-      // 
-      // splitContainer_Other_functions.Panel1
-      // 
-      splitContainer_Other_functions.Panel1.Controls.Add(label_Text_Other_functions_Amplitude);
-      splitContainer_Other_functions.Panel1.Controls.Add(label_Text_Other_functions_Frequency);
-      // 
-      // splitContainer_Other_functions.Panel2
-      // 
-      splitContainer_Other_functions.Panel2.Controls.Add(domainUpDown1);
-      splitContainer_Other_functions.Panel2.Controls.Add(domainUpDown_Frequency);
-      splitContainer_Other_functions.Size = new Size(271, 34);
-      splitContainer_Other_functions.SplitterDistance = 137;
-      splitContainer_Other_functions.TabIndex = 3;
-      // 
-      // label_Text_Other_functions_Amplitude
-      // 
-      label_Text_Other_functions_Amplitude.AutoSize = true;
-      label_Text_Other_functions_Amplitude.Location = new Point(12, 23);
-      label_Text_Other_functions_Amplitude.Name = "label_Text_Other_functions_Amplitude";
-      label_Text_Other_functions_Amplitude.Size = new Size(62, 15);
-      label_Text_Other_functions_Amplitude.TabIndex = 2;
-      label_Text_Other_functions_Amplitude.Text = "Amplitude:";
-      // 
-      // label_Text_Other_functions_Frequency
-      // 
-      label_Text_Other_functions_Frequency.AutoSize = true;
-      label_Text_Other_functions_Frequency.Location = new Point(12, 2);
-      label_Text_Other_functions_Frequency.Name = "label_Text_Other_functions_Frequency";
-      label_Text_Other_functions_Frequency.Size = new Size(61, 15);
-      label_Text_Other_functions_Frequency.TabIndex = 1;
-      label_Text_Other_functions_Frequency.Text = "Frequency:";
-      // 
-      // domainUpDown1
-      // 
-      domainUpDown1.Dock = DockStyle.Top;
-      domainUpDown1.Location = new Point(0, 21);
-      domainUpDown1.Name = "domainUpDown1";
-      domainUpDown1.RightToLeft = RightToLeft.Yes;
-      domainUpDown1.Size = new Size(130, 21);
-      domainUpDown1.TabIndex = 1;
-      domainUpDown1.Text = "1,000";
-      // 
-      // domainUpDown_Frequency
-      // 
-      domainUpDown_Frequency.Dock = DockStyle.Top;
-      domainUpDown_Frequency.Location = new Point(0, 0);
-      domainUpDown_Frequency.Name = "domainUpDown_Frequency";
-      domainUpDown_Frequency.RightToLeft = RightToLeft.Yes;
-      domainUpDown_Frequency.Size = new Size(130, 21);
-      domainUpDown_Frequency.TabIndex = 0;
-      domainUpDown_Frequency.Text = "1,00";
       // 
       // button_Other_Functions_Load
       // 
       button_Other_Functions_Load.Dock = DockStyle.Top;
       button_Other_Functions_Load.Location = new Point(3, 74);
       button_Other_Functions_Load.Name = "button_Other_Functions_Load";
-      button_Other_Functions_Load.Size = new Size(271, 23);
+      button_Other_Functions_Load.Size = new Size(254, 23);
       button_Other_Functions_Load.TabIndex = 0;
       button_Other_Functions_Load.Text = "Load";
       button_Other_Functions_Load.UseVisualStyleBackColor = true;
@@ -377,7 +310,7 @@
       radioButton_Square.Dock = DockStyle.Top;
       radioButton_Square.Location = new Point(3, 55);
       radioButton_Square.Name = "radioButton_Square";
-      radioButton_Square.Size = new Size(271, 19);
+      radioButton_Square.Size = new Size(254, 19);
       radioButton_Square.TabIndex = 2;
       radioButton_Square.TabStop = true;
       radioButton_Square.Text = "Square";
@@ -389,7 +322,7 @@
       radioButton_Triangle.Dock = DockStyle.Top;
       radioButton_Triangle.Location = new Point(3, 36);
       radioButton_Triangle.Name = "radioButton_Triangle";
-      radioButton_Triangle.Size = new Size(271, 19);
+      radioButton_Triangle.Size = new Size(254, 19);
       radioButton_Triangle.TabIndex = 1;
       radioButton_Triangle.TabStop = true;
       radioButton_Triangle.Text = "Triangle";
@@ -401,7 +334,7 @@
       radioButton_Sine.Dock = DockStyle.Top;
       radioButton_Sine.Location = new Point(3, 17);
       radioButton_Sine.Name = "radioButton_Sine";
-      radioButton_Sine.Size = new Size(271, 19);
+      radioButton_Sine.Size = new Size(254, 19);
       radioButton_Sine.TabIndex = 0;
       radioButton_Sine.TabStop = true;
       radioButton_Sine.Text = "Sine";
@@ -414,7 +347,7 @@
       groupBox_Output.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
       groupBox_Output.Location = new Point(0, 108);
       groupBox_Output.Name = "groupBox_Output";
-      groupBox_Output.Size = new Size(277, 64);
+      groupBox_Output.Size = new Size(260, 64);
       groupBox_Output.TabIndex = 0;
       groupBox_Output.TabStop = false;
       groupBox_Output.Text = "Output";
@@ -432,15 +365,15 @@
       tableLayoutPanel_Buttons.RowCount = 2;
       tableLayoutPanel_Buttons.RowStyles.Add(new RowStyle(SizeType.Percent, 70.7317047F));
       tableLayoutPanel_Buttons.RowStyles.Add(new RowStyle(SizeType.Percent, 29.2682934F));
-      tableLayoutPanel_Buttons.Size = new Size(271, 41);
+      tableLayoutPanel_Buttons.Size = new Size(254, 41);
       tableLayoutPanel_Buttons.TabIndex = 0;
       // 
       // button_Output_Stop
       // 
       button_Output_Stop.Dock = DockStyle.Fill;
-      button_Output_Stop.Location = new Point(138, 3);
+      button_Output_Stop.Location = new Point(130, 3);
       button_Output_Stop.Name = "button_Output_Stop";
-      button_Output_Stop.Size = new Size(130, 23);
+      button_Output_Stop.Size = new Size(121, 23);
       button_Output_Stop.TabIndex = 1;
       button_Output_Stop.Text = "Stop";
       button_Output_Stop.UseVisualStyleBackColor = true;
@@ -450,7 +383,7 @@
       button_Output_Play.Dock = DockStyle.Fill;
       button_Output_Play.Location = new Point(3, 3);
       button_Output_Play.Name = "button_Output_Play";
-      button_Output_Play.Size = new Size(129, 23);
+      button_Output_Play.Size = new Size(121, 23);
       button_Output_Play.TabIndex = 0;
       button_Output_Play.Text = "Play";
       button_Output_Play.UseVisualStyleBackColor = true;
@@ -463,7 +396,7 @@
       groupBox_PC_Display_Parameters.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
       groupBox_PC_Display_Parameters.Location = new Point(0, 0);
       groupBox_PC_Display_Parameters.Name = "groupBox_PC_Display_Parameters";
-      groupBox_PC_Display_Parameters.Size = new Size(277, 108);
+      groupBox_PC_Display_Parameters.Size = new Size(260, 108);
       groupBox_PC_Display_Parameters.TabIndex = 0;
       groupBox_PC_Display_Parameters.TabStop = false;
       groupBox_PC_Display_Parameters.Text = "PC Display Parameters";
@@ -524,7 +457,7 @@
       panel_Value_PC_Display_Parameters.Controls.Add(domainUpDown_PC_Display_Parameters_Graph_Start);
       panel_Value_PC_Display_Parameters.Controls.Add(domainUpDown_PC_Display_Parameters_Amplitude);
       panel_Value_PC_Display_Parameters.Dock = DockStyle.Right;
-      panel_Value_PC_Display_Parameters.Location = new Point(222, 17);
+      panel_Value_PC_Display_Parameters.Location = new Point(205, 17);
       panel_Value_PC_Display_Parameters.Margin = new Padding(15);
       panel_Value_PC_Display_Parameters.Name = "panel_Value_PC_Display_Parameters";
       panel_Value_PC_Display_Parameters.Size = new Size(52, 88);
@@ -621,11 +554,6 @@
       ((System.ComponentModel.ISupportInitialize)numericUpDown_Heart_Rate_Control).EndInit();
       groupBox_Other_Functions.ResumeLayout(false);
       groupBox_Other_Functions.PerformLayout();
-      splitContainer_Other_functions.Panel1.ResumeLayout(false);
-      splitContainer_Other_functions.Panel1.PerformLayout();
-      splitContainer_Other_functions.Panel2.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)splitContainer_Other_functions).EndInit();
-      splitContainer_Other_functions.ResumeLayout(false);
       groupBox_Output.ResumeLayout(false);
       tableLayoutPanel_Buttons.ResumeLayout(false);
       groupBox_PC_Display_Parameters.ResumeLayout(false);
@@ -657,15 +585,10 @@
     private TableLayoutPanel tableLayoutPanel_Buttons;
     private Button button_Output_Stop;
     private GroupBox groupBox_Other_Functions;
-    private SplitContainer splitContainer_Other_functions;
     private Button button_Other_Functions_Load;
     private RadioButton radioButton_Square;
     private RadioButton radioButton_Triangle;
     private RadioButton radioButton_Sine;
-    private Label label_Text_Other_functions_Amplitude;
-    private Label label_Text_Other_functions_Frequency;
-    private DomainUpDown domainUpDown1;
-    private DomainUpDown domainUpDown_Frequency;
     private GroupBox groupBox_CreateTest;
     private SplitContainer splitContainer_Create_Test;
     private CheckBox checkBox_Heart_Rate_Control;
