@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Test_Cardiograph.Properties.DB;
 using Test_Cardiograph.Services.Controller.MECG.structs;
+using static System.Net.WebRequestMethods;
 
 namespace Test_Cardiograph.Services.StaticClass
 {
   /// <summary>
-  /// Работа с базой данных.
+  /// Работа (ну вывадвать их названия для списка в частности) с базой данных ЭКГ.
   /// </summary>
   static class DBEnumMeneger
   {
@@ -78,7 +79,9 @@ namespace Test_Cardiograph.Services.StaticClass
     /// <returns>Названия БД.</returns>
     private static string[] LoadNameAXION()
     {
-      return new string[] {"1","2","3" };
+      var a = Directory.GetFiles(string.Join("\\", Environment.CurrentDirectory.Split('\\'), 0, Environment.CurrentDirectory.Split('\\').Length - 3) + $"\\Properties\\DB\\AXION", "*.hea");
+
+      return a;
     }
 
     /// <summary>
@@ -92,9 +95,9 @@ namespace Test_Cardiograph.Services.StaticClass
       [0..(AppDomain.CurrentDomain.BaseDirectory.Split('\\').Count() - 4)])
       + "\\Properties\\DB\\ROHMINE\\Result.txt";
 
-      if (!File.Exists(path))
+      if (!System.IO.File.Exists(path))
         throw new FileNotFoundException("Файл с именем Result.txt не найден");
-      strings = File.ReadAllText(path).Split(new char[] { '\n', '\t' }).Where((num, index) => (index % 2 == 0 && num.Length>0)).ToArray();
+      strings = System.IO.File.ReadAllText(path).Split(new char[] { '\n', '\t' }).Where((num, index) => (index % 2 == 0 && num.Length>0)).ToArray();
       return strings;
     }
 

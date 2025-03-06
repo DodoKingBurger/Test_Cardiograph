@@ -50,9 +50,24 @@ namespace Test_Cardiograph.Services.view
     /// <param name="waveForm"></param>
     /// <param name="freaquency"></param>
     /// <param name="amplitude"></param>
-    public delegate void LoadECG_WaveForm(WAVEFORM_TYPE waveForm, double freaquency, double[] amplitude);
+    public delegate void LoadECG_WaveForm(WAVEFORM_TYPE waveForm, double freaquency, double amplitude);
 
+    /// <summary>
+    /// Получения варианта ЭКГ с разными формами волны.
+    /// </summary>
     public event LoadECG_WaveForm? Load_WaveFormFile;
+
+    /// <summary>
+    /// Отправляем путь чтобы получить информация об ЭКГ *hea файле.
+    /// </summary>
+    /// <param name="filepath">путь к файлу.</param>
+    /// <returns>Заголовок ЭКГ.</returns>
+    public delegate ECG_HEADER TakeInfo_FromHeaFile(string filepath);
+
+    /// <summary>
+    /// Получить информацию о запрошеном ЭКГ файле
+    /// </summary>
+    public event TakeInfo_FromHeaFile TakeInfo;
 
     #endregion
 
@@ -76,26 +91,46 @@ namespace Test_Cardiograph.Services.view
     }
 
     /// <summary>
-    /// Загрузка выбранного варинта.
+    /// Закрытие формы.
+    /// </summary>
+    /// <param name="sender">Форма.</param>
+    /// <param name="e">Закрытие.</param>
+    private void DB_CTSCSE_DBForm_FormClosing(object sender, FormClosingEventArgs e)
+    {
+
+    }
+
+    /// <summary>
+    /// Отправка в главную форму выбранного варинта.
     /// </summary>
     /// <param name="sender">Кнопка.</param>
     /// <param name="e">Click.</param>
-    private void button_Load_Waveform_Click(object sender, EventArgs e)
+    private void button_Choise_ECG_Click(object sender, EventArgs e)
     {
-      //try
-      //{
-      //  if (!LoadFileCTSCSE.Equals(null))
-      //  {
-      //    LoadFileCTSCSE((CTSCSE_Database)EnumWorcker.GetEnumName(checkedListBox_Database, typeof(CTSCSE_Database)),
-      //      (CTSCSE_Noise)EnumWorcker.GetEnumName(checkedListBox_DB_Noise, typeof(CTSCSE_Noise)));
-      //  }
-      //  else
-      //    throw new NullReferenceException("Ошибка отправки, событие не было переданно");
-      //}
-      //catch (Exception ex)
-      //{
-      //  MessageBox.Show($"{ex.Message}");
-      //}
+      switch (EnumWorcker.EnumValueOf(comboBox_List_DB.SelectedItem.ToString(), typeof(EnumDB)))
+      {
+        case EnumDB.CSE:
+          Send_CTSCSE();
+          break;
+        case EnumDB.CTS:
+          Send_CTSCSE();
+          break;
+        
+        case EnumDB.РОХМИНЭ:
+          Send_ROHMiN();
+            break;
+
+        case EnumDB.AXION:
+          Send_AXION();
+          break;
+
+        case EnumDB.WaveForm:
+          Send_Waveform();
+          break;
+
+        default:
+          throw new ArgumentException("Неизвестный выбранный элемент.");
+      }
     }
 
     /// <summary>
@@ -144,18 +179,6 @@ namespace Test_Cardiograph.Services.view
     }
 
     /// <summary>
-    /// Функция для события обновления.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void resultBoxList_ItemCheck(object sender, ItemCheckEventArgs e)
-    {
-      var dv = checkedListBox_Database.DataSource as DataView;
-      var drv = dv[e.Index];
-      drv["Checked"] = e.NewValue == CheckState.Checked ? true : false;
-    }
-
-    /// <summary>
     /// Изменение выбранного индекса в выподающем списке.
     /// </summary>
     /// <param name="sender">comboBox.</param>
@@ -163,8 +186,7 @@ namespace Test_Cardiograph.Services.view
     private void comboBox_List_DB_SelectedIndexChanged(object sender, EventArgs e)
     {
       System.Windows.Forms.ComboBox comboBox = sender as System.Windows.Forms.ComboBox;
-
-      if(EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)).Equals(EnumDB.CSE)|| EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)).Equals(EnumDB.CTS))
+      if (EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)).Equals(EnumDB.CSE) || EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)).Equals(EnumDB.CTS))
       {
         tableLayoutPanel_NoisePanel.Visible = true;
       }
@@ -172,8 +194,7 @@ namespace Test_Cardiograph.Services.view
       {
         tableLayoutPanel_NoisePanel.Visible = false;
       }
-
-      switch(EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)))
+      switch (EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)))
       {
         case EnumDB.CSE:
           tableLayoutPanel_NoisePanel.Visible = true;
@@ -189,27 +210,17 @@ namespace Test_Cardiograph.Services.view
           splitContainer_Other_Parametrs.Visible = false;
           break;
       }
-
-
-
       var elArray = DBEnumMeneger.LoadListDBName((EnumDB)EnumWorcker.EnumValueOf(comboBox.SelectedItem.ToString(), typeof(EnumDB)));
-
       var dt = new DataTable();
-
       dt.Columns.Add("Item", typeof(string));
       dt.Columns.Add("Checked", typeof(bool));
-
       foreach (var item in elArray) dt.Rows.Add(item, false);
-
       dt.AcceptChanges();
-
       checkedListBox_Database.DataSource = dt.DefaultView;
       checkedListBox_Database.DisplayMember = "Item";
       checkedListBox_Database.ValueMember = "Item";
-
       // If not already done by the designer...
       checkedListBox_Database.ItemCheck += resultBoxList_ItemCheck;
-
     }
 
     /// <summary>
@@ -217,14 +228,118 @@ namespace Test_Cardiograph.Services.view
     /// </summary>
     /// <param name="sender">Кнопка.</param>
     /// <param name="e">Клик.</param>
-    private void button_Load_hea_File_Click(object sender, EventArgs e)
+    private void button_Load_File_Click(object sender, EventArgs e)
     {
-      if (EnumWorcker.EnumValueOf(comboBox_List_DB.SelectedItem.ToString(), typeof(EnumDB)).Equals(EnumDB.CSE) || EnumWorcker.EnumValueOf(comboBox_List_DB.SelectedItem.ToString(), typeof(EnumDB)).Equals(EnumDB.CTS))
-      {
+      openFileDialog.FileName = "";
+      openFileDialog.Filter = "ECG_Header (*.hea)|*.hea| All files (*.*)|*.*";
+      openFileDialog.InitialDirectory = string.Join("\\", Environment.CurrentDirectory.Split('\\'), 0, Environment.CurrentDirectory.Split('\\').Length - 3) + "\\Properties\\DB";
 
+      if (openFileDialog.ShowDialog() == DialogResult.Cancel)
+        return;
+      if (!openFileDialog.FileName.Equals(string.Empty))
+      {// получаем выбранный файл
+        Load_ECGFile(openFileDialog.FileName);
+        Close();
       }
     }
+
     #endregion
+
+    #region Методы отправки данных в форму
+
+    /// <summary>
+    /// Функция вызовет нужное событие по отрпавки ECG из базы MECG. 
+    /// </summary>
+    private void Send_CTSCSE()
+    {
+      CTSCSE_Database cTSCSE = new CTSCSE_Database();
+      CTSCSE_Noise cTSCSE_Noise = new CTSCSE_Noise();
+
+      if (checkedListBox_Database.CheckedItems.Count == 1)
+      {
+        cTSCSE = (CTSCSE_Database)EnumWorcker.EnumValueOf(checkedListBox_Database.CheckedItems[0].ToString(), typeof(CTSCSE_Database));
+      }
+      else
+        cTSCSE = CTSCSE_Database.CTSCSE_MAX;
+
+      if(checkedListBox_DB_Noise.CheckedItems.Count == 1)
+      {
+        cTSCSE_Noise = (CTSCSE_Noise)EnumWorcker.EnumValueOf(checkedListBox_DB_Noise.CheckedItems[0].ToString(), typeof(CTSCSE_Noise));
+      }
+      else
+        cTSCSE_Noise = CTSCSE_Noise.CTSCSENoise_MAX;
+      Load_CTSCSEFile(cTSCSE, cTSCSE_Noise);
+    }
+
+    /// <summary>
+    /// Функция вызовет событие по отправки данных о форме волны.
+    /// </summary>
+    private void Send_Waveform()
+    {
+      WAVEFORM_TYPE type = new WAVEFORM_TYPE();
+      if (checkedListBox_Database.CheckedItems.Count == 1)
+      {
+        type = (WAVEFORM_TYPE)EnumWorcker.EnumValueOf(checkedListBox_Database.CheckedItems[0].ToString(), typeof(WAVEFORM_TYPE));
+      }
+      else
+        type = WAVEFORM_TYPE.WaveformSine;
+      Load_WaveFormFile(type, (double)numericUpDown_Frequency.Value, (double)numericUpDown_Amplitude.Value);
+    }
+
+    /// <summary>
+    /// Функция вызовет событие по отправки данных ROHMiN в форме ...
+    /// Думаю что работа как с чтением файла.
+    /// </summary>
+    private void Send_ROHMiN()
+    {
+      SearchFile("ROHMINE");
+    }
+
+    /// <summary>
+    /// Функция вызовет событие по отправки данных ROHMiN в форме ...
+    /// Думаю что работа как с чтением файла.
+    /// </summary>
+    private void Send_AXION()
+    {
+      SearchFile("AXION");
+    }
+
+    #endregion
+
+    /// <summary>
+    /// Функция для события обновления.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void resultBoxList_ItemCheck(object sender, ItemCheckEventArgs e)
+    {
+      var dv = checkedListBox_Database.DataSource as DataView;
+      var drv = dv[e.Index];
+      drv["Checked"] = e.NewValue == CheckState.Checked ? true : false;
+    }
+
+    /// <summary>
+    /// Осуществляет пойск файла по его названию.
+    /// </summary>
+    /// <param name="nameFile"></param>
+    /// <returns></returns>
+    private void SearchFile(string NameFolder)
+    {
+      string path = string.Join("\\", Environment.CurrentDirectory.Split('\\'), 0, Environment.CurrentDirectory.Split('\\').Length - 3) + $"\\Properties\\DB\\{NameFolder}";
+      if (checkedListBox_Database.CheckedItems.Count == 1)
+      {
+        if (File.Exists(path + $"\\{checkedListBox_Database.CheckedItems[0].ToString()}"))
+        {
+          path += checkedListBox_Database.CheckedItems[0].ToString();
+          Load_ECGFile(path);
+        }
+        else
+          MessageBox.Show("Не найден такой файл");
+      }
+      else
+        MessageBox.Show("Файл не выбран");
+    }
+
 
     #endregion
 

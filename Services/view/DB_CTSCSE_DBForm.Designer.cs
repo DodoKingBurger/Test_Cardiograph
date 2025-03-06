@@ -40,13 +40,14 @@
       numericUpDown_Amplitude = new NumericUpDown();
       numericUpDown_Frequency = new NumericUpDown();
       flowLayoutPanel1 = new FlowLayoutPanel();
-      button_Load_hea_File = new Button();
+      button_Load_File = new Button();
       comboBox_List_DB = new ComboBox();
-      button_Load_Waveform = new Button();
+      button_Choise_ECG = new Button();
       tableLayoutPanel_NoisePanel = new TableLayoutPanel();
       label_Text_NoisePanel = new Label();
       panel1 = new Panel();
       textBox_SearchName = new TextBox();
+      openFileDialog = new OpenFileDialog();
       ((System.ComponentModel.ISupportInitialize)splitContainer_MainForm).BeginInit();
       splitContainer_MainForm.Panel1.SuspendLayout();
       splitContainer_MainForm.Panel2.SuspendLayout();
@@ -175,6 +176,8 @@
       // 
       numericUpDown_Amplitude.Dock = DockStyle.Top;
       numericUpDown_Amplitude.Location = new Point(0, 21);
+      numericUpDown_Amplitude.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+      numericUpDown_Amplitude.Minimum = new decimal(new int[] { 500, 0, 0, int.MinValue });
       numericUpDown_Amplitude.Name = "numericUpDown_Amplitude";
       numericUpDown_Amplitude.Size = new Size(91, 21);
       numericUpDown_Amplitude.TabIndex = 1;
@@ -183,31 +186,33 @@
       // 
       numericUpDown_Frequency.Dock = DockStyle.Top;
       numericUpDown_Frequency.Location = new Point(0, 0);
+      numericUpDown_Frequency.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+      numericUpDown_Frequency.Minimum = new decimal(new int[] { 500, 0, 0, int.MinValue });
       numericUpDown_Frequency.Name = "numericUpDown_Frequency";
       numericUpDown_Frequency.Size = new Size(91, 21);
       numericUpDown_Frequency.TabIndex = 0;
       // 
       // flowLayoutPanel1
       // 
-      flowLayoutPanel1.Controls.Add(button_Load_hea_File);
+      flowLayoutPanel1.Controls.Add(button_Load_File);
       flowLayoutPanel1.Controls.Add(comboBox_List_DB);
-      flowLayoutPanel1.Controls.Add(button_Load_Waveform);
+      flowLayoutPanel1.Controls.Add(button_Choise_ECG);
       flowLayoutPanel1.Dock = DockStyle.Top;
       flowLayoutPanel1.Location = new Point(3, 17);
       flowLayoutPanel1.Name = "flowLayoutPanel1";
       flowLayoutPanel1.Size = new Size(190, 88);
       flowLayoutPanel1.TabIndex = 4;
       // 
-      // button_Load_hea_File
+      // button_Load_File
       // 
-      button_Load_hea_File.Dock = DockStyle.Top;
-      button_Load_hea_File.Location = new Point(3, 3);
-      button_Load_hea_File.Name = "button_Load_hea_File";
-      button_Load_hea_File.Size = new Size(183, 23);
-      button_Load_hea_File.TabIndex = 0;
-      button_Load_hea_File.Text = "Загрузить (*hea)";
-      button_Load_hea_File.UseVisualStyleBackColor = true;
-      button_Load_hea_File.Click += button_Load_hea_File_Click;
+      button_Load_File.Dock = DockStyle.Top;
+      button_Load_File.Location = new Point(3, 3);
+      button_Load_File.Name = "button_Load_File";
+      button_Load_File.Size = new Size(183, 23);
+      button_Load_File.TabIndex = 0;
+      button_Load_File.Text = "Загрузить (*hea)";
+      button_Load_File.UseVisualStyleBackColor = true;
+      button_Load_File.Click += button_Load_File_Click;
       // 
       // comboBox_List_DB
       // 
@@ -220,16 +225,16 @@
       comboBox_List_DB.TabIndex = 1;
       comboBox_List_DB.SelectedIndexChanged += comboBox_List_DB_SelectedIndexChanged;
       // 
-      // button_Load_Waveform
+      // button_Choise_ECG
       // 
-      button_Load_Waveform.Dock = DockStyle.Top;
-      button_Load_Waveform.Location = new Point(3, 61);
-      button_Load_Waveform.Name = "button_Load_Waveform";
-      button_Load_Waveform.Size = new Size(183, 23);
-      button_Load_Waveform.TabIndex = 2;
-      button_Load_Waveform.Text = "Выбрать ЭКГ";
-      button_Load_Waveform.UseVisualStyleBackColor = true;
-      button_Load_Waveform.Click += button_Load_Waveform_Click;
+      button_Choise_ECG.Dock = DockStyle.Top;
+      button_Choise_ECG.Location = new Point(3, 61);
+      button_Choise_ECG.Name = "button_Choise_ECG";
+      button_Choise_ECG.Size = new Size(183, 23);
+      button_Choise_ECG.TabIndex = 2;
+      button_Choise_ECG.Text = "Выбрать ЭКГ";
+      button_Choise_ECG.UseVisualStyleBackColor = true;
+      button_Choise_ECG.Click += button_Choise_ECG_Click;
       // 
       // tableLayoutPanel_NoisePanel
       // 
@@ -274,6 +279,10 @@
       textBox_SearchName.TabIndex = 2;
       textBox_SearchName.TextChanged += textBox_SearchName_TextChanged;
       // 
+      // openFileDialog
+      // 
+      openFileDialog.FileName = "openFileDialog";
+      // 
       // DB_CTSCSE_DBForm
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
@@ -284,6 +293,7 @@
       Icon = (Icon)resources.GetObject("$this.Icon");
       Name = "DB_CTSCSE_DBForm";
       Text = "DB_CTSCSE_DB";
+      FormClosing += DB_CTSCSE_DBForm_FormClosing;
       Load += DB_CTSCSE_DB_Load;
       splitContainer_MainForm.Panel1.ResumeLayout(false);
       splitContainer_MainForm.Panel2.ResumeLayout(false);
@@ -314,14 +324,14 @@
     private Label label2;
     private Label label_Text_Noice;
     private Label label_Text_CSE;
-    private Button button_Load_hea_File;
+    private Button button_Load_File;
     private SplitContainer splitContainer_MainForm;
     private TableLayoutPanel tableLayoutPanel_Menu_Panel;
     private TextBox textBox_SearchName;
     private ComboBox comboBox_List_DB;
     private GroupBox groupBox_Menu;
     private FlowLayoutPanel flowLayoutPanel1;
-    private Button button_Load_Waveform;
+    private Button button_Choise_ECG;
     private TableLayoutPanel tableLayoutPanel_NoisePanel;
     private Label label_Text_NoisePanel;
     private Panel panel1;
@@ -330,5 +340,6 @@
     private Label label_Text_Other_functions_Frequency;
     private NumericUpDown numericUpDown_Amplitude;
     private NumericUpDown numericUpDown_Frequency;
+    private OpenFileDialog openFileDialog;
   }
 }
