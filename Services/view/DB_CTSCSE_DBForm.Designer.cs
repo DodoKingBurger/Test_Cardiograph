@@ -37,6 +37,8 @@
       splitContainer_Other_Parametrs = new SplitContainer();
       label_Text_Other_functions_Amplitude = new Label();
       label_Text_Other_functions_Frequency = new Label();
+      numericUpDown_Amplitude = new NumericUpDown();
+      numericUpDown_Frequency = new NumericUpDown();
       flowLayoutPanel1 = new FlowLayoutPanel();
       button_Load_hea_File = new Button();
       comboBox_List_DB = new ComboBox();
@@ -45,8 +47,6 @@
       label_Text_NoisePanel = new Label();
       panel1 = new Panel();
       textBox_SearchName = new TextBox();
-      numericUpDown_Frequency = new NumericUpDown();
-      numericUpDown_Amplitude = new NumericUpDown();
       ((System.ComponentModel.ISupportInitialize)splitContainer_MainForm).BeginInit();
       splitContainer_MainForm.Panel1.SuspendLayout();
       splitContainer_MainForm.Panel2.SuspendLayout();
@@ -57,11 +57,11 @@
       splitContainer_Other_Parametrs.Panel1.SuspendLayout();
       splitContainer_Other_Parametrs.Panel2.SuspendLayout();
       splitContainer_Other_Parametrs.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)numericUpDown_Amplitude).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)numericUpDown_Frequency).BeginInit();
       flowLayoutPanel1.SuspendLayout();
       tableLayoutPanel_NoisePanel.SuspendLayout();
       panel1.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)numericUpDown_Frequency).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)numericUpDown_Amplitude).BeginInit();
       SuspendLayout();
       // 
       // checkedListBox_Database
@@ -72,10 +72,9 @@
       checkedListBox_Database.Font = new Font("Times New Roman", 12F);
       checkedListBox_Database.FormattingEnabled = true;
       checkedListBox_Database.Location = new Point(0, 0);
-      checkedListBox_Database.MultiColumn = true;
       checkedListBox_Database.Name = "checkedListBox_Database";
       checkedListBox_Database.ScrollAlwaysVisible = true;
-      checkedListBox_Database.Size = new Size(402, 412);
+      checkedListBox_Database.Size = new Size(228, 412);
       checkedListBox_Database.TabIndex = 0;
       checkedListBox_Database.ItemCheck += checkedListBox_ItemCheck;
       // 
@@ -86,7 +85,7 @@
       checkedListBox_DB_Noise.FormattingEnabled = true;
       checkedListBox_DB_Noise.Location = new Point(3, 21);
       checkedListBox_DB_Noise.Name = "checkedListBox_DB_Noise";
-      checkedListBox_DB_Noise.Size = new Size(191, 239);
+      checkedListBox_DB_Noise.Size = new Size(190, 239);
       checkedListBox_DB_Noise.TabIndex = 0;
       checkedListBox_DB_Noise.ItemCheck += checkedListBox_ItemCheck;
       // 
@@ -104,8 +103,8 @@
       // 
       splitContainer_MainForm.Panel2.Controls.Add(panel1);
       splitContainer_MainForm.Panel2.Controls.Add(textBox_SearchName);
-      splitContainer_MainForm.Size = new Size(609, 433);
-      splitContainer_MainForm.SplitterDistance = 203;
+      splitContainer_MainForm.Size = new Size(434, 433);
+      splitContainer_MainForm.SplitterDistance = 202;
       splitContainer_MainForm.TabIndex = 3;
       // 
       // tableLayoutPanel_Menu_Panel
@@ -120,7 +119,7 @@
       tableLayoutPanel_Menu_Panel.RowCount = 2;
       tableLayoutPanel_Menu_Panel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
       tableLayoutPanel_Menu_Panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 269F));
-      tableLayoutPanel_Menu_Panel.Size = new Size(203, 433);
+      tableLayoutPanel_Menu_Panel.Size = new Size(202, 433);
       tableLayoutPanel_Menu_Panel.TabIndex = 0;
       // 
       // groupBox_Menu
@@ -130,7 +129,7 @@
       groupBox_Menu.Dock = DockStyle.Top;
       groupBox_Menu.Location = new Point(3, 3);
       groupBox_Menu.Name = "groupBox_Menu";
-      groupBox_Menu.Size = new Size(197, 158);
+      groupBox_Menu.Size = new Size(196, 158);
       groupBox_Menu.TabIndex = 1;
       groupBox_Menu.TabStop = false;
       groupBox_Menu.Text = "Меню";
@@ -150,8 +149,8 @@
       // 
       splitContainer_Other_Parametrs.Panel2.Controls.Add(numericUpDown_Amplitude);
       splitContainer_Other_Parametrs.Panel2.Controls.Add(numericUpDown_Frequency);
-      splitContainer_Other_Parametrs.Size = new Size(191, 50);
-      splitContainer_Other_Parametrs.SplitterDistance = 96;
+      splitContainer_Other_Parametrs.Size = new Size(190, 50);
+      splitContainer_Other_Parametrs.SplitterDistance = 95;
       splitContainer_Other_Parametrs.TabIndex = 5;
       // 
       // label_Text_Other_functions_Amplitude
@@ -172,6 +171,22 @@
       label_Text_Other_functions_Frequency.TabIndex = 1;
       label_Text_Other_functions_Frequency.Text = "Frequency:";
       // 
+      // numericUpDown_Amplitude
+      // 
+      numericUpDown_Amplitude.Dock = DockStyle.Top;
+      numericUpDown_Amplitude.Location = new Point(0, 21);
+      numericUpDown_Amplitude.Name = "numericUpDown_Amplitude";
+      numericUpDown_Amplitude.Size = new Size(91, 21);
+      numericUpDown_Amplitude.TabIndex = 1;
+      // 
+      // numericUpDown_Frequency
+      // 
+      numericUpDown_Frequency.Dock = DockStyle.Top;
+      numericUpDown_Frequency.Location = new Point(0, 0);
+      numericUpDown_Frequency.Name = "numericUpDown_Frequency";
+      numericUpDown_Frequency.Size = new Size(91, 21);
+      numericUpDown_Frequency.TabIndex = 0;
+      // 
       // flowLayoutPanel1
       // 
       flowLayoutPanel1.Controls.Add(button_Load_hea_File);
@@ -180,7 +195,7 @@
       flowLayoutPanel1.Dock = DockStyle.Top;
       flowLayoutPanel1.Location = new Point(3, 17);
       flowLayoutPanel1.Name = "flowLayoutPanel1";
-      flowLayoutPanel1.Size = new Size(191, 88);
+      flowLayoutPanel1.Size = new Size(190, 88);
       flowLayoutPanel1.TabIndex = 4;
       // 
       // button_Load_hea_File
@@ -228,7 +243,7 @@
       tableLayoutPanel_NoisePanel.RowCount = 2;
       tableLayoutPanel_NoisePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 6.84410667F));
       tableLayoutPanel_NoisePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 93.15589F));
-      tableLayoutPanel_NoisePanel.Size = new Size(197, 263);
+      tableLayoutPanel_NoisePanel.Size = new Size(196, 263);
       tableLayoutPanel_NoisePanel.TabIndex = 2;
       // 
       // label_Text_NoisePanel
@@ -247,7 +262,7 @@
       panel1.Dock = DockStyle.Fill;
       panel1.Location = new Point(0, 21);
       panel1.Name = "panel1";
-      panel1.Size = new Size(402, 412);
+      panel1.Size = new Size(228, 412);
       panel1.TabIndex = 3;
       // 
       // textBox_SearchName
@@ -255,31 +270,15 @@
       textBox_SearchName.Dock = DockStyle.Top;
       textBox_SearchName.Location = new Point(0, 0);
       textBox_SearchName.Name = "textBox_SearchName";
-      textBox_SearchName.Size = new Size(402, 21);
+      textBox_SearchName.Size = new Size(228, 21);
       textBox_SearchName.TabIndex = 2;
       textBox_SearchName.TextChanged += textBox_SearchName_TextChanged;
-      // 
-      // numericUpDown_Frequency
-      // 
-      numericUpDown_Frequency.Dock = DockStyle.Top;
-      numericUpDown_Frequency.Location = new Point(0, 0);
-      numericUpDown_Frequency.Name = "numericUpDown_Frequency";
-      numericUpDown_Frequency.Size = new Size(91, 21);
-      numericUpDown_Frequency.TabIndex = 0;
-      // 
-      // numericUpDown_Amplitude
-      // 
-      numericUpDown_Amplitude.Dock = DockStyle.Top;
-      numericUpDown_Amplitude.Location = new Point(0, 21);
-      numericUpDown_Amplitude.Name = "numericUpDown_Amplitude";
-      numericUpDown_Amplitude.Size = new Size(91, 21);
-      numericUpDown_Amplitude.TabIndex = 1;
       // 
       // DB_CTSCSE_DBForm
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
-      ClientSize = new Size(609, 433);
+      ClientSize = new Size(434, 433);
       Controls.Add(splitContainer_MainForm);
       Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
       Icon = (Icon)resources.GetObject("$this.Icon");
@@ -298,12 +297,12 @@
       splitContainer_Other_Parametrs.Panel2.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)splitContainer_Other_Parametrs).EndInit();
       splitContainer_Other_Parametrs.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)numericUpDown_Amplitude).EndInit();
+      ((System.ComponentModel.ISupportInitialize)numericUpDown_Frequency).EndInit();
       flowLayoutPanel1.ResumeLayout(false);
       tableLayoutPanel_NoisePanel.ResumeLayout(false);
       tableLayoutPanel_NoisePanel.PerformLayout();
       panel1.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)numericUpDown_Frequency).EndInit();
-      ((System.ComponentModel.ISupportInitialize)numericUpDown_Amplitude).EndInit();
       ResumeLayout(false);
     }
 

@@ -87,33 +87,15 @@ namespace Test_Cardiograph.Services.StaticClass
     /// <returns>Названия БД.</returns>
     private static string[] LoadNameROHMINE()
     {
-
       string path = String.Join("\\",
       AppDomain.CurrentDomain.BaseDirectory.Split('\\')
       [0..(AppDomain.CurrentDomain.BaseDirectory.Split('\\').Count() - 4)])
       + "\\Properties\\DB\\ROHMINE\\Result.txt";
-      var task = ReadROHMINE_File(path);
-      if (File.Exists(path))
-      {
-        MessageBox.Show("Я видеть Result");
-        
-      }
 
-
+      if (!File.Exists(path))
+        throw new FileNotFoundException("Файл с именем Result.txt не найден");
+      strings = File.ReadAllText(path).Split(new char[] { '\n', '\t' }).Where((num, index) => (index % 2 == 0 && num.Length>0)).ToArray();
       return strings;
-    }
-
-    /// <summary>
-    /// Открывает *txt файл.
-    /// </summary>
-    /// <param name="path">Путь к файлу.</param>
-    public static async Task ReadROHMINE_File(string path)
-    {
-      using (StreamReader reader = new StreamReader(path))
-      {
-        string text = await reader.ReadToEndAsync();
-        strings = text.Split(new char[] { '\n', '\t' }).Where((num, index) => index % 2 == 0).ToArray();
-      }
     }
 
     /// <summary>
