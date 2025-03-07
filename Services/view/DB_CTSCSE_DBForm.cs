@@ -22,6 +22,11 @@ namespace Test_Cardiograph.Services.view
     #region Поля и свойства
 
     /// <summary>
+    /// Путь к папке с БД. Просто подставь название папки;
+    /// </summary>
+    private string pathFolderDB = string.Join("\\", Environment.CurrentDirectory.Split('\\'), 0, Environment.CurrentDirectory.Split('\\').Length - 3) + $"\\Properties\\DB\\";
+
+    /// <summary>
     /// Загружает по выбранной вариации заголовочный файл ЭКГ в МЕКГ.
     /// </summary>
     /// <param name="database">выбранный из списка вариант ЭКГ.</param>
@@ -56,18 +61,6 @@ namespace Test_Cardiograph.Services.view
     /// Получения варианта ЭКГ с разными формами волны.
     /// </summary>
     public event LoadECG_WaveForm? Load_WaveFormFile;
-
-    /// <summary>
-    /// Отправляем путь чтобы получить информация об ЭКГ *hea файле.
-    /// </summary>
-    /// <param name="filepath">путь к файлу.</param>
-    /// <returns>Заголовок ЭКГ.</returns>
-    public delegate ECG_HEADER TakeInfo_FromHeaFile(string filepath);
-
-    /// <summary>
-    /// Получить информацию о запрошеном ЭКГ файле
-    /// </summary>
-    public event TakeInfo_FromHeaFile TakeInfo;
 
     #endregion
 
@@ -115,19 +108,15 @@ namespace Test_Cardiograph.Services.view
         case EnumDB.CTS:
           Send_CTSCSE();
           break;
-        
         case EnumDB.РОХМИНЭ:
           Send_ROHMiN();
             break;
-
         case EnumDB.AXION:
           Send_AXION();
           break;
-
         case EnumDB.WaveForm:
           Send_Waveform();
           break;
-
         default:
           throw new ArgumentException("Неизвестный выбранный элемент.");
       }
@@ -157,8 +146,6 @@ namespace Test_Cardiograph.Services.view
     /// <param name="e">Изменение текста в контроле.</param>
     private void textBox_SearchName_TextChanged(object sender, EventArgs e)
     {
-      //checkedListBox_Database.Items.Contains();
-
       if (comboBox_List_DB.SelectedIndex != -1)
       {
         var dv = checkedListBox_Database.DataSource as DataView;
@@ -175,7 +162,6 @@ namespace Test_Cardiograph.Services.view
           checkedListBox_Database.SetItemChecked(i, chk);
         }
       }
-
     }
 
     /// <summary>
@@ -232,7 +218,7 @@ namespace Test_Cardiograph.Services.view
     {
       openFileDialog.FileName = "";
       openFileDialog.Filter = "ECG_Header (*.hea)|*.hea| All files (*.*)|*.*";
-      openFileDialog.InitialDirectory = string.Join("\\", Environment.CurrentDirectory.Split('\\'), 0, Environment.CurrentDirectory.Split('\\').Length - 3) + "\\Properties\\DB";
+      openFileDialog.InitialDirectory = pathFolderDB;
 
       if (openFileDialog.ShowDialog() == DialogResult.Cancel)
         return;
@@ -325,13 +311,11 @@ namespace Test_Cardiograph.Services.view
     /// <returns></returns>
     private void SearchFile(string NameFolder)
     {
-      string path = string.Join("\\", Environment.CurrentDirectory.Split('\\'), 0, Environment.CurrentDirectory.Split('\\').Length - 3) + $"\\Properties\\DB\\{NameFolder}";
       if (checkedListBox_Database.CheckedItems.Count == 1)
       {
-        if (File.Exists(path + $"\\{checkedListBox_Database.CheckedItems[0].ToString()}"))
+        if (File.Exists(pathFolderDB + $"{NameFolder}\\{checkedListBox_Database.SelectedValue}"))
         {
-          path += checkedListBox_Database.CheckedItems[0].ToString();
-          Load_ECGFile(path);
+          Load_ECGFile(pathFolderDB + $"{NameFolder}\\{checkedListBox_Database.SelectedValue}");
         }
         else
           MessageBox.Show("Не найден такой файл");

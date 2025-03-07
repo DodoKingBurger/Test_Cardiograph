@@ -1,6 +1,9 @@
 using Test_Cardiograph.Controller;
+using Test_Cardiograph.Properties.DB;
 using Test_Cardiograph.Services.Controller.MECG.structs;
+using Test_Cardiograph.Services.Model.Stages;
 using Test_Cardiograph.Services.Model.Stages.descendant.Test;
+using Test_Cardiograph.Services.StaticClass;
 using Test_Cardiograph.Services.view;
 
 namespace Test_Cardiograph
@@ -40,6 +43,8 @@ namespace Test_Cardiograph
       MECG20 = new MECG();
       numericUpDown_Heart_Rate_Control.Enabled = false;
       tableLayoutPanel_Pneumogram.Enabled = false;
+      comboBox_Type_Command_View.Items.AddRange(Enum.GetValues(typeof(EnumOptionsStages))
+  .OfType<EnumOptionsStages>().Select(val => EnumWorcker.GetDescription(val)).ToArray());
     }
 
     /// <summary>
