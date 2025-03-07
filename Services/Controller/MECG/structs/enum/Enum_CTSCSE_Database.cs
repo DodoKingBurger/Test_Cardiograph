@@ -11,7 +11,7 @@ namespace Test_Cardiograph.Services.Controller.MECG.structs
   /// <summary>
   /// База данных CTSCSE
   /// </summary>
-  public enum CTSCSE_Database : int
+  public enum Enum_CTSCSE_Database : int
   {
     [Description("ANE20000")] CTSCSE_ANE20000 = 0,
     [Description("ANE20001")] CTSCSE_ANE20001 = 1,

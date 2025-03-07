@@ -15,11 +15,11 @@ namespace Test_Cardiograph.Services.Model.Stages.descendant.Command.descendant
     /// <summary>
     /// База данных.
     /// </summary>
-    public CTSCSE_Database database { get; set; }
+    public Enum_CTSCSE_Database database { get; set; }
 
     /// <summary>
     /// Дополнительные параметры записи. Шумы.
     /// </summary>
-    public CTSCSE_Noise noise { get; set; }
+    public Enum_CTSCSE_Noise noise { get; set; }
   }
 }

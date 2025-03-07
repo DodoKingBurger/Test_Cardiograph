@@ -252,8 +252,8 @@ namespace Test_Cardiograph.Services.Controller.MECG.dllController
     /// <returns>ECG_HEADER pointer, если метод был успешным. NULL в противном случае.</returns>
     [DllImport(DllFilePath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
     protected static extern IntPtr MECGLoadDatabaseCTS_CSE(
-      [param: MarshalAs(UnmanagedType.U4)] CTSCSE_Database database, 
-      [param: MarshalAs(UnmanagedType.U4)] CTSCSE_Noise noise);
+      [param: MarshalAs(UnmanagedType.U4)] Enum_CTSCSE_Database database, 
+      [param: MarshalAs(UnmanagedType.U4)] Enum_CTSCSE_Noise noise);
 
     /// <summary>
     /// Загрузить периодическую форму сигнала
@@ -267,7 +267,7 @@ namespace Test_Cardiograph.Services.Controller.MECG.dllController
     [DllImport(DllFilePath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
     [return: MarshalAs(UnmanagedType.Bool)]
     protected static extern bool MECGLoadWaveform(
-      [param: MarshalAs(UnmanagedType.U4)] WAVEFORM_TYPE waveform, 
+      [param: MarshalAs(UnmanagedType.U4)] Enum_WAVEFORM_TYPE waveform, 
       double frequency, 
       double amplitude);
 
@@ -281,7 +281,7 @@ namespace Test_Cardiograph.Services.Controller.MECG.dllController
     /// <returns>True, если метод был успешным. False в противном случае.</returns>
     [DllImport(DllFilePath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    protected static extern bool MECGLoadWaveformEx([param: MarshalAs(UnmanagedType.U4)] WAVEFORM_TYPE waveform, 
+    protected static extern bool MECGLoadWaveformEx([param: MarshalAs(UnmanagedType.U4)] Enum_WAVEFORM_TYPE waveform, 
       double frequency, 
       [MarshalAs(UnmanagedType.LPArray, SizeConst = 8)] double[] amplitude);
 

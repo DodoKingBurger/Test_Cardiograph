@@ -56,24 +56,24 @@ namespace Test_Cardiograph.Services.StaticClass
     /// <returns>Возвращает выбранынй элемент из переданного listBox.</returns>
     public static object GetEnumName(CheckedListBox sender, Type enums)
     {
-      if (enums.Name == typeof(CTSCSE_Noise).Name)
+      if (enums.Name == typeof(Enum_CTSCSE_Noise).Name)
       {
         switch (sender.CheckedItems.Count)
         {
           case 1:
-            return EnumValueOf(sender.CheckedItems[0].ToString(), typeof(CTSCSE_Noise));
+            return EnumValueOf(sender.CheckedItems[0].ToString(), typeof(Enum_CTSCSE_Noise));
           default:
-            return EnumValueOf(sender.Items[14].ToString(), typeof(CTSCSE_Noise));
+            return EnumValueOf(sender.Items[14].ToString(), typeof(Enum_CTSCSE_Noise));
         }
       }
-      else if (enums.Name == typeof(CTSCSE_Database).Name)
+      else if (enums.Name == typeof(Enum_CTSCSE_Database).Name)
       {
         switch (sender.SelectedItems.Count)
         {
           case 1:
-            return EnumValueOf(sender.CheckedItems[0].ToString(), typeof(CTSCSE_Database));
+            return EnumValueOf(sender.CheckedItems[0].ToString(), typeof(Enum_CTSCSE_Database));
           default:
-            return EnumValueOf(sender.Items[119].ToString(), typeof(CTSCSE_Database));
+            return EnumValueOf(sender.Items[119].ToString(), typeof(Enum_CTSCSE_Database));
         }
       }
       else

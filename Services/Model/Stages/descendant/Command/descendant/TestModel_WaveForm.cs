@@ -15,7 +15,7 @@ namespace Test_Cardiograph.Services.Model.Stages.descendant.Command.descendant
     /// <summary>
     /// Форма волны.
     /// </summary>
-    public WAVEFORM_TYPE Type { get; set; }
+    public Enum_WAVEFORM_TYPE Type { get; set; }
 
     /// <summary>
     /// Частота волны.

@@ -26,7 +26,7 @@ namespace Test_Cardiograph.Services.view
     /// </summary>
     /// <param name="database">выбранный из списка вариант ЭКГ.</param>
     /// <param name="noise">Список шумов.</param>
-    public delegate void LoadECG_CTSCSE(CTSCSE_Database database, CTSCSE_Noise noise);
+    public delegate void LoadECG_CTSCSE(Enum_CTSCSE_Database database, Enum_CTSCSE_Noise noise);
 
     /// <summary>
     /// Загрзука в МЕКГ файла из БД Атласа (CTS) или Европейской (CSE).
@@ -50,7 +50,7 @@ namespace Test_Cardiograph.Services.view
     /// <param name="waveForm"></param>
     /// <param name="freaquency"></param>
     /// <param name="amplitude"></param>
-    public delegate void LoadECG_WaveForm(WAVEFORM_TYPE waveForm, double freaquency, double amplitude);
+    public delegate void LoadECG_WaveForm(Enum_WAVEFORM_TYPE waveForm, double freaquency, double amplitude);
 
     /// <summary>
     /// Получения варианта ЭКГ с разными формами волны.
@@ -84,8 +84,8 @@ namespace Test_Cardiograph.Services.view
     {
       tableLayoutPanel_NoisePanel.Visible = false;
       splitContainer_Other_Parametrs.Visible = false;
-      checkedListBox_DB_Noise.DataSource = Enum.GetValues(typeof(CTSCSE_Noise))
-        .OfType<CTSCSE_Noise>().Select(val => EnumWorcker.GetDescription(val)).ToArray();
+      checkedListBox_DB_Noise.DataSource = Enum.GetValues(typeof(Enum_CTSCSE_Noise))
+        .OfType<Enum_CTSCSE_Noise>().Select(val => EnumWorcker.GetDescription(val)).ToArray();
       comboBox_List_DB.Items.AddRange(Enum.GetValues(typeof(EnumDB))
         .OfType<EnumDB>().Select(val => EnumWorcker.GetDescription(val)).ToArray());
     }
@@ -252,22 +252,22 @@ namespace Test_Cardiograph.Services.view
     /// </summary>
     private void Send_CTSCSE()
     {
-      CTSCSE_Database cTSCSE = new CTSCSE_Database();
-      CTSCSE_Noise cTSCSE_Noise = new CTSCSE_Noise();
+      Enum_CTSCSE_Database cTSCSE = new Enum_CTSCSE_Database();
+      Enum_CTSCSE_Noise cTSCSE_Noise = new Enum_CTSCSE_Noise();
 
       if (checkedListBox_Database.CheckedItems.Count == 1)
       {
-        cTSCSE = (CTSCSE_Database)EnumWorcker.EnumValueOf(checkedListBox_Database.CheckedItems[0].ToString(), typeof(CTSCSE_Database));
+        cTSCSE = (Enum_CTSCSE_Database)EnumWorcker.EnumValueOf(checkedListBox_Database.CheckedItems[0].ToString(), typeof(Enum_CTSCSE_Database));
       }
       else
-        cTSCSE = CTSCSE_Database.CTSCSE_MAX;
+        cTSCSE = Enum_CTSCSE_Database.CTSCSE_MAX;
 
       if(checkedListBox_DB_Noise.CheckedItems.Count == 1)
       {
-        cTSCSE_Noise = (CTSCSE_Noise)EnumWorcker.EnumValueOf(checkedListBox_DB_Noise.CheckedItems[0].ToString(), typeof(CTSCSE_Noise));
+        cTSCSE_Noise = (Enum_CTSCSE_Noise)EnumWorcker.EnumValueOf(checkedListBox_DB_Noise.CheckedItems[0].ToString(), typeof(Enum_CTSCSE_Noise));
       }
       else
-        cTSCSE_Noise = CTSCSE_Noise.CTSCSENoise_MAX;
+        cTSCSE_Noise = Enum_CTSCSE_Noise.CTSCSENoise_MAX;
       Load_CTSCSEFile(cTSCSE, cTSCSE_Noise);
     }
 
@@ -276,13 +276,13 @@ namespace Test_Cardiograph.Services.view
     /// </summary>
     private void Send_Waveform()
     {
-      WAVEFORM_TYPE type = new WAVEFORM_TYPE();
+      Enum_WAVEFORM_TYPE type = new Enum_WAVEFORM_TYPE();
       if (checkedListBox_Database.CheckedItems.Count == 1)
       {
-        type = (WAVEFORM_TYPE)EnumWorcker.EnumValueOf(checkedListBox_Database.CheckedItems[0].ToString(), typeof(WAVEFORM_TYPE));
+        type = (Enum_WAVEFORM_TYPE)EnumWorcker.EnumValueOf(checkedListBox_Database.CheckedItems[0].ToString(), typeof(Enum_WAVEFORM_TYPE));
       }
       else
-        type = WAVEFORM_TYPE.WaveformSine;
+        type = Enum_WAVEFORM_TYPE.WaveformSine;
       Load_WaveFormFile(type, (double)numericUpDown_Frequency.Value, (double)numericUpDown_Amplitude.Value);
     }
 

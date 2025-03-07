@@ -87,7 +87,7 @@ namespace Test_Cardiograph
     /// </summary>
     /// <param name="database">База данных CTSCSE</param>
     /// <param name="noise">Фильтр шумов.</param>
-    private void LoadDatabaseCTS_CSE(CTSCSE_Database database, CTSCSE_Noise noise)
+    private void LoadDatabaseCTS_CSE(Enum_CTSCSE_Database database, Enum_CTSCSE_Noise noise)
     {
       try
       {

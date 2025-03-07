@@ -59,8 +59,8 @@ namespace Test_Cardiograph.Services.StaticClass
     /// <returns>Названия БД.</returns>
     private static string[] LoadNameCTS()
     {
-        return Enum.GetValues(typeof(CTSCSE_Database))
-        .OfType<CTSCSE_Database>().Select(val => EnumWorcker.GetDescription(val)).Take(19).ToArray();
+        return Enum.GetValues(typeof(Enum_CTSCSE_Database))
+        .OfType<Enum_CTSCSE_Database>().Select(val => EnumWorcker.GetDescription(val)).Take(19).ToArray();
     }
 
     /// <summary>
@@ -69,8 +69,8 @@ namespace Test_Cardiograph.Services.StaticClass
     /// <returns>Названия БД.</returns>
     private static string[] LoadNameCTE()
     {
-      return Enum.GetValues(typeof(CTSCSE_Database))
-      .OfType<CTSCSE_Database>().Select(val => EnumWorcker.GetDescription(val)).Skip(19).ToArray();
+      return Enum.GetValues(typeof(Enum_CTSCSE_Database))
+      .OfType<Enum_CTSCSE_Database>().Select(val => EnumWorcker.GetDescription(val)).Skip(19).ToArray();
     }
 
     /// <summary>
@@ -79,9 +79,12 @@ namespace Test_Cardiograph.Services.StaticClass
     /// <returns>Названия БД.</returns>
     private static string[] LoadNameAXION()
     {
-      var a = Directory.GetFiles(string.Join("\\", Environment.CurrentDirectory.Split('\\'), 0, Environment.CurrentDirectory.Split('\\').Length - 3) + $"\\Properties\\DB\\AXION", "*.hea");
-
-      return a;
+      List<string> FileName = new List<string>(); 
+      foreach(var str in Directory.GetFiles(string.Join("\\", Environment.CurrentDirectory.Split('\\'), 0, Environment.CurrentDirectory.Split('\\').Length - 3) + $"\\Properties\\DB\\AXION", "*.hea"))
+      {
+        FileName.Add(str.Split('\\').Last());
+      }
+      return FileName.ToArray();
     }
 
     /// <summary>
@@ -107,8 +110,8 @@ namespace Test_Cardiograph.Services.StaticClass
     /// <returns>Список возможных Форм волн.</returns>
     private static string[] LoadNameWaveForm()
     {
-      return Enum.GetValues(typeof(WAVEFORM_TYPE))
-      .OfType<WAVEFORM_TYPE>().Select(val => EnumWorcker.GetDescription(val)).ToArray();
+      return Enum.GetValues(typeof(Enum_WAVEFORM_TYPE))
+      .OfType<Enum_WAVEFORM_TYPE>().Select(val => EnumWorcker.GetDescription(val)).ToArray();
     }
 
     #endregion

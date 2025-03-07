@@ -180,7 +180,7 @@ namespace Test_Cardiograph.Controller
     /// <param name="amplitude">амплитуда Амплитуда напряжение. Единица измерения: мВpp.
     ///</param>
     /// <returns>True, если метод был успешным. False в противном случае.</returns>
-    public void load_waveform(WAVEFORM_TYPE _TYPE, double freaquency, double amplitude)
+    public void load_waveform(Enum_WAVEFORM_TYPE _TYPE, double freaquency, double amplitude)
     {
       if (freaquency < 250)
       {
@@ -200,7 +200,7 @@ namespace Test_Cardiograph.Controller
     /// <param name="frequency">частота Частота. Единица: Гц. Разрешение: 0,01 Гц. Диапазон: 0~100 Гц.</param>
     /// <param name="amplitude">амплитуда Амплитуда напряжение. Единица: мВpp. 8 записей расположены в порядке LeadI, LeadII, V1~V6.</param>
     /// <returns>True, если метод был успешным. False в противном случае.</returns>
-    public void load_waveform(WAVEFORM_TYPE _TYPE, double freaquency, double[] amplitude)
+    public void load_waveform(Enum_WAVEFORM_TYPE _TYPE, double freaquency, double[] amplitude)
     {
       if (freaquency < 250)
       {
@@ -257,7 +257,7 @@ namespace Test_Cardiograph.Controller
     /// </summary>
     /// <param name="database"></param>
     /// <param name="noise"></param>
-    public void LoadDatabaseCTS_CSE(CTSCSE_Database database, CTSCSE_Noise noise)
+    public void LoadDatabaseCTS_CSE(Enum_CTSCSE_Database database, Enum_CTSCSE_Noise noise)
     {
       var header = MECGLoadDatabaseCTS_CSE(database, noise);
       if (IntPtr.Zero != header)

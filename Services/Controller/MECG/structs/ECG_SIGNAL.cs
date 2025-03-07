@@ -24,6 +24,6 @@ namespace Test_Cardiograph.Services.Controller.MECG.structs
     ///  По умолчанию отведение для сопоставления будет настроено соответствующим образом.
     ///  By default, the mapping lead will be configured appropriately.
     /// </summary>
-    public ECG_Lead MappingLead;               
+    public Enum_ECG_Lead MappingLead;               
   }
 }

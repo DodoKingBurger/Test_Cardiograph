@@ -10,7 +10,7 @@ namespace Test_Cardiograph.Services.Controller.MECG.structs
   /// <summary>
   /// ТИП_ФОРМЫ_ВОЛНЫ
   /// </summary>
-  public enum WAVEFORM_TYPE
+  public enum Enum_WAVEFORM_TYPE
   {
     /// <summary>
     /// Форма волныСинус,
