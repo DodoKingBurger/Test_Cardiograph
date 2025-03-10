@@ -70,12 +70,12 @@
       checkedListBox_Database.CheckOnClick = true;
       checkedListBox_Database.ColumnWidth = 150;
       checkedListBox_Database.Dock = DockStyle.Fill;
-      checkedListBox_Database.Font = new Font("Times New Roman", 12F);
+      checkedListBox_Database.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
       checkedListBox_Database.FormattingEnabled = true;
       checkedListBox_Database.Location = new Point(0, 0);
       checkedListBox_Database.Name = "checkedListBox_Database";
       checkedListBox_Database.ScrollAlwaysVisible = true;
-      checkedListBox_Database.Size = new Size(228, 412);
+      checkedListBox_Database.Size = new Size(228, 440);
       checkedListBox_Database.TabIndex = 0;
       checkedListBox_Database.ItemCheck += checkedListBox_ItemCheck;
       // 
@@ -84,9 +84,9 @@
       checkedListBox_DB_Noise.CheckOnClick = true;
       checkedListBox_DB_Noise.Dock = DockStyle.Fill;
       checkedListBox_DB_Noise.FormattingEnabled = true;
-      checkedListBox_DB_Noise.Location = new Point(3, 21);
+      checkedListBox_DB_Noise.Location = new Point(3, 22);
       checkedListBox_DB_Noise.Name = "checkedListBox_DB_Noise";
-      checkedListBox_DB_Noise.Size = new Size(190, 239);
+      checkedListBox_DB_Noise.Size = new Size(190, 256);
       checkedListBox_DB_Noise.TabIndex = 0;
       checkedListBox_DB_Noise.ItemCheck += checkedListBox_ItemCheck;
       // 
@@ -104,7 +104,7 @@
       // 
       splitContainer_MainForm.Panel2.Controls.Add(panel1);
       splitContainer_MainForm.Panel2.Controls.Add(textBox_SearchName);
-      splitContainer_MainForm.Size = new Size(434, 433);
+      splitContainer_MainForm.Size = new Size(434, 462);
       splitContainer_MainForm.SplitterDistance = 202;
       splitContainer_MainForm.TabIndex = 3;
       // 
@@ -119,8 +119,8 @@
       tableLayoutPanel_Menu_Panel.Name = "tableLayoutPanel_Menu_Panel";
       tableLayoutPanel_Menu_Panel.RowCount = 2;
       tableLayoutPanel_Menu_Panel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-      tableLayoutPanel_Menu_Panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 269F));
-      tableLayoutPanel_Menu_Panel.Size = new Size(202, 433);
+      tableLayoutPanel_Menu_Panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 287F));
+      tableLayoutPanel_Menu_Panel.Size = new Size(202, 462);
       tableLayoutPanel_Menu_Panel.TabIndex = 0;
       // 
       // groupBox_Menu
@@ -128,9 +128,10 @@
       groupBox_Menu.Controls.Add(splitContainer_Other_Parametrs);
       groupBox_Menu.Controls.Add(flowLayoutPanel1);
       groupBox_Menu.Dock = DockStyle.Top;
+      groupBox_Menu.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
       groupBox_Menu.Location = new Point(3, 3);
       groupBox_Menu.Name = "groupBox_Menu";
-      groupBox_Menu.Size = new Size(196, 158);
+      groupBox_Menu.Size = new Size(196, 169);
       groupBox_Menu.TabIndex = 1;
       groupBox_Menu.TabStop = false;
       groupBox_Menu.Text = "Меню";
@@ -138,7 +139,7 @@
       // splitContainer_Other_Parametrs
       // 
       splitContainer_Other_Parametrs.Dock = DockStyle.Fill;
-      splitContainer_Other_Parametrs.Location = new Point(3, 105);
+      splitContainer_Other_Parametrs.Location = new Point(3, 106);
       splitContainer_Other_Parametrs.Name = "splitContainer_Other_Parametrs";
       // 
       // splitContainer_Other_Parametrs.Panel1
@@ -150,7 +151,7 @@
       // 
       splitContainer_Other_Parametrs.Panel2.Controls.Add(numericUpDown_Amplitude);
       splitContainer_Other_Parametrs.Panel2.Controls.Add(numericUpDown_Frequency);
-      splitContainer_Other_Parametrs.Size = new Size(190, 50);
+      splitContainer_Other_Parametrs.Size = new Size(190, 49);
       splitContainer_Other_Parametrs.SplitterDistance = 95;
       splitContainer_Other_Parametrs.TabIndex = 5;
       // 
@@ -159,7 +160,7 @@
       label_Text_Other_functions_Amplitude.AutoSize = true;
       label_Text_Other_functions_Amplitude.Location = new Point(12, 23);
       label_Text_Other_functions_Amplitude.Name = "label_Text_Other_functions_Amplitude";
-      label_Text_Other_functions_Amplitude.Size = new Size(62, 15);
+      label_Text_Other_functions_Amplitude.Size = new Size(69, 16);
       label_Text_Other_functions_Amplitude.TabIndex = 2;
       label_Text_Other_functions_Amplitude.Text = "Amplitude:";
       // 
@@ -168,18 +169,18 @@
       label_Text_Other_functions_Frequency.AutoSize = true;
       label_Text_Other_functions_Frequency.Location = new Point(12, 2);
       label_Text_Other_functions_Frequency.Name = "label_Text_Other_functions_Frequency";
-      label_Text_Other_functions_Frequency.Size = new Size(61, 15);
+      label_Text_Other_functions_Frequency.Size = new Size(72, 16);
       label_Text_Other_functions_Frequency.TabIndex = 1;
       label_Text_Other_functions_Frequency.Text = "Frequency:";
       // 
       // numericUpDown_Amplitude
       // 
       numericUpDown_Amplitude.Dock = DockStyle.Top;
-      numericUpDown_Amplitude.Location = new Point(0, 21);
+      numericUpDown_Amplitude.Location = new Point(0, 22);
       numericUpDown_Amplitude.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
       numericUpDown_Amplitude.Minimum = new decimal(new int[] { 500, 0, 0, int.MinValue });
       numericUpDown_Amplitude.Name = "numericUpDown_Amplitude";
-      numericUpDown_Amplitude.Size = new Size(91, 21);
+      numericUpDown_Amplitude.Size = new Size(91, 22);
       numericUpDown_Amplitude.TabIndex = 1;
       // 
       // numericUpDown_Frequency
@@ -189,7 +190,7 @@
       numericUpDown_Frequency.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
       numericUpDown_Frequency.Minimum = new decimal(new int[] { 500, 0, 0, int.MinValue });
       numericUpDown_Frequency.Name = "numericUpDown_Frequency";
-      numericUpDown_Frequency.Size = new Size(91, 21);
+      numericUpDown_Frequency.Size = new Size(91, 22);
       numericUpDown_Frequency.TabIndex = 0;
       // 
       // flowLayoutPanel1
@@ -198,9 +199,9 @@
       flowLayoutPanel1.Controls.Add(comboBox_List_DB);
       flowLayoutPanel1.Controls.Add(button_Choise_ECG);
       flowLayoutPanel1.Dock = DockStyle.Top;
-      flowLayoutPanel1.Location = new Point(3, 17);
+      flowLayoutPanel1.Location = new Point(3, 19);
       flowLayoutPanel1.Name = "flowLayoutPanel1";
-      flowLayoutPanel1.Size = new Size(190, 88);
+      flowLayoutPanel1.Size = new Size(190, 94);
       flowLayoutPanel1.TabIndex = 4;
       // 
       // button_Load_File
@@ -208,7 +209,7 @@
       button_Load_File.Dock = DockStyle.Top;
       button_Load_File.Location = new Point(3, 3);
       button_Load_File.Name = "button_Load_File";
-      button_Load_File.Size = new Size(183, 23);
+      button_Load_File.Size = new Size(183, 25);
       button_Load_File.TabIndex = 0;
       button_Load_File.Text = "Загрузить (*hea)";
       button_Load_File.UseVisualStyleBackColor = true;
@@ -219,18 +220,18 @@
       comboBox_List_DB.Dock = DockStyle.Top;
       comboBox_List_DB.DropDownStyle = ComboBoxStyle.DropDownList;
       comboBox_List_DB.FormattingEnabled = true;
-      comboBox_List_DB.Location = new Point(3, 32);
+      comboBox_List_DB.Location = new Point(3, 34);
       comboBox_List_DB.Name = "comboBox_List_DB";
-      comboBox_List_DB.Size = new Size(183, 23);
+      comboBox_List_DB.Size = new Size(183, 24);
       comboBox_List_DB.TabIndex = 1;
       comboBox_List_DB.SelectedIndexChanged += comboBox_List_DB_SelectedIndexChanged;
       // 
       // button_Choise_ECG
       // 
       button_Choise_ECG.Dock = DockStyle.Top;
-      button_Choise_ECG.Location = new Point(3, 61);
+      button_Choise_ECG.Location = new Point(3, 66);
       button_Choise_ECG.Name = "button_Choise_ECG";
-      button_Choise_ECG.Size = new Size(183, 23);
+      button_Choise_ECG.Size = new Size(183, 25);
       button_Choise_ECG.TabIndex = 2;
       button_Choise_ECG.Text = "Выбрать ЭКГ";
       button_Choise_ECG.UseVisualStyleBackColor = true;
@@ -243,21 +244,21 @@
       tableLayoutPanel_NoisePanel.Controls.Add(checkedListBox_DB_Noise, 0, 1);
       tableLayoutPanel_NoisePanel.Controls.Add(label_Text_NoisePanel, 0, 0);
       tableLayoutPanel_NoisePanel.Dock = DockStyle.Top;
-      tableLayoutPanel_NoisePanel.Location = new Point(3, 167);
+      tableLayoutPanel_NoisePanel.Location = new Point(3, 178);
       tableLayoutPanel_NoisePanel.Name = "tableLayoutPanel_NoisePanel";
       tableLayoutPanel_NoisePanel.RowCount = 2;
       tableLayoutPanel_NoisePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 6.84410667F));
       tableLayoutPanel_NoisePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 93.15589F));
-      tableLayoutPanel_NoisePanel.Size = new Size(196, 263);
+      tableLayoutPanel_NoisePanel.Size = new Size(196, 281);
       tableLayoutPanel_NoisePanel.TabIndex = 2;
       // 
       // label_Text_NoisePanel
       // 
       label_Text_NoisePanel.AutoSize = true;
-      label_Text_NoisePanel.Font = new Font("Times New Roman", 12F);
+      label_Text_NoisePanel.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
       label_Text_NoisePanel.Location = new Point(3, 0);
       label_Text_NoisePanel.Name = "label_Text_NoisePanel";
-      label_Text_NoisePanel.Size = new Size(119, 18);
+      label_Text_NoisePanel.Size = new Size(104, 16);
       label_Text_NoisePanel.TabIndex = 1;
       label_Text_NoisePanel.Text = "Фильтры шумов";
       // 
@@ -265,9 +266,9 @@
       // 
       panel1.Controls.Add(checkedListBox_Database);
       panel1.Dock = DockStyle.Fill;
-      panel1.Location = new Point(0, 21);
+      panel1.Location = new Point(0, 22);
       panel1.Name = "panel1";
-      panel1.Size = new Size(228, 412);
+      panel1.Size = new Size(228, 440);
       panel1.TabIndex = 3;
       // 
       // textBox_SearchName
@@ -275,7 +276,7 @@
       textBox_SearchName.Dock = DockStyle.Top;
       textBox_SearchName.Location = new Point(0, 0);
       textBox_SearchName.Name = "textBox_SearchName";
-      textBox_SearchName.Size = new Size(228, 21);
+      textBox_SearchName.Size = new Size(228, 22);
       textBox_SearchName.TabIndex = 2;
       textBox_SearchName.TextChanged += textBox_SearchName_TextChanged;
       // 
@@ -285,11 +286,11 @@
       // 
       // DB_CTSCSE_DBForm
       // 
-      AutoScaleDimensions = new SizeF(7F, 15F);
+      AutoScaleDimensions = new SizeF(7F, 16F);
       AutoScaleMode = AutoScaleMode.Font;
-      ClientSize = new Size(434, 433);
+      ClientSize = new Size(434, 462);
       Controls.Add(splitContainer_MainForm);
-      Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
+      Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
       Icon = (Icon)resources.GetObject("$this.Icon");
       Name = "DB_CTSCSE_DBForm";
       Text = "DB_CTSCSE_DB";

@@ -15,6 +15,7 @@ using System.Reflection.PortableExecutable;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Test_Cardiograph.Controller
 {
@@ -186,7 +187,7 @@ namespace Test_Cardiograph.Controller
       {
         if (!MECGLoadWaveform(_TYPE, freaquency, amplitude))
           throw new Exception("Отправки команды с периодическую форму сигнала");
-        MECGEnableLoop(true);
+        //MECGEnableLoop(true);
       }
       else
         throw new ArgumentException("частота слишком велика");
@@ -206,7 +207,7 @@ namespace Test_Cardiograph.Controller
       {
         if (!MECGLoadWaveformEx(_TYPE, freaquency, amplitude))
           throw new Exception("Отправки команды с периодическую форму сигнала");
-        MECGEnableLoop(true);
+        //MECGEnableLoop(true);
       }
       else
         throw new ArgumentException("частота слишком велика");
@@ -216,40 +217,38 @@ namespace Test_Cardiograph.Controller
 
     #region Методы загрузки header файлов
 
-    /// <summary>
-    /// Загрузить базу данных Physionet 
-    /// Загрузить связанный файл *.dat. Перед вызовом функции необходимо, чтобы все файлы *.dat
-    /// были загружены и помещены в ту же папку, что и файл *.hea.
-    /// </summary>
-    /// <param name="filePath">путь для заголовочного файла.</param>
-    /// <exception cref="Exception">"Ошибка загрузки заголовочного файла."</exception>
-    public void Load_mit_database(string file_path)
-    {
-      if (string.Empty != file_path)
-      {
-        SendHeadearFileMECG(MECGLoadMITHeader(file_path));
-        MECGEnableLoop(true);
-      }
-      else
-        throw new ArgumentNullException($"Путь файла пустой.");
-    } 
+    ///// <summary>
+    ///// Загрузить базу данных Physionet 
+    ///// Загрузить связанный файл *.dat. Перед вызовом функции необходимо, чтобы все файлы *.dat
+    ///// были загружены и помещены в ту же папку, что и файл *.hea.
+    ///// </summary>
+    ///// <param name="filePath">путь для заголовочного файла.</param>
+    ///// <exception cref="Exception">"Ошибка загрузки заголовочного файла."</exception>
+    //public void Load_mit_database(string file_path)
+    //{
+    //  if (string.Empty != file_path)
+    //  {
+    //    SendHeadearFileMECG(MECGLoadMITHeader(file_path));
+    //  }
+    //  else
+    //    throw new ArgumentNullException($"Путь файла пустой.");
+    //} 
 
-    /// <summary>
-    /// Загрузить базу данных Physionet 
-    /// Загрузить связанный файл *.dat. Перед вызовом функции необходимо, чтобы все файлы *.dat
-    /// были загружены и помещены в ту же папку, что и файл *.hea.
-    /// </summary>
-    /// <exception cref="Exception">"Ошибка загрузки заголовочного файла."</exception>
-    public void Load_mit_database()
-    {
-      if (this.Header != null)
-      {
-        SendHeadearFileMECG(this.Header);
-        MECGEnableLoop(true);
-      }
-      else
-        throw new ArgumentNullException("Сохраненный заголовочный файл пуст.");
-    }
+    ///// <summary>
+    ///// Загрузить базу данных Physionet 
+    ///// Загрузить связанный файл *.dat. Перед вызовом функции необходимо, чтобы все файлы *.dat
+    ///// были загружены и помещены в ту же папку, что и файл *.hea.
+    ///// </summary>
+    ///// <exception cref="Exception">"Ошибка загрузки заголовочного файла."</exception>
+    //public void Load_mit_database()
+    //{
+    //  if (this.Header != null)
+    //  {
+    //    SendHeadearFileMECG(this.Header);
+    //  }
+    //  else
+    //    throw new ArgumentNullException("Сохраненный заголовочный файл пуст.");
+    //}
 
     /// <summary>
     /// Загрузить базу данных Physionet 
@@ -262,7 +261,7 @@ namespace Test_Cardiograph.Controller
       var header = MECGLoadDatabaseCTS_CSE(database, noise);
       if (IntPtr.Zero != header)
       {
-        MECGEnableLoop(true);
+        this.Header = new ECG_HEADER(Marshal.PtrToStructure<ECG_HEADER_output>(header));
         //if (!MECGLoadMITDatabase(new ECG_HEADER(Marshal.PtrToStructure<ECG_HEADER_output>(header))))
         //  throw new Exception("Ошибка загрузки заголовочного файла.");
       }
@@ -274,41 +273,51 @@ namespace Test_Cardiograph.Controller
 
     #region Методы отправки headear файлов
 
-    /// <summary>
-    /// Передает MECG команду для эмитации сигнала.
-    /// </summary>
-    /// <param name="_HEADER">Заголовочный файл, команда, вид сигнала.</param>
-    /// <exception cref="Exception">'Ошибка с файлами.'</exception>
-    public void SendHeadearFileMECG(IntPtr _HEADER)
-    {
-      if (IntPtr.Zero != _HEADER)
-      {
-        if (!MECGLoadMITDatabase(new ECG_HEADER(Marshal.PtrToStructure<ECG_HEADER_output>(_HEADER))))
-          throw new Exception("Ошибка загрузки заголовочного файла.");
-      }
-      else
-        throw new Exception("Ошибка, заголовочный файл равен null");
-    }
+    ///// <summary>
+    ///// Передает MECG команду для эмитации сигнала.
+    ///// </summary>
+    ///// <param name="_HEADER">Заголовочный файл, команда, вид сигнала.</param>
+    ///// <exception cref="Exception">'Ошибка с файлами.'</exception>
+    //public void SendHeadearFileMECG(IntPtr _HEADER)
+    //{
+    //  if (IntPtr.Zero != _HEADER)
+    //  {
+    //    if (!MECGLoadMITDatabase(new ECG_HEADER(Marshal.PtrToStructure<ECG_HEADER_output>(_HEADER))))
+    //      throw new Exception("Ошибка загрузки заголовочного файла.");
+    //  }
+    //  else
+    //    throw new Exception("Ошибка, заголовочный файл равен null");
+    //}
 
-    /// <summary>
-    /// Передает MECG команду для эмитации сигнала.
-    /// </summary>
-    /// <param name="_HEADER">Заголовочный файл, команда, вид сигнала.</param>
-    /// <exception cref="Exception">'Ошибка с файлами.'</exception>
-    public void SendHeadearFileMECG(ECG_HEADER _HEADER)
-    {
-      if (!_HEADER.Equals(null))
-      {
-        if (!MECGLoadMITDatabase(_HEADER))
-          throw new Exception("Ошибка загрузки заголовочного файла.");
-      }
-      else
-        throw new Exception("Ошибка, заголовочный файл равен null");
-    }
+    ///// <summary>
+    ///// Передает MECG команду для эмитации сигнала.
+    ///// </summary>
+    ///// <param name="_HEADER">Заголовочный файл, команда, вид сигнала.</param>
+    ///// <exception cref="Exception">'Ошибка с файлами.'</exception>
+    //public void SendHeadearFileMECG(ECG_HEADER _HEADER)
+    //{
+    //  if (!_HEADER.Equals(null))
+    //  {
+    //    if (!MECGLoadMITDatabase(_HEADER))
+    //      throw new Exception("Ошибка загрузки заголовочного файла.");
+    //  }
+    //  else
+    //    throw new Exception("Ошибка, заголовочный файл равен null");
+    //}
 
     #endregion
 
     #region Методы для уведомление о начале вывода
+
+    public void StartWork()
+    {
+      if (!this.Header.Equals(null))
+      {
+        MECGEnableLoop(true);
+      }
+      else
+        throw new ArgumentNullException("Нет загруженного ЭКГ.");
+    }
 
     /// <summary>
     /// Уведомить устройство о начале вывода
