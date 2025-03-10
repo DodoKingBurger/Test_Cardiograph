@@ -1,3 +1,4 @@
+using System.Windows.Forms;
 using Test_Cardiograph.Controller;
 using Test_Cardiograph.Properties.DB;
 using Test_Cardiograph.Services.Controller.MECG.structs;
@@ -36,6 +37,11 @@ namespace Test_Cardiograph
     /// Выбранный тест для редактирования.
     /// </summary>
     public TestModel SelectedTest;
+
+    /// <summary>
+    /// Индекс последнего выбранного теста.
+    /// </summary>
+    private int Cursore = 0;
 
     #endregion
 
@@ -115,7 +121,7 @@ namespace Test_Cardiograph
       }
       if (!this.Stages.Contains(SelectedTest))
       {
-        this.Stages.Insert(0,SelectedTest);
+        this.Stages.Insert(0, SelectedTest);
       }
       else
         MessageBox.Show("Такой этап уже существует.");
@@ -156,7 +162,18 @@ namespace Test_Cardiograph
     /// <param name="e"></param>
     private void button_Up_Click(object sender, EventArgs e)
     {
-
+      if (this.Stages.Any())
+      {
+        if (this.Stages.Contains(this.SelectedTest))
+        {
+          this.Stages.Remove(this.SelectedTest);
+          this.Stages.Insert(this.Cursore - 1, this.SelectedTest);
+        }
+        else
+          MessageBox.Show("Такого этапа нету в списке.");
+      }
+      else
+        MessageBox.Show("Список этапов пуст");
     }
 
     /// <summary>
@@ -166,7 +183,38 @@ namespace Test_Cardiograph
     /// <param name="e"></param>
     private void button_Down_Click(object sender, EventArgs e)
     {
+      if (this.Stages.Any())
+      {
+        if (this.Stages.Contains(this.SelectedTest))
+        {
+          this.Stages.Remove(this.SelectedTest);
+          if(this.Cursore +1 < this.Stages.Count)
+            this.Stages.Insert(this.Cursore + 1, this.SelectedTest);
+        }
+        else
+          MessageBox.Show("Такого этапа нету в списке.");
+      }
+      else
+        MessageBox.Show("Список этапов пуст");
+    }
 
+    /// <summary>
+    /// выбор этапа.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void checkedListBox_List_Stage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      string strGetLastItem = string.Empty;
+
+      foreach (object item in checkedListBox_List_Stage.CheckedItems)
+      {
+        strGetLastItem = (string)item;
+      }
+
+      this.Cursore = checkedListBox_List_Stage.Items.IndexOf(strGetLastItem);
+
+      this.SelectedTest = this.Stages[this.Cursore];
     }
 
     #endregion

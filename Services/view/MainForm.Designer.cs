@@ -388,6 +388,7 @@
       checkedListBox_List_Stage.Name = "checkedListBox_List_Stage";
       checkedListBox_List_Stage.Size = new Size(269, 723);
       checkedListBox_List_Stage.TabIndex = 0;
+      checkedListBox_List_Stage.SelectedIndexChanged += checkedListBox_List_Stage_SelectedIndexChanged;
       // 
       // tableLayoutPanel3
       // 
