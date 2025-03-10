@@ -25,13 +25,13 @@ namespace Test_Cardiograph.Services.Model.Stages.descendant.Test
     /// </summary>
     public int CHSS 
     { 
-      get { return chss; }
+      get { return this.chss; }
       set
       {
         if (value > 500 || value <= 0)
           throw new ArgumentException("ЧСС задан нереалистичный.");
         else
-          chss = value;
+          this.chss = value;
       }
     }
 
@@ -47,12 +47,12 @@ namespace Test_Cardiograph.Services.Model.Stages.descendant.Test
     /// </summary>
     public float dR
     {
-      get { return dr; }
+      get { return this.dr; }
       set
       {
         if (!value.Equals(null) && value >= 0)
         {
-          wR = value;
+          this.dr = value;
         }
         else
           throw new ArgumentException("wR = null или меньше 0");
@@ -66,12 +66,12 @@ namespace Test_Cardiograph.Services.Model.Stages.descendant.Test
     /// </summary>
     public float wR
     {
-      get { return wr; }
+      get { return this.wr; }
       set
       {
         if (!value.Equals(null) && value >= 0)
         {
-          wR = value;
+          this.wr = value;
         }
         else
           throw new ArgumentException("wR = null или меньше 0");

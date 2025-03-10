@@ -16,6 +16,6 @@ namespace Test_Cardiograph.Services.Model.Stages
     /// <summary>
     /// Имя Этапа.
     /// </summary>
-    public string NameTest { get; set; }
+    public string NameStage { get; set; }
   }
 }

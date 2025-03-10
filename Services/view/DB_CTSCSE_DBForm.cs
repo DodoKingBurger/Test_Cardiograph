@@ -120,6 +120,7 @@ namespace Test_Cardiograph.Services.view
         default:
           throw new ArgumentException("Неизвестный выбранный элемент.");
       }
+      Close();
     }
 
     /// <summary>
@@ -243,14 +244,14 @@ namespace Test_Cardiograph.Services.view
 
       if (checkedListBox_Database.CheckedItems.Count == 1)
       {
-        cTSCSE = (Enum_CTSCSE_Database)EnumWorcker.EnumValueOf(checkedListBox_Database.CheckedItems[0].ToString(), typeof(Enum_CTSCSE_Database));
+        cTSCSE = (Enum_CTSCSE_Database)EnumWorcker.EnumValueOf(checkedListBox_Database.SelectedValue.ToString(), typeof(Enum_CTSCSE_Database));
       }
       else
         cTSCSE = Enum_CTSCSE_Database.CTSCSE_MAX;
 
       if(checkedListBox_DB_Noise.CheckedItems.Count == 1)
       {
-        cTSCSE_Noise = (Enum_CTSCSE_Noise)EnumWorcker.EnumValueOf(checkedListBox_DB_Noise.CheckedItems[0].ToString(), typeof(Enum_CTSCSE_Noise));
+        cTSCSE_Noise = (Enum_CTSCSE_Noise)EnumWorcker.EnumValueOf(checkedListBox_DB_Noise.SelectedValue.ToString(), typeof(Enum_CTSCSE_Noise));
       }
       else
         cTSCSE_Noise = Enum_CTSCSE_Noise.CTSCSENoise_MAX;
@@ -265,7 +266,7 @@ namespace Test_Cardiograph.Services.view
       Enum_WAVEFORM_TYPE type = new Enum_WAVEFORM_TYPE();
       if (checkedListBox_Database.CheckedItems.Count == 1)
       {
-        type = (Enum_WAVEFORM_TYPE)EnumWorcker.EnumValueOf(checkedListBox_Database.CheckedItems[0].ToString(), typeof(Enum_WAVEFORM_TYPE));
+        type = (Enum_WAVEFORM_TYPE)EnumWorcker.EnumValueOf(checkedListBox_Database.SelectedValue.ToString(), typeof(Enum_WAVEFORM_TYPE));
       }
       else
         type = Enum_WAVEFORM_TYPE.WaveformSine;

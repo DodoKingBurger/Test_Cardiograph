@@ -4,6 +4,8 @@ using Test_Cardiograph.Properties.DB;
 using Test_Cardiograph.Services.Controller.MECG.structs;
 using Test_Cardiograph.Services.Model.Stages;
 using Test_Cardiograph.Services.Model.Stages.descendant.Command.descendant;
+using Test_Cardiograph.Services.Model.Stages.descendant.Notifications;
+using Test_Cardiograph.Services.Model.Stages.descendant.Notifications_confirmation;
 using Test_Cardiograph.Services.Model.Stages.descendant.Test;
 using Test_Cardiograph.Services.StaticClass;
 using Test_Cardiograph.Services.view;
@@ -29,19 +31,19 @@ namespace Test_Cardiograph
     /// <summary>
     /// Список тестов и присущий им порядковый номер.
     /// </summary>
-    public List<TestModel> Stages;
+    public List<Stages> Stages;
 
-    public Dictionary<string, List<TestModel>> Checks;
+    public Dictionary<string, List<Stages>> Checks;
 
     /// <summary>
     /// Выбранный тест для редактирования.
     /// </summary>
-    public TestModel SelectedTest;
+    public Stages SelectedTest;
 
     /// <summary>
     /// Индекс последнего выбранного теста.
     /// </summary>
-    private int Cursore = 0;
+    private int Cursore = 1;
 
     #endregion
 
@@ -59,6 +61,7 @@ namespace Test_Cardiograph
       tableLayoutPanel_Pneumogram.Enabled = false;
       comboBox_Type_Command_View.Items.AddRange(Enum.GetValues(typeof(EnumOptionsStages))
         .OfType<EnumOptionsStages>().Select(val => EnumWorcker.GetDescription(val)).ToArray());
+      Load_DB_Stage();
     }
 
     /// <summary>
@@ -93,38 +96,50 @@ namespace Test_Cardiograph
     /// <exception cref="Exception"></exception>
     private void button_Save_Selected_Stage_Click(object sender, EventArgs e)
     {
-      //Пока выглядит ужасно, надо как то резать.
-      switch (EnumWorcker.EnumValueOf(comboBox_Type_Command_View.SelectedItem.ToString(), typeof(EnumOptionsStages)))
-      {
-        case EnumOptionsStages.Command:
-          this.SelectedTest.NameTest = textBox_Name_Stage.Text;
-          this.SelectedTest.ControlCHSS = checkBox_Heart_Rate_Control.Checked;
-          if (this.SelectedTest.ControlCHSS)
-            this.SelectedTest.CHSS = ((int)numericUpDown_Heart_Rate_Control.Value);
-          this.SelectedTest.ControlPneumogram = checkBox_Pneumogram.Checked;
-          if (this.SelectedTest.ControlPneumogram)
-          {
-            //я сомневаюсь, надо список вариантов записать если что валидацию прикрутим.
-            this.SelectedTest.dR = (int)comboBox_del_R.SelectedItem;
-            this.SelectedTest.wR = (int)comboBox_Omega_R.SelectedItem;
-          }
-          break;
-        case EnumOptionsStages.Notifications:
-
-          break;
-
-        case EnumOptionsStages.NotificationsConfirmation:
-
-          break;
-        default:
-          throw new Exception("Выберите тип Этапа");
-      }
+      this.SelectedTest = (Stages)FillingStage();
       if (!this.Stages.Contains(SelectedTest))
       {
         this.Stages.Insert(0, SelectedTest);
       }
       else
         MessageBox.Show("Такой этап уже существует.");
+    }
+
+    /// <summary>
+    /// Заполнение этапа.
+    /// </summary>
+    /// <returns>Этап.</returns>
+    /// <exception cref="Exception"></exception>
+    private object FillingStage()
+    {
+      ////Пока выглядит ужасно, надо как то резать.
+      switch (EnumWorcker.EnumValueOf(comboBox_Type_Command_View.SelectedItem.ToString(), typeof(EnumOptionsStages)))
+      {
+        case EnumOptionsStages.Command:
+          if (this.SelectedTest is TestModel test)
+          {
+            test.NameStage = textBox_Name_Stage.Text;
+            test.ControlCHSS = checkBox_Heart_Rate_Control.Checked;
+            if (test.ControlCHSS)
+              test.CHSS = ((int)numericUpDown_Heart_Rate_Control.Value);
+            test.ControlPneumogram = checkBox_Pneumogram.Checked;
+            if (test.ControlPneumogram)
+            {
+              //я сомневаюсь, надо список вариантов записать если что валидацию прикрутим.
+              test.dR = (int)comboBox_del_R.SelectedItem;
+              test.wR = (int)comboBox_Omega_R.SelectedItem;
+            }
+            return test;
+          }
+          return null;
+        case EnumOptionsStages.Notifications:
+          return new Stage_Notifications() { NameStage = textBox_Name_Stage.Text, Notifications = textBox_Create_Notifications.Text };
+
+        case EnumOptionsStages.NotificationsConfirmation:
+          return new Stage_Notifications_Confirmation() { NameStage = textBox_Name_Stage.Text, Notifications_Confirmation = textBox_Notifications_Confirmation.Text };
+        default:
+          throw new Exception("Выберите тип Этапа");
+      }
     }
 
     #region Визуальные изменения формы 
@@ -188,7 +203,7 @@ namespace Test_Cardiograph
         if (this.Stages.Contains(this.SelectedTest))
         {
           this.Stages.Remove(this.SelectedTest);
-          if(this.Cursore +1 < this.Stages.Count)
+          if (this.Cursore + 1 < this.Stages.Count)
             this.Stages.Insert(this.Cursore + 1, this.SelectedTest);
         }
         else
@@ -203,20 +218,79 @@ namespace Test_Cardiograph
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void checkedListBox_List_Stage_SelectedIndexChanged(object sender, EventArgs e)
+    private void ListView_List_Stage_ItemCheck(object sender, ItemCheckEventArgs e)
     {
-      string strGetLastItem = string.Empty;
-
-      foreach (object item in checkedListBox_List_Stage.CheckedItems)
+      if(e.NewValue == CheckState.Checked)
       {
-        strGetLastItem = (string)item;
+        this.Cursore = e.Index;
+        this.SelectedTest = this.Stages[this.Cursore];
+        ViewSelectedStage();
       }
-
-      this.Cursore = checkedListBox_List_Stage.Items.IndexOf(strGetLastItem);
-
-      this.SelectedTest = this.Stages[this.Cursore];
     }
 
+    /// <summary>
+    /// Тут бы как бы почистить 
+    /// Ну вообще функция должна выводить информацию о выбранном этапе.
+    /// </summary>
+    private void ViewSelectedStage()
+    {
+      textBox_Name_Stage.Text = this.SelectedTest.NameStage;
+      if (this.SelectedTest is TestModel test)
+      {
+        groupBox_CreateTest.Visible = true;
+        groupBox_Create_Notifications.Visible = false;
+        groupBox_Notifications_Confirmation.Visible = false;
+        if (test.ControlCHSS)
+        {
+          checkBox_Heart_Rate_Control.Checked = true;
+          numericUpDown_Heart_Rate_Control.Value = test.CHSS;
+        }
+        if (test.ControlPneumogram)
+        {
+          checkBox_Pneumogram.Checked = true;
+          comboBox_del_R.Text = $"{test.dR}";
+          comboBox_Omega_R.Text = $"{test.wR}";
+        }
+      }
+      else if (this.SelectedTest is Stage_Notifications notifications)
+      {
+        groupBox_CreateTest.Visible = false;
+        groupBox_Create_Notifications.Visible = true;
+        groupBox_Notifications_Confirmation.Visible = false;
+        textBox_Create_Notifications.Text = notifications.Notifications;
+      }
+      else if (this.SelectedTest is Stage_Notifications_Confirmation notifications_Confirmation)
+      {
+        groupBox_CreateTest.Visible = false;
+        groupBox_Create_Notifications.Visible = false;
+        groupBox_Notifications_Confirmation.Visible = true;
+        textBox_Notifications_Confirmation.Text = notifications_Confirmation.Notifications_Confirmation;
+      }
+    }
+
+    /// <summary>
+    /// Тут будет згрзука файла с базой этапов.
+    /// </summary>
+    public void Load_DB_Stage()
+    {
+      var Wave = new TestModel_WaveForm() { NameStage = "Wave", ControlCHSS = true, CHSS = 3, ControlPneumogram = true, dR = 2, wR = 1, };
+
+      var Noti = new Stage_Notifications() { NameStage = "Notify", Notifications = " AAAAAAAA" };
+
+      var Noti_Comp = new Stage_Notifications_Confirmation() { NameStage = "Notify_Confirmation", Notifications_Confirmation = " AAAAAAAA" };
+      List<Stages> stages = new List<Stages>()
+      {
+        Wave,
+        Noti,
+        Noti_Comp
+      };
+      this.Stages = stages;
+
+      foreach (var row in stages)
+      {
+        ListView_List_Stage.Items.Add(new ListViewItem($"{row.NameStage}"));
+      }
+    }
     #endregion
 
     #region Методы для отправки в другие формы
@@ -296,5 +370,7 @@ namespace Test_Cardiograph
     }
 
     #endregion
+
+
   }
 }

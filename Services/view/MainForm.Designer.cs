@@ -40,7 +40,6 @@
       label_Text_del_R = new Label();
       label_Text_Omega_R = new Label();
       numericUpDown_Heart_Rate_Control = new NumericUpDown();
-      label_Text_Name_Selected_ECG_Header = new Label();
       MainPanel = new Panel();
       tableLayoutPanel_Main = new TableLayoutPanel();
       groupBox_Output = new GroupBox();
@@ -48,14 +47,14 @@
       splitContainer1 = new SplitContainer();
       groupBox_List_Stage = new GroupBox();
       splitContainer_List_Stage = new SplitContainer();
-      checkedListBox_List_Stage = new CheckedListBox();
+      ListView_List_Stage = new ListView();
       tableLayoutPanel3 = new TableLayoutPanel();
       button_Up = new Button();
       button_Down = new Button();
       groupBox_Create_Stage = new GroupBox();
       tableLayoutPanel1 = new TableLayoutPanel();
       groupBox_Notifications_Confirmation = new GroupBox();
-      textBox2 = new TextBox();
+      textBox_Notifications_Confirmation = new TextBox();
       groupBox_Create_Notifications = new GroupBox();
       textBox_Create_Notifications = new TextBox();
       splitContainer_Text_Name_Stage = new SplitContainer();
@@ -132,7 +131,6 @@
       // 
       splitContainer_Create_Test.Panel2.Controls.Add(tableLayoutPanel_Pneumogram);
       splitContainer_Create_Test.Panel2.Controls.Add(numericUpDown_Heart_Rate_Control);
-      splitContainer_Create_Test.Panel2.Controls.Add(label_Text_Name_Selected_ECG_Header);
       splitContainer_Create_Test.Size = new Size(413, 190);
       splitContainer_Create_Test.SplitterDistance = 189;
       splitContainer_Create_Test.SplitterWidth = 3;
@@ -190,13 +188,13 @@
       tableLayoutPanel_Pneumogram.Controls.Add(label_Text_Omega_R, 0, 1);
       tableLayoutPanel_Pneumogram.Dock = DockStyle.Fill;
       tableLayoutPanel_Pneumogram.Font = new Font("Arial", 9.75F);
-      tableLayoutPanel_Pneumogram.Location = new Point(0, 38);
+      tableLayoutPanel_Pneumogram.Location = new Point(0, 22);
       tableLayoutPanel_Pneumogram.Margin = new Padding(2, 3, 2, 3);
       tableLayoutPanel_Pneumogram.Name = "tableLayoutPanel_Pneumogram";
       tableLayoutPanel_Pneumogram.RowCount = 2;
       tableLayoutPanel_Pneumogram.RowStyles.Add(new RowStyle(SizeType.Percent, 31.8471336F));
       tableLayoutPanel_Pneumogram.RowStyles.Add(new RowStyle(SizeType.Percent, 68.15286F));
-      tableLayoutPanel_Pneumogram.Size = new Size(221, 152);
+      tableLayoutPanel_Pneumogram.Size = new Size(221, 168);
       tableLayoutPanel_Pneumogram.TabIndex = 2;
       // 
       // comboBox_del_R
@@ -215,7 +213,7 @@
       comboBox_Omega_R.Dock = DockStyle.Top;
       comboBox_Omega_R.Font = new Font("Arial", 9.75F);
       comboBox_Omega_R.FormattingEnabled = true;
-      comboBox_Omega_R.Location = new Point(121, 51);
+      comboBox_Omega_R.Location = new Point(121, 56);
       comboBox_Omega_R.Margin = new Padding(2, 3, 2, 3);
       comboBox_Omega_R.Name = "comboBox_Omega_R";
       comboBox_Omega_R.Size = new Size(98, 24);
@@ -238,7 +236,7 @@
       label_Text_Omega_R.AutoSize = true;
       label_Text_Omega_R.Dock = DockStyle.Top;
       label_Text_Omega_R.Font = new Font("Arial", 9.75F);
-      label_Text_Omega_R.Location = new Point(2, 48);
+      label_Text_Omega_R.Location = new Point(2, 53);
       label_Text_Omega_R.Margin = new Padding(2, 0, 2, 0);
       label_Text_Omega_R.Name = "label_Text_Omega_R";
       label_Text_Omega_R.Size = new Size(115, 16);
@@ -249,25 +247,13 @@
       // 
       numericUpDown_Heart_Rate_Control.Dock = DockStyle.Top;
       numericUpDown_Heart_Rate_Control.Font = new Font("Arial", 9.75F);
-      numericUpDown_Heart_Rate_Control.Location = new Point(0, 16);
+      numericUpDown_Heart_Rate_Control.Location = new Point(0, 0);
       numericUpDown_Heart_Rate_Control.Margin = new Padding(2, 3, 2, 3);
       numericUpDown_Heart_Rate_Control.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
       numericUpDown_Heart_Rate_Control.Name = "numericUpDown_Heart_Rate_Control";
       numericUpDown_Heart_Rate_Control.RightToLeft = RightToLeft.Yes;
       numericUpDown_Heart_Rate_Control.Size = new Size(221, 22);
       numericUpDown_Heart_Rate_Control.TabIndex = 3;
-      // 
-      // label_Text_Name_Selected_ECG_Header
-      // 
-      label_Text_Name_Selected_ECG_Header.AutoSize = true;
-      label_Text_Name_Selected_ECG_Header.Dock = DockStyle.Top;
-      label_Text_Name_Selected_ECG_Header.Font = new Font("Arial", 9.75F);
-      label_Text_Name_Selected_ECG_Header.Location = new Point(0, 0);
-      label_Text_Name_Selected_ECG_Header.Margin = new Padding(2, 0, 2, 0);
-      label_Text_Name_Selected_ECG_Header.Name = "label_Text_Name_Selected_ECG_Header";
-      label_Text_Name_Selected_ECG_Header.Size = new Size(107, 16);
-      label_Text_Name_Selected_ECG_Header.TabIndex = 0;
-      label_Text_Name_Selected_ECG_Header.Text = ".........................";
       // 
       // MainPanel
       // 
@@ -368,7 +354,7 @@
       // 
       // splitContainer_List_Stage.Panel1
       // 
-      splitContainer_List_Stage.Panel1.Controls.Add(checkedListBox_List_Stage);
+      splitContainer_List_Stage.Panel1.Controls.Add(ListView_List_Stage);
       // 
       // splitContainer_List_Stage.Panel2
       // 
@@ -378,17 +364,19 @@
       splitContainer_List_Stage.SplitterWidth = 3;
       splitContainer_List_Stage.TabIndex = 1;
       // 
-      // checkedListBox_List_Stage
+      // ListView_List_Stage
       // 
-      checkedListBox_List_Stage.Dock = DockStyle.Fill;
-      checkedListBox_List_Stage.Font = new Font("Arial", 9.75F);
-      checkedListBox_List_Stage.FormattingEnabled = true;
-      checkedListBox_List_Stage.Location = new Point(0, 0);
-      checkedListBox_List_Stage.Margin = new Padding(2, 3, 2, 3);
-      checkedListBox_List_Stage.Name = "checkedListBox_List_Stage";
-      checkedListBox_List_Stage.Size = new Size(269, 723);
-      checkedListBox_List_Stage.TabIndex = 0;
-      checkedListBox_List_Stage.SelectedIndexChanged += checkedListBox_List_Stage_SelectedIndexChanged;
+      ListView_List_Stage.AutoArrange = false;
+      ListView_List_Stage.CheckBoxes = true;
+      ListView_List_Stage.Dock = DockStyle.Fill;
+      ListView_List_Stage.HeaderStyle = ColumnHeaderStyle.None;
+      ListView_List_Stage.Location = new Point(0, 0);
+      ListView_List_Stage.Name = "ListView_List_Stage";
+      ListView_List_Stage.Size = new Size(269, 723);
+      ListView_List_Stage.TabIndex = 0;
+      ListView_List_Stage.UseCompatibleStateImageBehavior = false;
+      ListView_List_Stage.View = View.List;
+      ListView_List_Stage.ItemCheck += ListView_List_Stage_ItemCheck;
       // 
       // tableLayoutPanel3
       // 
@@ -470,7 +458,7 @@
       // 
       // groupBox_Notifications_Confirmation
       // 
-      groupBox_Notifications_Confirmation.Controls.Add(textBox2);
+      groupBox_Notifications_Confirmation.Controls.Add(textBox_Notifications_Confirmation);
       groupBox_Notifications_Confirmation.Dock = DockStyle.Fill;
       groupBox_Notifications_Confirmation.Font = new Font("Arial", 9.75F);
       groupBox_Notifications_Confirmation.Location = new Point(2, 483);
@@ -482,16 +470,16 @@
       groupBox_Notifications_Confirmation.TabStop = false;
       groupBox_Notifications_Confirmation.Text = "Уведомление с подтверждением";
       // 
-      // textBox2
+      // textBox_Notifications_Confirmation
       // 
-      textBox2.Dock = DockStyle.Fill;
-      textBox2.Font = new Font("Arial", 9.75F);
-      textBox2.Location = new Point(2, 18);
-      textBox2.Margin = new Padding(2, 3, 2, 3);
-      textBox2.Multiline = true;
-      textBox2.Name = "textBox2";
-      textBox2.Size = new Size(417, 216);
-      textBox2.TabIndex = 0;
+      textBox_Notifications_Confirmation.Dock = DockStyle.Fill;
+      textBox_Notifications_Confirmation.Font = new Font("Arial", 9.75F);
+      textBox_Notifications_Confirmation.Location = new Point(2, 18);
+      textBox_Notifications_Confirmation.Margin = new Padding(2, 3, 2, 3);
+      textBox_Notifications_Confirmation.Multiline = true;
+      textBox_Notifications_Confirmation.Name = "textBox_Notifications_Confirmation";
+      textBox_Notifications_Confirmation.Size = new Size(417, 216);
+      textBox_Notifications_Confirmation.TabIndex = 0;
       // 
       // groupBox_Create_Notifications
       // 
@@ -677,7 +665,6 @@
       splitContainer_Create_Test.Panel1.ResumeLayout(false);
       splitContainer_Create_Test.Panel1.PerformLayout();
       splitContainer_Create_Test.Panel2.ResumeLayout(false);
-      splitContainer_Create_Test.Panel2.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)splitContainer_Create_Test).EndInit();
       splitContainer_Create_Test.ResumeLayout(false);
       tableLayoutPanel_Pneumogram.ResumeLayout(false);
@@ -720,7 +707,6 @@
     private SplitContainer splitContainer_Create_Test;
     private CheckBox checkBox_Heart_Rate_Control;
     private Button button_Choice_ECG_Header;
-    private Label label_Text_Name_Selected_ECG_Header;
     private CheckBox checkBox_Pneumogram;
     private Label label_Text_Omega_R;
     private Label label_Text_del_R;
@@ -734,13 +720,12 @@
     private GroupBox groupBox_Output;
     private Button button_Worker_Test;
     private SplitContainer splitContainer1;
-    private CheckedListBox checkedListBox_List_Stage;
     private CheckedListBox checkedListBox_List_Checks;
     private GroupBox groupBox_Create_Stage;
     private GroupBox groupBox_Create_Notifications;
     private TableLayoutPanel tableLayoutPanel1;
     private GroupBox groupBox_Notifications_Confirmation;
-    private TextBox textBox2;
+    private TextBox textBox_Notifications_Confirmation;
     private TextBox textBox_Create_Notifications;
     private SplitContainer splitContainer_Text_Name_Stage;
     private Label label1;
@@ -757,5 +742,6 @@
     private SplitContainer splitContainer_List_Stage;
     private TableLayoutPanel tableLayoutPanel3;
     private Button button_Delete_Selected_Stage;
+    private ListView ListView_List_Stage;
   }
 }

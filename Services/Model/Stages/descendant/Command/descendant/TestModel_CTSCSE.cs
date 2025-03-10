@@ -22,7 +22,5 @@ namespace Test_Cardiograph.Services.Model.Stages.descendant.Command.descendant
     /// Дополнительные параметры записи. Шумы.
     /// </summary>
     public Enum_CTSCSE_Noise Noise { get; set; }
-
-
   }
 }
