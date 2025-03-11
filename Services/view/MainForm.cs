@@ -328,31 +328,60 @@ namespace Test_Cardiograph
     /// </summary>
     public void View_List_Stage()
     {
-      ListView.CheckedListViewItemCollection breakfast = new ListView.CheckedListViewItemCollection(new ListView());
+      ListViewItem[] breakfast= new ListViewItem[] { };
       if (this.ListView_List_Stage.CheckedItems.Count > 0)
       {
-        //breakfast = ;
-        //foreach(var a in ListView_List_Stage.CheckedItems)
-        //{
-
-        //}
+        breakfast = new ListViewItem[this.ListView_List_Stage.CheckedItems.Count];
+        int i = 0;
+        foreach (ListViewItem a in ListView_List_Stage.CheckedItems)
+        {
+          breakfast[i] = a;
+          i++;
+        }
       }
 
       //foreach (var cb in ListView_List_Stage.Controls.OfType<CheckBox>().Where(x => x.Checked))
       //  yourListView.Items.Add(cb.Text)
       ListView_List_Stage.Clear();
+      int counter = 0;
       foreach (var row in this.Stages)
       {
         var roww = new ListViewItem($"{row.NameStage}");
-        ListView_List_Stage.Items.Add(roww);
-        for (int i=0; i< breakfast.Count;i++)
+        if (breakfast.Length > 0)
         {
-          if (breakfast.Contains(roww))
+          if (ContainsInList(breakfast,roww))
           {
-            MessageBox.Show("show");
+            ListView_List_Stage.Items.Add(roww);
+            ListView_List_Stage.Items[counter].Checked = true;
           }
+          else
+          {
+            ListView_List_Stage.Items.Add(roww);
+          }
+          counter++;
+        }
+        else
+          ListView_List_Stage.Items.Add(roww);
+
+      }
+    }
+
+    /// <summary>
+    /// Перебирает список, и ищет там совпадение с переданным ListViewItem по названию.
+    /// </summary>
+    /// <param name="list">Список.</param>
+    /// <param name="view">обьект для пойска.</param>
+    /// <returns>True, если совпадение найдено, иначе false/</returns>
+    private bool ContainsInList(ListViewItem[] list, ListViewItem view)
+    {
+      foreach(var row in list)
+      {
+        if (row.Text.ToLower().Equals(view.Text.ToLower()))
+        {
+          return true;
         }
       }
+      return false;
     }
 
     #endregion
