@@ -339,9 +339,6 @@ namespace Test_Cardiograph
           i++;
         }
       }
-
-      //foreach (var cb in ListView_List_Stage.Controls.OfType<CheckBox>().Where(x => x.Checked))
-      //  yourListView.Items.Add(cb.Text)
       ListView_List_Stage.Clear();
       int counter = 0;
       foreach (var row in this.Stages)
