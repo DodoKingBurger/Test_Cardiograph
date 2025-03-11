@@ -7,7 +7,7 @@ namespace D_DCharLists
 	/// <summary>
 	/// Класс для сохранения и загрузки в БД.
 	/// </summary>
-	public class JsonSaveLoad
+	public static class JsonSaveLoad
 	{
 		/// <summary>
 		/// Сохранить в формате .json
@@ -28,14 +28,13 @@ namespace D_DCharLists
 		/// <typeparam name="T">Загружаймый класс.</typeparam>
 		/// <param name="pathLoad">Путь для загрузки.</param>
 		/// <param name="sheet">Куда будут загружены данные.</param>
-		public static void JsonLoad(string pathLoad, ref Stages sheet)
+		public static void JsonLoad<T>(string pathLoad, ref T sheet)
 		{
-      using (StreamReader streamReader = new StreamReader("example.json"))
+      using (StreamReader streamReader = new StreamReader(pathLoad))
       {
         string json = streamReader.ReadToEnd();
-        sheet = JsonConvert.DeserializeObject<Stages>(json);
+        sheet = JsonConvert.DeserializeObject<T>(json);
       }
-
     }
 	}
 
