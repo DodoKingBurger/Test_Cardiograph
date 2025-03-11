@@ -2,6 +2,7 @@ using System.Windows.Forms;
 using Test_Cardiograph.Controller;
 using Test_Cardiograph.Properties.DB;
 using Test_Cardiograph.Services.Controller.MECG.structs;
+using Test_Cardiograph.Services.Controller.Plata;
 using Test_Cardiograph.Services.Model.Stages;
 using Test_Cardiograph.Services.Model.Stages.descendant.Command.descendant;
 using Test_Cardiograph.Services.Model.Stages.descendant.Notifications;
@@ -61,7 +62,25 @@ namespace Test_Cardiograph
       tableLayoutPanel_Pneumogram.Enabled = false;
       comboBox_Type_Command_View.Items.AddRange(Enum.GetValues(typeof(EnumOptionsStages))
         .OfType<EnumOptionsStages>().Select(val => EnumWorcker.GetDescription(val)).ToArray());
-      Load_DB_Stage();
+      comboBox_del_R.Items.AddRange(Enum.GetValues(typeof(Enum_dR))
+  .OfType<Enum_dR>().Select(val => EnumWorcker.GetDescription(val)).ToArray());
+      comboBox_Omega_R.Items.AddRange(Enum.GetValues(typeof(Enum_wR))
+  .OfType<Enum_wR>().Select(val => EnumWorcker.GetDescription(val)).ToArray());
+      /////////
+      var Wave = new TestModel_WaveForm() { NameStage = "Wave", ControlCHSS = true, CHSS = 3, ControlPneumogram = true, dR = 2, wR = 10, };
+
+      var Noti = new Stage_Notifications() { NameStage = "Notify", Notifications = " AAAAAAAA" };
+
+      var Noti_Comp = new Stage_Notifications_Confirmation() { NameStage = "Notify_Confirmation", Notifications_Confirmation = " AAAAAAAA" };
+      List<Stages> stages = new List<Stages>()
+      {
+        Wave,
+        Noti,
+        Noti_Comp
+      };
+      this.Stages = stages;
+      ////////////////////
+      View_List_Stage();
     }
 
     /// <summary>
@@ -88,6 +107,8 @@ namespace Test_Cardiograph
 
     }
 
+    #region CRUD и функции для него
+
     /// <summary>
     /// Кнопка для сохранения выбранного этапа в список этапов.
     /// </summary>
@@ -96,10 +117,24 @@ namespace Test_Cardiograph
     /// <exception cref="Exception"></exception>
     private void button_Save_Selected_Stage_Click(object sender, EventArgs e)
     {
-      this.SelectedTest = (Stages)FillingStage();
-      if (!this.Stages.Contains(SelectedTest))
+      var stage = (Stages)FillingStage();
+      if (!this.Stages.Contains(stage))
       {
-        this.Stages.Insert(0, SelectedTest);
+        this.Stages.Insert(0, stage);
+      }
+      else
+      {
+        this.Stages[this.Stages.IndexOf(stage)] = stage;
+      }
+      View_List_Stage();
+    }
+
+    private void button_Delete_Selected_Stage_Click(object sender, EventArgs e)
+    {
+      if (this.Stages.Contains(this.SelectedTest))
+      {
+        this.Stages.Remove(this.SelectedTest);
+        View_List_Stage();
       }
       else
         MessageBox.Show("Такой этап уже существует.");
@@ -126,8 +161,8 @@ namespace Test_Cardiograph
             if (test.ControlPneumogram)
             {
               //я сомневаюсь, надо список вариантов записать если что валидацию прикрутим.
-              test.dR = (int)comboBox_del_R.SelectedItem;
-              test.wR = (int)comboBox_Omega_R.SelectedItem;
+              test.dR = float.Parse(comboBox_del_R.SelectedItem.ToString());
+              test.wR = float.Parse(comboBox_Omega_R.SelectedItem.ToString());
             }
             return test;
           }
@@ -141,6 +176,8 @@ namespace Test_Cardiograph
           throw new Exception("Выберите тип Этапа");
       }
     }
+
+    #endregion
 
     #region Визуальные изменения формы 
 
@@ -181,8 +218,17 @@ namespace Test_Cardiograph
       {
         if (this.Stages.Contains(this.SelectedTest))
         {
-          this.Stages.Remove(this.SelectedTest);
-          this.Stages.Insert(this.Cursore - 1, this.SelectedTest);
+          if(this.Cursore > 0)
+          {
+            this.Stages.Remove(this.SelectedTest);
+            this.Cursore -= 1;
+            this.Stages.Insert(this.Cursore, this.SelectedTest);
+          }
+          else
+          {
+            MessageBox.Show("Этап первый в списке");
+          }
+          View_List_Stage();
         }
         else
           MessageBox.Show("Такого этапа нету в списке.");
@@ -202,9 +248,15 @@ namespace Test_Cardiograph
       {
         if (this.Stages.Contains(this.SelectedTest))
         {
-          this.Stages.Remove(this.SelectedTest);
-          if (this.Cursore + 1 < this.Stages.Count)
-            this.Stages.Insert(this.Cursore + 1, this.SelectedTest);
+          if (this.Cursore < this.Stages.Count-1)
+          {
+            this.Stages.Remove(this.SelectedTest);
+            this.Cursore += 1;
+            this.Stages.Insert(this.Cursore, this.SelectedTest);
+          }
+          else
+            MessageBox.Show("Этап последний в списке");
+          View_List_Stage();
         }
         else
           MessageBox.Show("Такого этапа нету в списке.");
@@ -220,7 +272,7 @@ namespace Test_Cardiograph
     /// <param name="e"></param>
     private void ListView_List_Stage_ItemCheck(object sender, ItemCheckEventArgs e)
     {
-      if(e.NewValue == CheckState.Checked)
+      if (e.NewValue == CheckState.Checked)
       {
         this.Cursore = e.Index;
         this.SelectedTest = this.Stages[this.Cursore];
@@ -240,6 +292,7 @@ namespace Test_Cardiograph
         groupBox_CreateTest.Visible = true;
         groupBox_Create_Notifications.Visible = false;
         groupBox_Notifications_Confirmation.Visible = false;
+        comboBox_Type_Command_View.SelectedIndex = 0;
         if (test.ControlCHSS)
         {
           checkBox_Heart_Rate_Control.Checked = true;
@@ -248,12 +301,13 @@ namespace Test_Cardiograph
         if (test.ControlPneumogram)
         {
           checkBox_Pneumogram.Checked = true;
-          comboBox_del_R.Text = $"{test.dR}";
-          comboBox_Omega_R.Text = $"{test.wR}";
+          comboBox_del_R.SelectedIndex = (int)EnumWorcker.GetIndexEnum_dR(test.dR);
+          comboBox_Omega_R.SelectedIndex = (int)EnumWorcker.GetIndexEnum_wR(test.wR);
         }
       }
       else if (this.SelectedTest is Stage_Notifications notifications)
       {
+        comboBox_Type_Command_View.SelectedIndex = 1;
         groupBox_CreateTest.Visible = false;
         groupBox_Create_Notifications.Visible = true;
         groupBox_Notifications_Confirmation.Visible = false;
@@ -261,6 +315,7 @@ namespace Test_Cardiograph
       }
       else if (this.SelectedTest is Stage_Notifications_Confirmation notifications_Confirmation)
       {
+        comboBox_Type_Command_View.SelectedIndex = 2;
         groupBox_CreateTest.Visible = false;
         groupBox_Create_Notifications.Visible = false;
         groupBox_Notifications_Confirmation.Visible = true;
@@ -271,26 +326,35 @@ namespace Test_Cardiograph
     /// <summary>
     /// Тут будет згрзука файла с базой этапов.
     /// </summary>
-    public void Load_DB_Stage()
+    public void View_List_Stage()
     {
-      var Wave = new TestModel_WaveForm() { NameStage = "Wave", ControlCHSS = true, CHSS = 3, ControlPneumogram = true, dR = 2, wR = 1, };
-
-      var Noti = new Stage_Notifications() { NameStage = "Notify", Notifications = " AAAAAAAA" };
-
-      var Noti_Comp = new Stage_Notifications_Confirmation() { NameStage = "Notify_Confirmation", Notifications_Confirmation = " AAAAAAAA" };
-      List<Stages> stages = new List<Stages>()
+      ListView.CheckedListViewItemCollection breakfast = new ListView.CheckedListViewItemCollection(new ListView());
+      if (this.ListView_List_Stage.CheckedItems.Count > 0)
       {
-        Wave,
-        Noti,
-        Noti_Comp
-      };
-      this.Stages = stages;
+        //breakfast = ;
+        //foreach(var a in ListView_List_Stage.CheckedItems)
+        //{
 
-      foreach (var row in stages)
+        //}
+      }
+
+      //foreach (var cb in ListView_List_Stage.Controls.OfType<CheckBox>().Where(x => x.Checked))
+      //  yourListView.Items.Add(cb.Text)
+      ListView_List_Stage.Clear();
+      foreach (var row in this.Stages)
       {
-        ListView_List_Stage.Items.Add(new ListViewItem($"{row.NameStage}"));
+        var roww = new ListViewItem($"{row.NameStage}");
+        ListView_List_Stage.Items.Add(roww);
+        for (int i=0; i< breakfast.Count;i++)
+        {
+          if (breakfast.Contains(roww))
+          {
+            MessageBox.Show("show");
+          }
+        }
       }
     }
+
     #endregion
 
     #region Методы для отправки в другие формы
@@ -370,7 +434,5 @@ namespace Test_Cardiograph
     }
 
     #endregion
-
-
   }
 }

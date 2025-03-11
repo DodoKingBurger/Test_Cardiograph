@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Test_Cardiograph.Services.Controller.MECG.structs;
+using Test_Cardiograph.Services.Controller.Plata;
 
 namespace Test_Cardiograph.Services.StaticClass
 {
@@ -78,6 +79,30 @@ namespace Test_Cardiograph.Services.StaticClass
       }
       else
         throw new ArgumentException("Enum неизвестного типа.");
+    }
+
+    /// <summary>
+    /// Возвращает по прееданному значению, его вариант из списка Enum_dR. 
+    /// </summary>
+    /// <param name="value">Значения по которому будут вестись пойски.</param>
+    /// <returns>Значение в списке.</returns>
+    public static object GetIndexEnum_dR(float value)
+    {
+      return Enum.GetValues(typeof(Enum_dR))
+            .Cast<Enum_dR>()
+            .FirstOrDefault(v => GetDescription(v) == value.ToString(".0####"));
+    }
+
+    /// <summary>
+    /// Возвращает по прееданному значению, его вариант из списка Enum_wR. 
+    /// </summary>
+    /// <param name="value">Значения по которому будут вестись пойски.</param>
+    /// <returns>Значение в списке.</returns>
+    public static object GetIndexEnum_wR(float value)
+    {
+      return Enum.GetValues(typeof(Enum_wR))
+            .Cast<Enum_wR>()
+            .FirstOrDefault(v => GetDescription(v) == value.ToString());
     }
   }
 }

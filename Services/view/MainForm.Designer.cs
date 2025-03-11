@@ -67,7 +67,6 @@
       button_Delete_Selected_Stage = new Button();
       groupBox_List_Checks = new GroupBox();
       checkedListBox_List_Checks = new CheckedListBox();
-      fontDialog1 = new FontDialog();
       groupBox_CreateTest.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)splitContainer_Create_Test).BeginInit();
       splitContainer_Create_Test.Panel1.SuspendLayout();
@@ -200,6 +199,7 @@
       // comboBox_del_R
       // 
       comboBox_del_R.Dock = DockStyle.Top;
+      comboBox_del_R.DropDownStyle = ComboBoxStyle.DropDownList;
       comboBox_del_R.Font = new Font("Arial", 9.75F);
       comboBox_del_R.FormattingEnabled = true;
       comboBox_del_R.Location = new Point(121, 3);
@@ -211,6 +211,7 @@
       // comboBox_Omega_R
       // 
       comboBox_Omega_R.Dock = DockStyle.Top;
+      comboBox_Omega_R.DropDownStyle = ComboBoxStyle.DropDownList;
       comboBox_Omega_R.Font = new Font("Arial", 9.75F);
       comboBox_Omega_R.FormattingEnabled = true;
       comboBox_Omega_R.Location = new Point(121, 56);
@@ -620,6 +621,7 @@
       button_Delete_Selected_Stage.TabIndex = 2;
       button_Delete_Selected_Stage.Text = "Удалить этап";
       button_Delete_Selected_Stage.UseVisualStyleBackColor = true;
+      button_Delete_Selected_Stage.Click += button_Delete_Selected_Stage_Click;
       // 
       // groupBox_List_Checks
       // 
@@ -645,10 +647,6 @@
       checkedListBox_List_Checks.Name = "checkedListBox_List_Checks";
       checkedListBox_List_Checks.Size = new Size(238, 723);
       checkedListBox_List_Checks.TabIndex = 4;
-      // 
-      // fontDialog1
-      // 
-      fontDialog1.Font = new Font("Arial", 9.75F);
       // 
       // MainForm
       // 
@@ -737,7 +735,6 @@
     private ComboBox comboBox_Type_Command_View;
     private TableLayoutPanel tableLayoutPanel2;
     private GroupBox groupBox_List_Checks;
-    private FontDialog fontDialog1;
     private GroupBox groupBox_List_Stage;
     private SplitContainer splitContainer_List_Stage;
     private TableLayoutPanel tableLayoutPanel3;
