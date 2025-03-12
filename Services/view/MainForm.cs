@@ -1,4 +1,7 @@
+using System.Data;
+using System.Text.Json;
 using System.Windows.Forms;
+using D_DCharLists;
 using Test_Cardiograph.Controller;
 using Test_Cardiograph.Properties.DB;
 using Test_Cardiograph.Services.Controller.MECG.structs;
@@ -11,6 +14,7 @@ using Test_Cardiograph.Services.Model.Stages.descendant.Test;
 using Test_Cardiograph.Services.StaticClass;
 using Test_Cardiograph.Services.view;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.Design.AxImporter;
 using static Test_Cardiograph.Services.view.DB_CTSCSE_DBForm;
 
 namespace Test_Cardiograph
@@ -66,22 +70,13 @@ namespace Test_Cardiograph
   .OfType<Enum_dR>().Select(val => EnumWorcker.GetDescription(val)).ToArray());
       comboBox_Omega_R.Items.AddRange(Enum.GetValues(typeof(Enum_wR))
   .OfType<Enum_wR>().Select(val => EnumWorcker.GetDescription(val)).ToArray());
-      /////////
-      var Wave = new TestModel_WaveForm() { NameStage = "Wave", ControlCHSS = true, CHSS = 3, ControlPneumogram = true, dR = 2, wR = 10, };
 
-      var Noti = new Stage_Notifications() { NameStage = "Notify", Notifications = " AAAAAAAA" };
-
-      var Noti_Comp = new Stage_Notifications_Confirmation() { NameStage = "Notify_Confirmation", Notifications_Confirmation = " AAAAAAAA" };
-      List<Stages> stages = new List<Stages>()
-      {
-        Wave,
-        Noti,
-        Noti_Comp
-      };
-      this.Stages = stages;
-      ////////////////////
-      View_List_Stage();
+      //string text = "Noti.json\nNoti_Comp.json";
+      //File.WriteAllText("C:\\soft\\Тест каридограф\\WinForms\\Test_Cardiograph\\Properties\\Checks\\Noti.txt", text);
+      SearchDBTXTFile();
     }
+
+
 
     /// <summary>
     /// Вызов формы для выбора из БД ЭКГ.
@@ -218,7 +213,7 @@ namespace Test_Cardiograph
       {
         if (this.Stages.Contains(this.SelectedTest))
         {
-          if(this.Cursore > 0)
+          if (this.Cursore > 0)
           {
             this.Stages.Remove(this.SelectedTest);
             this.Cursore -= 1;
@@ -248,7 +243,7 @@ namespace Test_Cardiograph
       {
         if (this.Stages.Contains(this.SelectedTest))
         {
-          if (this.Cursore < this.Stages.Count-1)
+          if (this.Cursore < this.Stages.Count - 1)
           {
             this.Stages.Remove(this.SelectedTest);
             this.Cursore += 1;
@@ -328,39 +323,43 @@ namespace Test_Cardiograph
     /// </summary>
     public void View_List_Stage()
     {
-      ListViewItem[] breakfast= new ListViewItem[] { };
-      if (this.ListView_List_Stage.CheckedItems.Count > 0)
+      if (this.Stages.Any())
       {
-        breakfast = new ListViewItem[this.ListView_List_Stage.CheckedItems.Count];
-        int i = 0;
-        foreach (ListViewItem a in ListView_List_Stage.CheckedItems)
+        ListViewItem[] breakfast = new ListViewItem[] { };
+        if (this.ListView_List_Stage.CheckedItems.Count > 0)
         {
-          breakfast[i] = a;
-          i++;
-        }
-      }
-      ListView_List_Stage.Clear();
-      int counter = 0;
-      foreach (var row in this.Stages)
-      {
-        var roww = new ListViewItem($"{row.NameStage}");
-        if (breakfast.Length > 0)
-        {
-          if (ContainsInList(breakfast,roww))
+          breakfast = new ListViewItem[this.ListView_List_Stage.CheckedItems.Count];
+          int i = 0;
+          foreach (ListViewItem a in ListView_List_Stage.CheckedItems)
           {
-            ListView_List_Stage.Items.Add(roww);
-            ListView_List_Stage.Items[counter].Checked = true;
+            breakfast[i] = a;
+            i++;
+          }
+        }
+        ListView_List_Stage.Clear();
+        int counter = 0;
+        foreach (var row in this.Stages)
+        {
+          var roww = new ListViewItem($"{row.NameStage}");
+          if (breakfast.Length > 0)
+          {
+            if (ContainsInList(breakfast, roww))
+            {
+              ListView_List_Stage.Items.Add(roww);
+              ListView_List_Stage.Items[counter].Checked = true;
+            }
+            else
+            {
+              ListView_List_Stage.Items.Add(roww);
+            }
+            counter++;
           }
           else
-          {
             ListView_List_Stage.Items.Add(roww);
-          }
-          counter++;
         }
-        else
-          ListView_List_Stage.Items.Add(roww);
-
       }
+      else
+        MessageBox.Show("Список пуст.");
     }
 
     /// <summary>
@@ -371,7 +370,7 @@ namespace Test_Cardiograph
     /// <returns>True, если совпадение найдено, иначе false/</returns>
     private bool ContainsInList(ListViewItem[] list, ListViewItem view)
     {
-      foreach(var row in list)
+      foreach (var row in list)
       {
         if (row.Text.ToLower().Equals(view.Text.ToLower()))
         {
@@ -450,6 +449,14 @@ namespace Test_Cardiograph
 
     #endregion
 
+    private void SearchDBTXTFile()
+    {
+      foreach (var str in DBChecksMeneger.LoadNameTXTFile())
+      {
+        listView_List_Checks.Items.Add(str);
+      }
+    }
+
     #endregion
 
     #region Конструктор
@@ -460,5 +467,14 @@ namespace Test_Cardiograph
     }
 
     #endregion
+
+    private void listView_List_Checks_ItemCheck(object sender, ItemCheckEventArgs e)
+    {
+      if (e.NewValue == CheckState.Checked)
+      {
+        this.Stages = JsonSaveLoad.JsonLoadList(listView_List_Checks.Items[e.Index].Text);
+        View_List_Stage();
+      }
+    }
   }
 }

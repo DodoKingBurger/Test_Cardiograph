@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Test_Cardiograph.Services.Controller.MECG.structs;
+using Test_Cardiograph.Services.Model.Stages.descendant.Command.descendant;
 
 namespace Test_Cardiograph.Services.Model.Stages.descendant.Test
 {
   /// <summary>
   /// Модель теста кардиографа.
   /// </summary>
+  [JsonDerivedType(typeof(TestModel), typeDiscriminator: "TestModel_")]
+  [JsonDerivedType(typeof(TestModel_CTSCSE), typeDiscriminator: "TestModel_CTSCSE")]
+  [JsonDerivedType(typeof(TestModel_ECG_Header), typeDiscriminator: "TestModel_ECG_Header")] 
+  [JsonDerivedType(typeof(TestModel_WaveForm), typeDiscriminator: "TestModel_WaveForm")]
   public class TestModel : Stages
   {
   

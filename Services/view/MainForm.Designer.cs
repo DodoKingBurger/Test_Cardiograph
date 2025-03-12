@@ -66,7 +66,7 @@
       comboBox_Type_Command_View = new ComboBox();
       button_Delete_Selected_Stage = new Button();
       groupBox_List_Checks = new GroupBox();
-      checkedListBox_List_Checks = new CheckedListBox();
+      listView_List_Checks = new ListView();
       groupBox_CreateTest.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)splitContainer_Create_Test).BeginInit();
       splitContainer_Create_Test.Panel1.SuspendLayout();
@@ -625,7 +625,7 @@
       // 
       // groupBox_List_Checks
       // 
-      groupBox_List_Checks.Controls.Add(checkedListBox_List_Checks);
+      groupBox_List_Checks.Controls.Add(listView_List_Checks);
       groupBox_List_Checks.Dock = DockStyle.Fill;
       groupBox_List_Checks.Font = new Font("Arial", 9.75F);
       groupBox_List_Checks.Location = new Point(2, 3);
@@ -637,16 +637,18 @@
       groupBox_List_Checks.TabStop = false;
       groupBox_List_Checks.Text = "Список проверок";
       // 
-      // checkedListBox_List_Checks
+      // listView_List_Checks
       // 
-      checkedListBox_List_Checks.Dock = DockStyle.Fill;
-      checkedListBox_List_Checks.Font = new Font("Arial", 9.75F);
-      checkedListBox_List_Checks.FormattingEnabled = true;
-      checkedListBox_List_Checks.Location = new Point(2, 18);
-      checkedListBox_List_Checks.Margin = new Padding(2, 3, 2, 3);
-      checkedListBox_List_Checks.Name = "checkedListBox_List_Checks";
-      checkedListBox_List_Checks.Size = new Size(238, 723);
-      checkedListBox_List_Checks.TabIndex = 4;
+      listView_List_Checks.CheckBoxes = true;
+      listView_List_Checks.Dock = DockStyle.Fill;
+      listView_List_Checks.HeaderStyle = ColumnHeaderStyle.None;
+      listView_List_Checks.Location = new Point(2, 18);
+      listView_List_Checks.Name = "listView_List_Checks";
+      listView_List_Checks.Size = new Size(238, 723);
+      listView_List_Checks.TabIndex = 0;
+      listView_List_Checks.UseCompatibleStateImageBehavior = false;
+      listView_List_Checks.View = View.List;
+      listView_List_Checks.ItemCheck += listView_List_Checks_ItemCheck;
       // 
       // MainForm
       // 
@@ -718,7 +720,6 @@
     private GroupBox groupBox_Output;
     private Button button_Worker_Test;
     private SplitContainer splitContainer1;
-    private CheckedListBox checkedListBox_List_Checks;
     private GroupBox groupBox_Create_Stage;
     private GroupBox groupBox_Create_Notifications;
     private TableLayoutPanel tableLayoutPanel1;
@@ -740,5 +741,6 @@
     private TableLayoutPanel tableLayoutPanel3;
     private Button button_Delete_Selected_Stage;
     private ListView ListView_List_Stage;
+    private ListView listView_List_Checks;
   }
 }

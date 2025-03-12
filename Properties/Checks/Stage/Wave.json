@@ -1,0 +1,12 @@
+{
+  "Type": 2,
+  "Frequency": 0,
+  "Amplitude": 0,
+  "ControlCHSS": true,
+  "CHSS": 3,
+  "ControlPneumogram": true,
+  "dR": 2,
+  "wR": 10,
+  "NameStage": "Wave",
+  "stagesType": 2
+}

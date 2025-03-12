@@ -314,9 +314,9 @@ namespace Test_Cardiograph.Services.view
     {
       if (checkedListBox_Database.CheckedItems.Count == 1)
       {
-        if (File.Exists(pathFolderDB + $"{NameFolder}\\{checkedListBox_Database.SelectedValue}"))
+        if (File.Exists(this.pathFolderDB + $"{NameFolder}\\{checkedListBox_Database.SelectedValue}"))
         {
-          Load_ECGFile(pathFolderDB + $"{NameFolder}\\{checkedListBox_Database.SelectedValue}");
+          Load_ECGFile(this.pathFolderDB + $"{NameFolder}\\{checkedListBox_Database.SelectedValue}");
         }
         else
           MessageBox.Show("Не найден такой файл");
