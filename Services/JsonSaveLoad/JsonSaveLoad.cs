@@ -68,7 +68,6 @@ namespace D_DCharLists
       }
     }
 
-
     /// <summary>
     /// Загрузить файл формата .json
     /// </summary>

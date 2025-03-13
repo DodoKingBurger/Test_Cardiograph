@@ -100,27 +100,32 @@ namespace Test_Cardiograph.Services.view
     /// <param name="e">Click.</param>
     private void button_Choise_ECG_Click(object sender, EventArgs e)
     {
-      switch (EnumWorcker.EnumValueOf(comboBox_List_DB.SelectedItem.ToString(), typeof(EnumDB)))
+      if (comboBox_List_DB.SelectedItem != null)
       {
-        case EnumDB.CSE:
-          Send_CTSCSE();
-          break;
-        case EnumDB.CTS:
-          Send_CTSCSE();
-          break;
-        case EnumDB.РОХМИНЭ:
-          Send_ROHMiN();
+        switch (EnumWorcker.EnumValueOf(comboBox_List_DB.SelectedItem.ToString(), typeof(EnumDB)))
+        {
+          case EnumDB.CSE:
+            Send_CTSCSE();
             break;
-        case EnumDB.AXION:
-          Send_AXION();
-          break;
-        case EnumDB.WaveForm:
-          Send_Waveform();
-          break;
-        default:
-          throw new ArgumentException("Неизвестный выбранный элемент.");
+          case EnumDB.CTS:
+            Send_CTSCSE();
+            break;
+          case EnumDB.РОХМИНЭ:
+            Send_ROHMiN();
+            break;
+          case EnumDB.AXION:
+            Send_AXION();
+            break;
+          case EnumDB.WaveForm:
+            Send_Waveform();
+            break;
+          default:
+            throw new ArgumentException("Неизвестный выбранный элемент.");
+        }
+        Close();
       }
-      Close();
+      else
+        MessageBox.Show("Нужно сделать выбор");
     }
 
     /// <summary>

@@ -62,7 +62,7 @@ namespace Test_Cardiograph
     private void MainForm_Load(object sender, EventArgs e)
     {
       MECG20 = new MECG();
-      numericUpDown_Heart_Rate_Control.Enabled = false;
+      textbox_Heart_Rate_Control.Enabled = false;
       tableLayoutPanel_Pneumogram.Enabled = false;
       comboBox_Type_Command_View.Items.AddRange(Enum.GetValues(typeof(EnumOptionsStages))
         .OfType<EnumOptionsStages>().Select(val => EnumWorcker.GetDescription(val)).ToArray());
@@ -75,8 +75,6 @@ namespace Test_Cardiograph
       //File.WriteAllText("C:\\soft\\Тест каридограф\\WinForms\\Test_Cardiograph\\Properties\\Checks\\Noti.txt", text);
       SearchDBTXTFile();
     }
-
-
 
     /// <summary>
     /// Вызов формы для выбора из БД ЭКГ.
@@ -113,7 +111,7 @@ namespace Test_Cardiograph
     private void button_Save_Selected_Stage_Click(object sender, EventArgs e)
     {
       var stage = (Stages)FillingStage();
-      if (!this.Stages.Contains(stage))
+      if (this.Stages.Where(x => x.NameStage == stage.NameStage).ToList().Count == 0)
       {
         this.Stages.Insert(0, stage);
       }
@@ -146,20 +144,9 @@ namespace Test_Cardiograph
       switch (EnumWorcker.EnumValueOf(comboBox_Type_Command_View.SelectedItem.ToString(), typeof(EnumOptionsStages)))
       {
         case EnumOptionsStages.Command:
-          if (this.SelectedTest is TestModel test)
-          {
-            test.NameStage = textBox_Name_Stage.Text;
-            test.ControlCHSS = checkBox_Heart_Rate_Control.Checked;
-            if (test.ControlCHSS)
-              test.CHSS = ((int)numericUpDown_Heart_Rate_Control.Value);
-            test.ControlPneumogram = checkBox_Pneumogram.Checked;
-            if (test.ControlPneumogram)
-            {
-              //я сомневаюсь, надо список вариантов записать если что валидацию прикрутим.
-              test.dR = float.Parse(comboBox_del_R.SelectedItem.ToString());
-              test.wR = float.Parse(comboBox_Omega_R.SelectedItem.ToString());
-            }
-            return test;
+          if (this.SelectedTest is TestModel model)
+          { 
+            return FactoryTestModel(model);
           }
           return null;
         case EnumOptionsStages.Notifications:
@@ -172,9 +159,79 @@ namespace Test_Cardiograph
       }
     }
 
+    /// <summary>
+    /// Фозвращает тест в виде уже определнного типа теста внутри будет сигнал ЭКГ
+    /// </summary>
+    /// <param name="test"></param>
+    /// <returns></returns>
+    private object FactoryTestModel(TestModel test)
+    {
+      if(test != null)
+      {
+        switch (test.stagesType)
+        {
+          case EnumStagesType.TestModel_WaveForm:
+            if (test is TestModel_WaveForm wave)
+              return new TestModel_WaveForm()
+              {
+                stagesType = EnumStagesType.TestModel_WaveForm,
+                Type = wave.Type,
+                Amplitude = wave.Amplitude,
+                Frequency = wave.Frequency,
+                NameStage = textBox_Name_Stage.Text,
+                ControlCHSS = checkBox_Heart_Rate_Control.Checked,
+                CHSS = (int.Parse(textbox_Heart_Rate_Control.Text)),
+                ControlPneumogram = checkBox_Pneumogram.Checked,
+                dR = float.Parse(comboBox_del_R.SelectedItem.ToString()),
+                wR = float.Parse(comboBox_Omega_R.SelectedItem.ToString())
+              };
+            else
+              throw new Exception("test not TestModel_WaveForm");
+          case EnumStagesType.TestModel_ECG_Header:
+            if (test is TestModel_ECG_Header header)
+              return new TestModel_ECG_Header()
+              {
+                stagesType = EnumStagesType.TestModel_ECG_Header,
+                HEADER = header.HEADER
+              };
+            else
+              throw new Exception("test not TestModel_ECG_Header");
+          case EnumStagesType.TestModel_CTSCSE:
+            if (test is TestModel_CTSCSE ctsCse)
+              return new TestModel_CTSCSE()
+              {
+                stagesType = EnumStagesType.TestModel_CTSCSE,
+                Database = ctsCse.Database,
+                Noise = ctsCse.Noise
+              };
+            else
+              throw new Exception("test not TestModel_CTSCSE");
+          default:
+            throw new Exception("Неизвестный тип теста.");
+        }
+      }
+      throw new ArgumentNullException("Тест пуст!");
+    }
     #endregion
 
     #region Визуальные изменения формы 
+
+    /// <summary>
+    /// Валидация вводимо числа
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void textbox_Heart_Rate_Control_TextChanged(object sender, EventArgs e)
+    {
+      if (!string.IsNullOrEmpty(textbox_Heart_Rate_Control.Text))
+      {
+        if(!int.TryParse(textbox_Heart_Rate_Control.Text, out int CHSS))
+        {
+          textbox_Heart_Rate_Control.Clear();
+          MessageBox.Show("Должно быть введено только целое число.");
+        }
+      }
+    }
 
     /// <summary>
     /// Нужно ли отслеживать ЧСС.
@@ -184,9 +241,9 @@ namespace Test_Cardiograph
     private void checkBox_Heart_Rate_Control_CheckedChanged(object sender, EventArgs e)
     {
       if (checkBox_Heart_Rate_Control.Checked)
-        numericUpDown_Heart_Rate_Control.Enabled = true;
+        textbox_Heart_Rate_Control.Enabled = true;
       else
-        numericUpDown_Heart_Rate_Control.Enabled = false;
+        textbox_Heart_Rate_Control.Enabled = false;
     }
 
     /// <summary>
@@ -270,8 +327,55 @@ namespace Test_Cardiograph
       if (e.NewValue == CheckState.Checked)
       {
         this.Cursore = e.Index;
-        this.SelectedTest = this.Stages[this.Cursore];
+        var test = this.Stages[this.Cursore];
+        this.SelectedTest = test;
         ViewSelectedStage();
+      }
+      else
+      {
+        if (ListView_List_Stage.CheckedItems.Count - 1 == 0)
+        {
+          tableLayoutPanel1.Visible = false;
+          groupBox_CreateTest.Visible = false;
+          groupBox_Create_Notifications.Visible = false;
+          groupBox_Notifications_Confirmation.Visible = false;
+        }
+        else if (ListView_List_Stage.CheckedItems.Count - 1 > 0)
+        {
+          this.Cursore = ListView_List_Stage.CheckedItems.Count - 1;
+          var test = this.Stages[this.Cursore];
+          this.SelectedTest = test;
+          ViewSelectedStage();
+        }
+      }
+    }
+
+    /// <summary>
+    /// Выбор проверки.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void listView_List_Checks_ItemCheck(object sender, ItemCheckEventArgs e)
+    {
+      if (e.NewValue == CheckState.Checked)
+      {
+        this.Stages = JsonSaveLoad.JsonLoadList(listView_List_Checks.Items[e.Index].Text);
+        View_List_Stage();
+      }
+      else
+      {
+        if (listView_List_Checks.CheckedItems.Count - 1 == 0)
+        {
+          this.Stages = new List<Stages>();
+          this.SelectedTest = new TestModel();
+          View_List_Stage();
+        }
+        if (listView_List_Checks.CheckedItems.Count - 1 > 0)
+        {
+          this.Stages = JsonSaveLoad.JsonLoadList(listView_List_Checks.Items[e.Index - 1].Text);
+          this.SelectedTest = new TestModel();
+          View_List_Stage();
+        }
       }
     }
 
@@ -281,41 +385,79 @@ namespace Test_Cardiograph
     /// </summary>
     private void ViewSelectedStage()
     {
-      textBox_Name_Stage.Text = this.SelectedTest.NameStage;
-      if (this.SelectedTest is TestModel test)
+      if (ListView_List_Stage.CheckedItems.Count >= 0)
       {
-        groupBox_CreateTest.Visible = true;
-        groupBox_Create_Notifications.Visible = false;
-        groupBox_Notifications_Confirmation.Visible = false;
-        comboBox_Type_Command_View.SelectedIndex = 0;
-        if (test.ControlCHSS)
+        tableLayoutPanel1.Visible = true;
+        if (this.SelectedTest != null && !string.IsNullOrEmpty(this.SelectedTest.NameStage))
         {
-          checkBox_Heart_Rate_Control.Checked = true;
-          numericUpDown_Heart_Rate_Control.Value = test.CHSS;
+          textBox_Name_Stage.Text = this.SelectedTest.NameStage;
+          if (this.SelectedTest is TestModel test)
+          {
+            groupBox_CreateTest.Visible = true;
+            groupBox_Create_Notifications.Visible = false;
+            groupBox_Notifications_Confirmation.Visible = false;
+            comboBox_Type_Command_View.SelectedIndex = 0;
+            if (test.ControlCHSS)
+            {
+              checkBox_Heart_Rate_Control.Checked = true;
+              textbox_Heart_Rate_Control.Text = $"{test.CHSS}";
+            }
+            if (test.ControlPneumogram)
+            {
+              checkBox_Pneumogram.Checked = true;
+              comboBox_del_R.SelectedIndex = (int)EnumWorcker.GetIndexEnum_dR(test.dR);
+              comboBox_Omega_R.SelectedIndex = (int)EnumWorcker.GetIndexEnum_wR(test.wR);
+            }
+            label_Text_Name_ECG.Text = ReturnNameECGFile(test);
+          }
+          else if (this.SelectedTest is Stage_Notifications notifications)
+          {
+            comboBox_Type_Command_View.SelectedIndex = 1;
+            groupBox_CreateTest.Visible = false;
+            groupBox_Create_Notifications.Visible = true;
+            groupBox_Notifications_Confirmation.Visible = false;
+            textBox_Create_Notifications.Text = notifications.Notifications;
+          }
+          else if (this.SelectedTest is Stage_Notifications_Confirmation notifications_Confirmation)
+          {
+            comboBox_Type_Command_View.SelectedIndex = 2;
+            groupBox_CreateTest.Visible = false;
+            groupBox_Create_Notifications.Visible = false;
+            groupBox_Notifications_Confirmation.Visible = true;
+            textBox_Notifications_Confirmation.Text = notifications_Confirmation.Notifications_Confirmation;
+          }
         }
-        if (test.ControlPneumogram)
+      }
+    }
+
+    /// <summary>
+    /// Проверяет к какому из типов наследников относится тест и возвращает его название. 
+    /// </summary>
+    /// <param name="test">Тест.</param>
+    /// <returns>Название теста.</returns>
+    /// <exception cref="ArgumentException">Не обработанный тип теста.</exception>
+    /// <exception cref="ArgumentNullException">Тест пуст.</exception>
+    public string ReturnNameECGFile(TestModel test)
+    {
+      if (test != null)
+      {
+        switch (test.stagesType)
         {
-          checkBox_Pneumogram.Checked = true;
-          comboBox_del_R.SelectedIndex = (int)EnumWorcker.GetIndexEnum_dR(test.dR);
-          comboBox_Omega_R.SelectedIndex = (int)EnumWorcker.GetIndexEnum_wR(test.wR);
+          case EnumStagesType.TestModel_CTSCSE:
+            var ctscse = test as TestModel_CTSCSE;
+            return $"{EnumWorcker.GetDescription(ctscse.Database)} {EnumWorcker.GetDescription(ctscse.Noise)}";
+          case EnumStagesType.TestModel_ECG_Header:
+            var ecg = test as TestModel_ECG_Header;
+            return $"{ecg.HEADER.RecordName}";
+          case EnumStagesType.TestModel_WaveForm:
+            var wave = test as TestModel_WaveForm;
+            return EnumWorcker.GetDescription(wave.Type);
+          default:
+            throw new ArgumentException("Неизвестный тип теста!");
         }
       }
-      else if (this.SelectedTest is Stage_Notifications notifications)
-      {
-        comboBox_Type_Command_View.SelectedIndex = 1;
-        groupBox_CreateTest.Visible = false;
-        groupBox_Create_Notifications.Visible = true;
-        groupBox_Notifications_Confirmation.Visible = false;
-        textBox_Create_Notifications.Text = notifications.Notifications;
-      }
-      else if (this.SelectedTest is Stage_Notifications_Confirmation notifications_Confirmation)
-      {
-        comboBox_Type_Command_View.SelectedIndex = 2;
-        groupBox_CreateTest.Visible = false;
-        groupBox_Create_Notifications.Visible = false;
-        groupBox_Notifications_Confirmation.Visible = true;
-        textBox_Notifications_Confirmation.Text = notifications_Confirmation.Notifications_Confirmation;
-      }
+      else
+        throw new ArgumentNullException("test is null");
     }
 
     /// <summary>
@@ -359,7 +501,10 @@ namespace Test_Cardiograph
         }
       }
       else
-        MessageBox.Show("Список пуст.");
+      {
+        ListView_List_Stage.Clear();
+        MessageBox.Show("Список этапов пуст.");
+      }
     }
 
     /// <summary>
@@ -380,6 +525,17 @@ namespace Test_Cardiograph
       return false;
     }
 
+    /// <summary>
+    /// Добавляет список проверок считанных из папки txt файлов. 
+    /// </summary>
+    private void SearchDBTXTFile()
+    {
+      foreach (var str in DBChecksMeneger.LoadNameTXTFile())
+      {
+        listView_List_Checks.Items.Add(str);
+      }
+    }
+
     #endregion
 
     #region Методы для отправки в другие формы
@@ -396,7 +552,9 @@ namespace Test_Cardiograph
         this.SelectedTest = new TestModel();
         //database был с явным приведением к типу (int) почему то не дает явно передать что database конвертится в инт
         //this.MECG20.LoadDatabaseCTS_CSE(database, noise);
-        this.SelectedTest = new TestModel_CTSCSE() { Database = database, Noise = noise };
+        var test = new TestModel_CTSCSE() { Database = database, Noise = noise };
+        this.SelectedTest = test;
+        label_Text_Name_ECG.Text = ReturnNameECGFile(test);
         //MECG20.Output_waveform(0);
       }
       catch (Exception ex)
@@ -417,7 +575,9 @@ namespace Test_Cardiograph
         if (!string.IsNullOrEmpty(filepath))
         {
           this.MECG20.Save_header(filepath);
-          this.SelectedTest = new TestModel_ECG_Header() { HEADER = this.MECG20.Header };
+          var test = new TestModel_ECG_Header() { HEADER = this.MECG20.Header };
+          this.SelectedTest = test;
+          label_Text_Name_ECG.Text = ReturnNameECGFile(test);
         }
         else
           throw new ArgumentException("Путь был передан не корректно.");
@@ -439,7 +599,9 @@ namespace Test_Cardiograph
       try
       {
         this.SelectedTest = new TestModel();
-        this.SelectedTest = new TestModel_WaveForm() { Type = waveForm, Frequency = freaquency, Amplitude = amplitude };
+        var test = new TestModel_WaveForm() { Type = waveForm, Frequency = freaquency, Amplitude = amplitude };
+        this.SelectedTest = test;
+        label_Text_Name_ECG.Text = ReturnNameECGFile(test);
       }
       catch (Exception ex)
       {
@@ -448,14 +610,6 @@ namespace Test_Cardiograph
     }
 
     #endregion
-
-    private void SearchDBTXTFile()
-    {
-      foreach (var str in DBChecksMeneger.LoadNameTXTFile())
-      {
-        listView_List_Checks.Items.Add(str);
-      }
-    }
 
     #endregion
 
@@ -468,13 +622,5 @@ namespace Test_Cardiograph
 
     #endregion
 
-    private void listView_List_Checks_ItemCheck(object sender, ItemCheckEventArgs e)
-    {
-      if (e.NewValue == CheckState.Checked)
-      {
-        this.Stages = JsonSaveLoad.JsonLoadList(listView_List_Checks.Items[e.Index].Text);
-        View_List_Stage();
-      }
-    }
   }
 }
